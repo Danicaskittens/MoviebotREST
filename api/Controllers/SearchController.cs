@@ -21,7 +21,7 @@ namespace api.Controllers
             return DatabaseAdapter.queryCinemaByLocation(input.Region, input.Province, input.City, input.MaxRange).Select<Cinema, CinemaOutputModel>(i => new CinemaOutputModel(i));
         }
 
-        [Route("CinemaByName")]
+        [Route("CinemaFromName")]
         public IEnumerable<CinemaOutputModel> searchByCinemaName(string name)
         {
             return DatabaseAdapter.queryCinemaByName(name).Select<Cinema, CinemaOutputModel>(i => new CinemaOutputModel(i));
