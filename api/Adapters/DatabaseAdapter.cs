@@ -63,7 +63,12 @@ namespace api.Adapters
 
         }
 
-        public static List<Movie> queryMoviesByLocation(LocationInputModel location)
+        internal static List<CinemaProjection> queryCinemaFromMovie(string imdbID)
+        {
+            throw new Exception();
+        }
+
+        public static List<Movie> queryMoviesByLocation(string Region, string Province, string City, int MaxRange)
         {
             return getDummyMovies();
         }

@@ -36,7 +36,14 @@ namespace api.Controllers
         [Route("MovieFromLocation")]
         public IEnumerable<MovieOutputModel> searchByMovieFromLocation(LocationInputModel location)
         {
-            return DatabaseAdapter.queryMoviesByLocation(location).Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i));
+            return DatabaseAdapter.queryMoviesByLocation(location.Region,location.Province,location.City,location.MaxRange)
+                .Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i));
+        }
+
+        [Route("CinemaFromMovie")]
+        public IEnumerable<CinemaFromMovieOutputModel> searchCinemasFromMovie(MovieInputModel movie)
+        {
+            return DatabaseAdapter.queryCinemaFromMovie(movie.ImdbId).Select<CinemaProjection, CinemaFromMovieOutputModel>(i => new CinemaFromMovieOutputModel(i));
         }
     }
 }
