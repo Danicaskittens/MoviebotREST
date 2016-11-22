@@ -5,7 +5,7 @@ using System.Web;
 
 namespace api.Models.InputModels
 {
-    public class CinemaInputModel
+    public class LocationInputModel
     {
         public string Region { get; set; }
         public string Province { get; set; }

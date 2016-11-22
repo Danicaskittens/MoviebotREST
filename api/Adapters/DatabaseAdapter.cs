@@ -62,5 +62,10 @@ namespace api.Adapters
             return new List<Movie>() { movie1, movie2, movie3 };
 
         }
+
+        public static List<Movie> queryMoviesByLocation(LocationInputModel location)
+        {
+            return getDummyMovies();
+        }
     }
 }
