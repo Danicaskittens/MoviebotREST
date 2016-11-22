@@ -1,4 +1,7 @@
-﻿using System;
+﻿using api.Adapters;
+using api.Models.InputModels;
+using api.Models.OutputModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -7,10 +10,13 @@ using System.Web.Http;
 
 namespace api.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     [RoutePrefix("api/Search")]
     public class SearchController : ApiController
     {
-       
+        [Route("Cinema")]
+        public List<CinemaOutputModel> searchByCinema(CinemaInputModel input) {
+            return DatabaseAdapter.queryCinemaByLocation(input.Region, input.Province, input.City, input.MaxRange);
+        } 
     }
 }
