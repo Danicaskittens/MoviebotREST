@@ -7,8 +7,6 @@ namespace api.Models.InputModels
 {
     public class CinemaInputModel
     {
-
-
         public string Region { get; set; }
         public string Province { get; set; }
         public string City { get; set; }

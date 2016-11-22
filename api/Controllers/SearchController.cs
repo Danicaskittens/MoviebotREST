@@ -1,4 +1,5 @@
 ﻿using api.Adapters;
+using api.Models.Data;
 using api.Models.InputModels;
 using api.Models.OutputModels;
 using System;
@@ -26,7 +27,11 @@ namespace api.Controllers
             return DatabaseAdapter.queryCinemaByName(name);
         }
 
-
+        [Route("Movie")]
+        public List<CinemaOutputModel> searchByCinemaName(string name)
+        {
+            return DatabaseAdapter.queryCinemaByName(name);
+        }
 
 
     }

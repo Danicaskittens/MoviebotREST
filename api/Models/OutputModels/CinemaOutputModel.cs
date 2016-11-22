@@ -1,4 +1,5 @@
-﻿using System;
+﻿using api.Models.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,13 +8,18 @@ namespace api.Models.OutputModels
 {
     public class CinemaOutputModel
     {
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public float Latitude { get; set; }
-        public float Longitude { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Region { get; set; }
-        public string Province { get; set; }
-        public string City { get; set; }
+        private Cinema cinema;
+        public CinemaOutputModel(Cinema cinema)
+        {
+            this.cinema = cinema;
+        }
+        public string Name { get { return this.cinema.Name; } }
+        public string Address { get { return this.cinema.Address; } }
+        public float Latitude { get { return this.cinema.Latitude; } }
+        public float Longitude { get { return this.cinema.Longitude; } }
+        public string PhoneNumber { get { return this.cinema.PhoneNumber; } }
+        public string Region { get { return this.cinema.Region; } }
+        public string Province { get { return this.cinema.Province; } }
+        public string City { get { return this.cinema.City; } }
     }
 }

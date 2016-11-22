@@ -215,8 +215,10 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Data\Cinema.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InputModels\CinemaInputModel.cs" />
+    <Compile Include="Models\InputModels\MovieInputModel.cs" />
     <Compile Include="Models\OutputModels\CinemaOutputModel.cs" />
     <Compile Include="Models\SearchModels\SearchInputModels.cs" />
     <Compile Include="Models\SearchModels\SearchOutputModels.cs" />

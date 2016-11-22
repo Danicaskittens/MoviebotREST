@@ -1,4 +1,5 @@
-﻿using api.Models.InputModels;
+﻿using api.Models.Data;
+using api.Models.InputModels;
 using api.Models.OutputModels;
 using System;
 using System.Collections.Generic;
@@ -9,21 +10,21 @@ namespace api.Adapters
 {
     public class DatabaseAdapter
     {
-        static CinemaOutputModel cinema1 = new CinemaOutputModel()
+        static Cinema cinema1 = new Cinema()
         {
             Address = "Viale Coni Zugna 50",
             City = "Milano",
             Latitude = 45.45694f,
             Longitude = 9.1672913f
         };
-        public static List<CinemaOutputModel> queryCinemaByLocation(string Region, string Province, string City, int MaxRange)
+        public static List<Cinema> queryCinemaByLocation(string Region, string Province, string City, int MaxRange)
         {
-            return new List<CinemaOutputModel>() { cinema1 };
+            return new List<Cinema>() { cinema1 };
         }
 
-        public static List<CinemaOutputModel> queryCinemaByName(string Name)
+        public static List<Cinema> queryCinemaByName(string Name)
         {
-            return new List<CinemaOutputModel>() { cinema1 };
+            return new List<Cinema>() { cinema1 };
         }
     }
 }
