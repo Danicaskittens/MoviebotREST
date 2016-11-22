@@ -15,8 +15,18 @@ namespace api.Controllers
     public class SearchController : ApiController
     {
         [Route("Cinema")]
-        public List<CinemaOutputModel> searchByCinema(CinemaInputModel input) {
+        public List<CinemaOutputModel> searchByCinema(CinemaInputModel input)
+        {
             return DatabaseAdapter.queryCinemaByLocation(input.Region, input.Province, input.City, input.MaxRange);
-        } 
+        }
+
+        [Route("CinemaByName")]
+        public List<CinemaOutputModel> searchByCinemaName(string name)
+        {
+            return DatabaseAdapter.queryCinemaByName(name);
+        }
+
+
+
+
     }
-}
