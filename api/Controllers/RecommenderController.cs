@@ -12,7 +12,7 @@ namespace api.Controllers
     [RoutePrefix("api/Recommender")]
     public class RecommenderController : ApiController
     {
-        //will be the query result of recommended movies
+        //will be the query result of recommended movies (for now this is a sample)
         RecommendedMovie[] movies = new RecommendedMovie[]
         {
             new RecommendedMovie { Id = 1, Name = "Forrest Gump", Category = "Comedy"},
@@ -22,8 +22,9 @@ namespace api.Controllers
             new RecommendedMovie { Id = 5, Name = "The Matrix", Category = "Sci-Fi"},
         };
 
-        [Route("GetAllMovies")]
-        public IEnumerable<RecommendedMovie> GetAllRecommendedMovies()
+        //GET api/Recommender/GetAllMovies?userID={userID}
+        [Route("GetAllRecommendedMovies")]
+        public IEnumerable<RecommendedMovie> GetAllRecommendedMovies(string userID)
         {
             return movies;
         }
