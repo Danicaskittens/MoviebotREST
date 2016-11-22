@@ -216,6 +216,8 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Data\Cinema.cs" />
+    <Compile Include="Models\Data\Movie.cs" />
+    <Compile Include="Models\Data\MovieOutputModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InputModels\CinemaInputModel.cs" />
     <Compile Include="Models\InputModels\MovieInputModel.cs" />

@@ -16,22 +16,22 @@ namespace api.Controllers
     public class SearchController : ApiController
     {
         [Route("Cinema")]
-        public List<CinemaOutputModel> searchByCinema(CinemaInputModel input)
+        public IEnumerable<CinemaOutputModel> searchByCinema(CinemaInputModel input)
         {
-            return DatabaseAdapter.queryCinemaByLocation(input.Region, input.Province, input.City, input.MaxRange);
+            return DatabaseAdapter.queryCinemaByLocation(input.Region, input.Province, input.City, input.MaxRange).Select<Cinema, CinemaOutputModel>(i => new CinemaOutputModel(i));
         }
 
         [Route("CinemaByName")]
-        public List<CinemaOutputModel> searchByCinemaName(string name)
+        public IEnumerable<CinemaOutputModel> searchByCinemaName(string name)
         {
-            return DatabaseAdapter.queryCinemaByName(name);
+            return DatabaseAdapter.queryCinemaByName(name).Select<Cinema, CinemaOutputModel>(i => new CinemaOutputModel(i));
         }
 
         [Route("Movie")]
-        public List<CinemaOutputModel> searchByCinemaName(string name)
+        public IEnumerable<MovieOutputModel> searchByMovieTitle(string title)
         {
-            return DatabaseAdapter.queryCinemaByName(name);
+            return DatabaseAdapter.queryMoviesByTitle(title).Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i));
         }
 
-
     }
+}
