@@ -10,7 +10,7 @@ using System.Web.Http;
 namespace api.Controllers
 {
     [RoutePrefix("api/Reservation")]
-    public class ReservationController : ApiController
+    public class Reservation2Controller : ApiController
     {
         //POST api/Reservation/CheckFreeSeats?cinemaId={cinemaId}&movieId={movieId}&projectionTime={projectionTime}
         [Route("CheckFreeSeats")]
@@ -25,15 +25,8 @@ namespace api.Controllers
         {
             String timeStamp = GetTimestamp(DateTime.Now);
 
-            Reservation res = new Reservation
-            {
-                Id = 1,
-                cinemaId = cinemaId,
-                movieId = movieId,
-                projectionTime = projectionTime,
-                timeStamp = timeStamp,
-                status = "Pending"
-            };
+            //save new reservation (before payment)
+        
 
             return Ok();
         }

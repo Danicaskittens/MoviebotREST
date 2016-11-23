@@ -8,12 +8,14 @@ namespace api.Models
     public class Reservation
     {
         public int Id { get; set; }
-        public string cinemaId { get; set; }
-        public string movieId { get; set; }
-        public string projectionTime { get; set; }
-        public string timeStamp { get; set; }
-        public string status { get; set; }
-
+        public int Quantity { get; set; }
+        public Decimal Price { get; set; }
+        public string TimeStamp { get; set; }
+        public string Status { get; set; }
+      
+        //Foreign Key
+        public int ProjectionId { get; set; }
+        public int UserId { get; set; }
         
     }
 }
