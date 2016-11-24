@@ -17,9 +17,11 @@ namespace api.Adapters
             return getDummyCinemas();
         }
 
-        public static List<Cinema> queryCinemaByName(string Name)
+        public static IEnumerable<Cinema> queryCinemaByName(string Name)
         {
-            return getDummyCinemas();
+            return from cinema in getDummyCinemas()
+                   where cinema.Name.ToLower().Contains(Name.ToLower())
+                   select cinema;
         }
 
         public static List<Movie> queryMoviesByTitle(string title)
@@ -108,7 +110,7 @@ namespace api.Adapters
                     
         }
 
-        public static List<Movie> queryMoviesByLocation(string Region, string Province, string City, int MaxRange)
+        public static List<Movie> queryMoviesFromLocation(string Region, string Province, string City, int MaxRange)
         {
             return getDummyMovies();
         }

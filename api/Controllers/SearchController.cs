@@ -20,14 +20,22 @@ namespace api.Controllers
         {
             return DatabaseAdapter.queryCinemaByLocation(input.Region, input.Province, input.City, input.MaxRange).Select<Cinema, CinemaOutputModel>(i => new CinemaOutputModel(i));
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [Route("CinemaFromName")]
         [HttpGet]
         public IEnumerable<CinemaOutputModel> searchByCinemaName([FromUri] string name)
         {
             return DatabaseAdapter.queryCinemaByName(name).Select<Cinema, CinemaOutputModel>(i => new CinemaOutputModel(i));
         }
-
+        /// <summary>
+        /// return the movies with the title that contains the specified words
+        /// </summary>
+        /// <param name="title">Title of the movie or part of it (not case sensitive)</param>
+        /// <returns></returns>
         [Route("Movie")]
         [HttpGet]
         public IEnumerable<MovieOutputModel> searchByMovieTitle([FromUri] string title)
@@ -35,16 +43,21 @@ namespace api.Controllers
             return DatabaseAdapter.queryMoviesByTitle(title).Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i));
         }
 
+        /// <summary>
+        /// Return all the movies in every cinema near the location provided
+        /// </summary>
+        /// <param name="location">Location from where to find the cinemas and movies</param>
+        /// <returns></returns>
         [Route("MovieFromLocation")]
-        public IEnumerable<MovieOutputModel> searchByMovieFromLocation(LocationInputModel location)
+        public IEnumerable<MovieOutputModel> searchMoviesFromLocation(LocationInputModel location)
         {
-            return DatabaseAdapter.queryMoviesByLocation(location.Region,location.Province,location.City,location.MaxRange)
+            return DatabaseAdapter.queryMoviesFromLocation(location.Region,location.Province,location.City,location.MaxRange)
                 .Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i));
         }
 
         [Route("CinemaFromMovie")]
         [HttpGet]
-        public IEnumerable<CinemaFromMovieOutputModel> searchCinemasFromMovie([FromUri] string imdbid)
+        public IEnumerable<CinemaFromMovieOutputModel> searchCinemasFromMovie([FromUri] LocationInputModel location,[FromUri] string imdbid)
         {
             return DatabaseAdapter.queryCinemaFromMovie(imdbid).Select<CinemaProjection, CinemaFromMovieOutputModel>(i => new CinemaFromMovieOutputModel(i));
         }
