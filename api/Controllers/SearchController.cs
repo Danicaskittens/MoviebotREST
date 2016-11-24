@@ -55,6 +55,12 @@ namespace api.Controllers
                 .Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i));
         }
 
+        /// <summary>
+        /// Returns the cinemas that display the selected movie, with the projection related to that movie
+        /// </summary>
+        /// <param name="location"></param>
+        /// <param name="imdbid"></param>
+        /// <returns></returns>
         [Route("CinemaFromMovie")]
         [HttpGet]
         public IEnumerable<CinemaFromMovieOutputModel> searchCinemasFromMovie([FromUri] LocationInputModel location,[FromUri] string imdbid)
