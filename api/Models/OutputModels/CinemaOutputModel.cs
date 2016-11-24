@@ -14,6 +14,8 @@ namespace api.Models.OutputModels
             this.cinema = cinema;
         }
         public string Name { get { return this.cinema.Name; } }
+
+        public string CinemaID { get { return this.cinema.CinemaID; } }
         public string Address { get { return this.cinema.Address; } }
         public float Latitude { get { return this.cinema.Latitude; } }
         public float Longitude { get { return this.cinema.Longitude; } }

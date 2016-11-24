@@ -22,13 +22,15 @@ namespace api.Controllers
         }
 
         [Route("CinemaFromName")]
-        public IEnumerable<CinemaOutputModel> searchByCinemaName(string name)
+        [HttpGet]
+        public IEnumerable<CinemaOutputModel> searchByCinemaName([FromUri] string name)
         {
             return DatabaseAdapter.queryCinemaByName(name).Select<Cinema, CinemaOutputModel>(i => new CinemaOutputModel(i));
         }
 
         [Route("Movie")]
-        public IEnumerable<MovieOutputModel> searchByMovieTitle(string title)
+        [HttpGet]
+        public IEnumerable<MovieOutputModel> searchByMovieTitle([FromUri] string title)
         {
             return DatabaseAdapter.queryMoviesByTitle(title).Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i));
         }
@@ -41,9 +43,10 @@ namespace api.Controllers
         }
 
         [Route("CinemaFromMovie")]
-        public IEnumerable<CinemaFromMovieOutputModel> searchCinemasFromMovie(MovieInputModel movie)
+        [HttpGet]
+        public IEnumerable<CinemaFromMovieOutputModel> searchCinemasFromMovie([FromUri] string imdbid)
         {
-            return DatabaseAdapter.queryCinemaFromMovie(movie.ImdbId).Select<CinemaProjection, CinemaFromMovieOutputModel>(i => new CinemaFromMovieOutputModel(i));
+            return DatabaseAdapter.queryCinemaFromMovie(imdbid).Select<CinemaProjection, CinemaFromMovieOutputModel>(i => new CinemaFromMovieOutputModel(i));
         }
     }
 }

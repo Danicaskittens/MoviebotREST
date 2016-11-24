@@ -8,6 +8,7 @@ namespace api.Models.Data
     public class Cinema
     {
         public string Name { get; set; }
+        public string CinemaID { get; set; }
         public string Address { get; set; }
         public float Latitude { get; set; }
         public float Longitude { get; set; }
