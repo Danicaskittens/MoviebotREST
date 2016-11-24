@@ -209,7 +209,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjectionsController.cs" />
     <Compile Include="Controllers\RecommenderController.cs" />
-    <Compile Include="Controllers\Reservation2Controller.cs" />
     <Compile Include="Controllers\ReservationsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
