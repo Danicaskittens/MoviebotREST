@@ -37,5 +37,9 @@ namespace api.Models.Output
         /// Short plot description of the movie
         /// </summary>
         public string Plot { get { return this.movie.Plot; } }
+        /// <summary>
+        /// List of genres of the movie
+        /// </summary>
+        public string Genre { get { return this.movie.Genre; } }
     }
 }
