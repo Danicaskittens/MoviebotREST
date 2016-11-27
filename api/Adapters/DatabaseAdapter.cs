@@ -68,17 +68,17 @@ namespace api.Adapters
             Movie movie1 = new Movie()
             {
                 Title = "The Avengers Uno",
-                ImdbID = "tt0848228"
+                imdbID = "tt0848228"
             };
             Movie movie2 = new Movie()
             {
                 Title = "The Avengers Due",
-                ImdbID = "tt2395427"
+                imdbID = "tt2395427"
             };
             Movie movie3 = new Movie()
             {
                 Title = "The Avengers Tre",
-                ImdbID = "tt4154756"
+                imdbID = "tt4154756"
             };
 
             return new List<Movie>() { movie1, movie2, movie3 };
