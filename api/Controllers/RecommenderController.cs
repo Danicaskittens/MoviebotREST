@@ -1,4 +1,7 @@
 ﻿using api.Models;
+using api.Models.Data;
+using api.Models.Output;
+using api.Models.OutputModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,23 +16,53 @@ namespace api.Controllers
     [RoutePrefix("api/v1/Recommender")]
     public class RecommenderController : ApiController
     {
-        //will be the query result of recommended movies (for now this is a sample)
-        RecommendedMovie[] movies = new RecommendedMovie[]
+        private static List<Movie> getRecommendedMovies()
         {
-            new RecommendedMovie { Id = 1, Name = "Forrest Gump", Category = "Comedy"},
-            new RecommendedMovie { Id = 2, Name = "Titanic", Category = "Drama"},
-            new RecommendedMovie { Id = 3, Name = "Avatar", Category = "Sci-Fi"},
-            new RecommendedMovie { Id = 4, Name = "The Avengers", Category = "Action"},
-            new RecommendedMovie { Id = 5, Name = "The Matrix", Category = "Sci-Fi"},
-        };
+            Movie movie1 = new Movie()
+            {
+                Title = "Forrest Gump",
+                imdbID = "tt0838881",
+                Genre = "Comedy"
+            };
+            Movie movie2 = new Movie()
+            {
+                Title = "Titanic",
+                imdbID = "tt2393120",
+                Genre = "Drama"
+            };
+            Movie movie3 = new Movie()
+            {
+                Title = "Avatar",
+                imdbID = "tt1032612",
+                Genre = "Sci-Fi"
+            };
+            Movie movie4 = new Movie()
+            {
+                Title = "The Avengers",
+                imdbID = "tt1928374",
+                Genre = "Action"
+            };
+            Movie movie5 = new Movie()
+            {
+                Title = "The Matrix",
+                imdbID = "tt0099362",
+                Genre = "Sci-Fi"
+            };
 
-        //GET api/Recommender/GetAllMovies?userID={userID}
-        [Route("GetAllRecommendedMovies")]
-        public IEnumerable<RecommendedMovie> GetAllRecommendedMovies()
-        {
-            return movies;
+            return new List<Movie>() { movie1, movie2, movie3 };
         }
-
+      
+ 
+        /// <summary>
+        /// return all the recommended movies for the user homepage
+        /// </summary>
+        [Route("GetAllRecommendedMovies")]
+        [HttpGet]
+        public JsonApiOutput<IEnumerable<MovieOutputModel>> GetAllRecommendedMovies()
+        {
+            return new JsonApiOutput<IEnumerable<MovieOutputModel>>(getRecommendedMovies().
+                Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i)));
+        }
 
     }
 }
