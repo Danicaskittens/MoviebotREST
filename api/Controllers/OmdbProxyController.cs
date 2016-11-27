@@ -7,12 +7,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace api.Controllers
 {
     /// <summary>
     /// This endpoint proxies requests to the omdb apis
     /// </summary>
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/v1/omdb")]
     public class OmdbProxyController : ApiController
     {

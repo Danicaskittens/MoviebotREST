@@ -9,11 +9,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace api.Controllers
 {
     [AllowAnonymous]
     [RoutePrefix("api/v1/Search")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class SearchController : ApiController
     {
         [Route("Cinema")]
@@ -64,9 +66,10 @@ namespace api.Controllers
         /// <returns></returns>
         [Route("CinemaFromMovie")]
         [HttpGet]
-        public IEnumerable<CinemaFromMovieOutputModel> searchCinemasFromMovie([FromUri] LocationInputModel location,[FromUri] string imdbid)
+        public JsonApiOutput<IEnumerable<CinemaFromMovieOutputModel>> searchCinemasFromMovie([FromUri] LocationInputModel location,[FromUri] string imdbid)
         {
-            return DatabaseAdapter.queryCinemaFromMovie(imdbid).Select<CinemaProjection, CinemaFromMovieOutputModel>(i => new CinemaFromMovieOutputModel(i));
+            return new JsonApiOutput<IEnumerable<CinemaFromMovieOutputModel>>(
+                DatabaseAdapter.queryCinemaFromMovie(imdbid).Select<CinemaProjection, CinemaFromMovieOutputModel>(i => new CinemaFromMovieOutputModel(i)));
         }
     }
 }
