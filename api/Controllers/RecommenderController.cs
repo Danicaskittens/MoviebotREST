@@ -9,8 +9,8 @@ using System.Web.Http;
 
 namespace api.Controllers
 {
-    [Authorize]
-    [RoutePrefix("api/Recommender")]
+    
+    [RoutePrefix("api/v1/Recommender")]
     public class RecommenderController : ApiController
     {
         //will be the query result of recommended movies (for now this is a sample)
@@ -25,7 +25,7 @@ namespace api.Controllers
 
         //GET api/Recommender/GetAllMovies?userID={userID}
         [Route("GetAllRecommendedMovies")]
-        public IEnumerable<RecommendedMovie> GetAllRecommendedMovies(string userId)
+        public IEnumerable<RecommendedMovie> GetAllRecommendedMovies()
         {
             return movies;
         }
