@@ -21,7 +21,7 @@ namespace api.Controllers
             return DatabaseAdapter.queryCinemaByLocation(input.Region, input.Province, input.City, input.MaxRange).Select<Cinema, CinemaOutputModel>(i => new CinemaOutputModel(i));
         }
         /// <summary>
-        /// 
+        ///  
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
