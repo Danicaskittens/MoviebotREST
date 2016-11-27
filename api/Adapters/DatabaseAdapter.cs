@@ -67,21 +67,41 @@ namespace api.Adapters
         {
             Movie movie1 = new Movie()
             {
-                Title = "The Avengers Uno",
-                imdbID = "tt0848228"
+                Title = "Forrest Gump",
+                imdbID = "tt0109830",
+                Genre = "Comedy",
+                Poster = "https://images-na.ssl-images-amazon.com/images/M/MV5BYThjM2MwZGMtMzg3Ny00NGRkLWE4M2EtYTBiNWMzOTY0YTI4XkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SX300.jpg"
             };
             Movie movie2 = new Movie()
             {
-                Title = "The Avengers Due",
-                imdbID = "tt2395427"
+                Title = "Titanic",
+                imdbID = "tt0120338",
+                Genre = "Drama",
+                Poster = "https://images-na.ssl-images-amazon.com/images/M/MV5BZDNiMjE0NDgtZWRhNC00YTlhLTk2ZjItZTQzNTU2NjAzNWNkXkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_SX300.jpg"
             };
             Movie movie3 = new Movie()
             {
-                Title = "The Avengers Tre",
-                imdbID = "tt4154756"
+                Title = "Avatar",
+                imdbID = "tt0499549",
+                Genre = "Sci-Fi",
+                Poster = "https://images-na.ssl-images-amazon.com/images/M/MV5BMTYwOTEwNjAzMl5BMl5BanBnXkFtZTcwODc5MTUwMw@@._V1_SX300.jpg"
+            };
+            Movie movie4 = new Movie()
+            {
+                Title = "The Avengers",
+                imdbID = "tt0848228",
+                Genre = "Action",
+                Poster = "https://images-na.ssl-images-amazon.com/images/M/MV5BMTk2NTI1MTU4N15BMl5BanBnXkFtZTcwODg0OTY0Nw@@._V1_SX300.jpg"
+            };
+            Movie movie5 = new Movie()
+            {
+                Title = "The Matrix",
+                imdbID = "tt0133093",
+                Genre = "Sci-Fi",
+                Poster = "https://images-na.ssl-images-amazon.com/images/M/MV5BMDMyMmQ5YzgtYWMxOC00OTU0LWIwZjEtZWUwYTY5MjVkZjhhXkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SX300.jpg"
             };
 
-            return new List<Movie>() { movie1, movie2, movie3 };
+            return new List<Movie>() { movie1, movie2, movie3, movie4, movie5 };
 
         }
 
@@ -111,6 +131,12 @@ namespace api.Adapters
         }
 
         public static List<Movie> queryMoviesFromLocation(string Region, string Province, string City, int MaxRange)
+        {
+            return getDummyMovies();
+        }
+
+
+        public static List<Movie> queryRecommendedMoviesForUser(string userID)
         {
             return getDummyMovies();
         }
