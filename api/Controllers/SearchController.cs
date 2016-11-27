@@ -1,6 +1,7 @@
 ﻿using api.Adapters;
 using api.Models.Data;
 using api.Models.InputModels;
+using api.Models.Output;
 using api.Models.OutputModels;
 using System;
 using System.Collections.Generic;
