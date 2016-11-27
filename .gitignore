@@ -253,3 +253,4 @@ paket-files/
 /api/Web.config
 /api/Web.Debug.config
 /api/Web.Release.config
+/api/App_Data/XmlDocument.xml

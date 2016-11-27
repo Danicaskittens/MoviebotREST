@@ -12,7 +12,7 @@ using System.Web.Http;
 namespace api.Controllers
 {
     [AllowAnonymous]
-    [RoutePrefix("api/Search")]
+    [RoutePrefix("api/v1/Search")]
     public class SearchController : ApiController
     {
         [Route("Cinema")]
@@ -21,7 +21,7 @@ namespace api.Controllers
             return DatabaseAdapter.queryCinemaByLocation(input.Region, input.Province, input.City, input.MaxRange).Select<Cinema, CinemaOutputModel>(i => new CinemaOutputModel(i));
         }
         /// <summary>
-        /// 
+        ///  
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
@@ -38,9 +38,9 @@ namespace api.Controllers
         /// <returns></returns>
         [Route("Movie")]
         [HttpGet]
-        public IEnumerable<MovieOutputModel> searchByMovieTitle([FromUri] string title)
+        public JsonApiOutput<IEnumerable<MovieOutputModel>> searchByMovieTitle([FromUri] string title)
         {
-            return DatabaseAdapter.queryMoviesByTitle(title).Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i));
+            return new JsonApiOutput<IEnumerable<MovieOutputModel>>(DatabaseAdapter.queryMoviesByTitle(title).Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i)));
         }
 
         /// <summary>
