@@ -12,7 +12,7 @@ using System.Web.Http;
 namespace api.Controllers
 {
     [AllowAnonymous]
-    [RoutePrefix("api/Search")]
+    [RoutePrefix("api/v1/Search")]
     public class SearchController : ApiController
     {
         [Route("Cinema")]
