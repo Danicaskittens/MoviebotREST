@@ -38,9 +38,9 @@ namespace api.Controllers
         /// <returns></returns>
         [Route("Movie")]
         [HttpGet]
-        public IEnumerable<MovieOutputModel> searchByMovieTitle([FromUri] string title)
+        public JsonApiOutput<IEnumerable<MovieOutputModel>> searchByMovieTitle([FromUri] string title)
         {
-            return DatabaseAdapter.queryMoviesByTitle(title).Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i));
+            return new JsonApiOutput<IEnumerable<MovieOutputModel>>(DatabaseAdapter.queryMoviesByTitle(title).Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i)));
         }
 
         /// <summary>
