@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="CinemaInterfaceServerModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="CinemaInterfaceServerModelTargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="CinemaInterfaceServerModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="CinemaInterfaceServerModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MovieSet" EntityType="CinemaInterfaceServerModel.Movie" />
+          <EntitySet Name="CinemaSet" EntityType="CinemaInterfaceServerModel.Cinema" />
+          <EntitySet Name="ProjectionSet" EntityType="CinemaInterfaceServerModel.Projection" />
+          <AssociationSet Name="ProjectionMovie" Association="CinemaInterfaceServerModel.ProjectionMovie">
+            <End Role="Projection" EntitySet="ProjectionSet" />
+            <End Role="Movie" EntitySet="MovieSet" />
+          </AssociationSet>
+          <AssociationSet Name="ProjectionCinema" Association="CinemaInterfaceServerModel.ProjectionCinema">
+            <End Role="Projection" EntitySet="ProjectionSet" />
+            <End Role="Cinema" EntitySet="CinemaSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Movie">
+          <Key>
+            <PropertyRef Name="ImdbId" />
+          </Key>
+          <Property Name="ImdbId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Year" Type="String" Nullable="false" />
+          <Property Name="Rated" Type="String" Nullable="false" />
+          <Property Name="Released" Type="String" Nullable="false" />
+          <Property Name="Runtime" Type="String" Nullable="false" />
+          <Property Name="Genre" Type="String" Nullable="false" />
+          <Property Name="Director" Type="String" Nullable="false" />
+          <Property Name="Writer" Type="String" Nullable="false" />
+          <Property Name="Actors" Type="String" Nullable="false" />
+          <Property Name="Plot" Type="String" Nullable="false" />
+          <Property Name="Language" Type="String" Nullable="false" />
+          <Property Name="Country" Type="String" Nullable="false" />
+          <Property Name="Awards" Type="String" Nullable="false" />
+          <Property Name="Poster" Type="String" Nullable="false" />
+          <Property Name="Metascore" Type="String" Nullable="false" />
+          <Property Name="imdbRating" Type="String" Nullable="false" />
+          <Property Name="imdbVotes" Type="String" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" />
+          <Property Name="Response" Type="String" Nullable="false" />
+          <Property Name="inTheaters" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cinema">
+          <Key>
+            <PropertyRef Name="CinemaId" />
+          </Key>
+          <Property Name="CinemaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" />
+          <Property Name="Latitude" Type="String" Nullable="false" />
+          <Property Name="Longitude" Type="String" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" />
+          <Property Name="Region" Type="String" Nullable="false" />
+          <Property Name="Province" Type="String" Nullable="false" />
+          <Property Name="City" Type="String" Nullable="false" />
+          <Property Name="State" Type="String" Nullable="false" />
+          <NavigationProperty Name="Projections" Relationship="CinemaInterfaceServerModel.ProjectionCinema" FromRole="Cinema" ToRole="Projection" />
+        </EntityType>
+        <EntityType Name="Projection">
+          <Key>
+            <PropertyRef Name="ProjectionId" />
+          </Key>
+          <Property Name="ProjectionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="String" Nullable="false" />
+          <Property Name="FreeSeats" Type="String" Nullable="false" />
+          <Property Name="CinemaId" Type="String" Nullable="false" />
+          <Property Name="ImdbId" Type="String" Nullable="false" />
+          <NavigationProperty Name="Movie" Relationship="CinemaInterfaceServerModel.ProjectionMovie" FromRole="Projection" ToRole="Movie" />
+          <NavigationProperty Name="Cinema" Relationship="CinemaInterfaceServerModel.ProjectionCinema" FromRole="Projection" ToRole="Cinema" />
+        </EntityType>
+        <Association Name="ProjectionMovie">
+          <End Type="CinemaInterfaceServerModel.Projection" Role="Projection" Multiplicity="*" />
+          <End Type="CinemaInterfaceServerModel.Movie" Role="Movie" Multiplicity="1" />
+        </Association>
+        <Association Name="ProjectionCinema">
+          <End Type="CinemaInterfaceServerModel.Projection" Role="Projection" Multiplicity="*" />
+          <End Type="CinemaInterfaceServerModel.Cinema" Role="Cinema" Multiplicity="1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="CinemaInterfaceServerModel" />
+        <Alias Key="Target" Value="CinemaInterfaceServerModel.Store" />
+        <EntityContainerMapping CdmEntityContainer="CinemaInterfaceServerModelContainer" StorageEntityContainer="CinemaInterfaceServerModelTargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

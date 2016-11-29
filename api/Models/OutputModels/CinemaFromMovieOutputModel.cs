@@ -13,7 +13,7 @@ namespace api.Models.OutputModels
         public CinemaFromMovieOutputModel(CinemaProjection cinemaProjection)
         {
             this.cinema = new CinemaOutputModel(cinemaProjection.Cinema);
-            this.ImdbId = cinemaProjection.ImdbId;
+            this.ImdbId = cinemaProjection.Movie.ImdbId;
             this.projections = cinemaProjection.Projections.Select<Projection, ProjectionOutputModel>(i => new ProjectionOutputModel(i));
         }
         public CinemaOutputModel Cinema { get { return cinema; } }

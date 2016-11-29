@@ -36,7 +36,7 @@ namespace api.Adapters
             Cinema cinema1 = new Cinema()
             {
                 Name = "Orfeo",
-                CinemaID = Guid.NewGuid().ToString(),
+                CinemaId = Guid.NewGuid().ToString(),
                 Address = "Viale Coni Zugna 50",
                 City = "Milano",
                 Latitude = 45.45694f,
@@ -45,7 +45,7 @@ namespace api.Adapters
             Cinema cinema2 = new Cinema()
             {
                 Name = "Bottarga",
-                CinemaID = Guid.NewGuid().ToString(),
+                CinemaId = Guid.NewGuid().ToString(),
                 Address = "Viale dei panini unti 12",
                 City = "Milano",
                 Latitude = 45.453428f,
@@ -54,7 +54,7 @@ namespace api.Adapters
             Cinema cinema3 = new Cinema()
             {
                 Name = "Multisala Risotto",
-                CinemaID = Guid.NewGuid().ToString(),
+                CinemaId = Guid.NewGuid().ToString(),
                 Address = "Piazza Pino Zafferano 9",
                 City = "Milano",
                 Latitude = 45.482141f,
@@ -68,17 +68,17 @@ namespace api.Adapters
             Movie movie1 = new Movie()
             {
                 Title = "The Avengers Uno",
-                imdbID = "tt0848228"
+                ImdbId = "tt0848228"
             };
             Movie movie2 = new Movie()
             {
                 Title = "The Avengers Due",
-                imdbID = "tt2395427"
+                ImdbId = "tt2395427"
             };
             Movie movie3 = new Movie()
             {
                 Title = "The Avengers Tre",
-                imdbID = "tt4154756"
+                ImdbId = "tt4154756"
             };
 
             return new List<Movie>() { movie1, movie2, movie3 };
@@ -91,6 +91,7 @@ namespace api.Adapters
             List<CinemaProjection> result = new List<CinemaProjection>();
             Random rnd = new Random();
             List<int> timeslots = new List<int>() { 17, 21, 23 };
+            Movie movie = OmdbAdapters.GetMovieInfo(imdbID);
             foreach (var cinema in cinemas)
             {
                 List<Projection> projections = new List<Projection>();
@@ -98,13 +99,13 @@ namespace api.Adapters
                 {
                     projections.Add(new Projection()
                     {
-                        CinemaID = cinema.CinemaID,
+                        Cinema = cinema,
                         Date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, timeslots[rnd.Next(2)], 0, 0),
                         FreeSeats = rnd.Next(100),
-                        ImdbID = imdbID
+                        Movie = movie
                     });
                 }
-                result.Add(new CinemaProjection() { Cinema = cinema, ImdbId = imdbID, Projections = projections });
+                result.Add(new CinemaProjection() { Cinema = cinema, Movie = movie, Projections = projections });
             }
             return result;
                     

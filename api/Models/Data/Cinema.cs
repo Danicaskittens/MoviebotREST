@@ -7,8 +7,9 @@ namespace api.Models.Data
 {
     public class Cinema
     {
+        
+        public string CinemaId { get; set; }
         public string Name { get; set; }
-        public string CinemaID { get; set; }
         public string Address { get; set; }
         public float Latitude { get; set; }
         public float Longitude { get; set; }
@@ -16,5 +17,7 @@ namespace api.Models.Data
         public string Region { get; set; }
         public string Province { get; set; }
         public string City { get; set; }
+        public string State { get; set; }
+        public ICollection<Projection> Projections { get; set; }
     }
 }

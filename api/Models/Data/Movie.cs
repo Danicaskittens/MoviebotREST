@@ -40,10 +40,11 @@ namespace api.Models.Data
         [DataMember]
         public string imdbVotes { get; set; }
         [DataMember]
-        public string imdbID { get; set; }
+        public string ImdbId { get; set; }
         [DataMember]
         public string Type { get; set; }
         [DataMember]
         public string Response { get; set; }
+        public bool InTheaters { get; set; }
     }
 }

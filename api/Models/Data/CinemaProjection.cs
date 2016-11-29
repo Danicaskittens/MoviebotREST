@@ -8,7 +8,7 @@ namespace api.Models.Data
     public class CinemaProjection
     {
         public Cinema Cinema { get; set; }
-        public string ImdbId { get; set; }
+        public Movie Movie { get; set; }
         public List<Projection> Projections { get; set; }
 
     }
