@@ -1,4 +1,8 @@
-﻿using api.Models;
+﻿using api.Adapters;
+using api.Models;
+using api.Models.Data;
+using api.Models.Output;
+using api.Models.OutputModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,27 +13,24 @@ using System.Web.Http.Cors;
 
 namespace api.Controllers
 {
+    /// <summary>
+    /// Returns recommendations for the user 
+    /// </summary>
+    [RoutePrefix("api/v1/Recommender")]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    [RoutePrefix("api/Recommender")]
     public class RecommenderController : ApiController
     {
-        //will be the query result of recommended movies (for now this is a sample)
-        RecommendedMovie[] movies = new RecommendedMovie[]
-        {
-            new RecommendedMovie { Id = 1, Name = "Forrest Gump", Category = "Comedy"},
-            new RecommendedMovie { Id = 2, Name = "Titanic", Category = "Drama"},
-            new RecommendedMovie { Id = 3, Name = "Avatar", Category = "Sci-Fi"},
-            new RecommendedMovie { Id = 4, Name = "The Avengers", Category = "Action"},
-            new RecommendedMovie { Id = 5, Name = "The Matrix", Category = "Sci-Fi"},
-        };
 
-        //GET api/Recommender/GetAllMovies?userID={userID}
-        [Route("GetAllRecommendedMovies")]
-        public IEnumerable<RecommendedMovie> GetAllRecommendedMovies(string userID)
+        /// <summary>
+        /// return all the recommended movies for the user homepage
+        /// </summary>
+        [Route("movies")]
+        [HttpGet]
+        public JsonApiOutput<IEnumerable<MovieOutputModel>> GetAllRecommendedMovies()
         {
-            return movies;
+            return new JsonApiOutput<IEnumerable<MovieOutputModel>>(DatabaseAdapter.queryRecommendedMoviesForUser("placeholder").
+                Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i)));
         }
-
 
     }
 }
