@@ -13,7 +13,7 @@ namespace api.Adapters
     {
         private static MovieBotContext context = new MovieBotContext();
 
-        public static IEnumerable<Cinema> queryCinemaByLocation(string region, string province, string city,string state, int MaxRange)
+        public static IEnumerable<Cinema> queryCinemaByLocation(string region, string province, string city, string state, int MaxRange)
         {
             return context.Cinemas.Where(c => c.Region == region && c.Province == province && c.City == city && c.State == state);
         }
@@ -25,28 +25,39 @@ namespace api.Adapters
 
         public static IEnumerable<Movie> queryMoviesByTitle(string title)
         {
-            return context.Movies.Where(m=> m.Title.ToLower().Contains(title.ToLower()));
+            return context.Movies.Where(m => m.Title.ToLower().Contains(title.ToLower()));
         }
 
-
-        
-
         public static IEnumerable<CinemaProjections> queryCinemaFromMovie(string region, string province, string city, string state, int MaxRange, string imdbID)
-        {
+        { //TODO change this into an aggregate function if possible
             IEnumerable<Cinema> cinemas = DatabaseAdapter.queryCinemaByLocation(region, province, city, state, MaxRange);
-            return null; //context.Projections.Where(p => p.ImdbId==imdbID && p.CinemaId == )
+            IQueryable<Cinema> movieCinemas = context.Cinemas.Where(c => context.Projections.Where(p => p.ImdbId == imdbID && p.CinemaId == c.CinemaId).Any());
+            Movie movie = context.Movies.Where(m => m.ImdbId == imdbID).ElementAt(0);
+            return movieCinemas.Select<Cinema, CinemaProjections>(mc => new CinemaProjections(mc, queryMovieProjectionsFromMovieAndCinema(mc, movie)));
+        }
+
+        public static MovieProjections queryMovieProjectionsFromMovieAndCinema(Cinema cinema, Movie movie)
+        {
+            return cinema.Projections.Where(p => p.ImdbId == movie.ImdbId && p.CinemaId == cinema.CinemaId)
+                .Aggregate(
+                    new MovieProjections() { Movie = movie, Projections = new List<Projection>() },
+                    (current, next) =>
+                    {
+                        current.Projections.Add(next);
+                        return current;
+                    }
+                );
         }
 
         public static IEnumerable<Movie> queryMoviesFromLocation(string region, string province, string city, string state, int MaxRange)
         {
             IEnumerable<Cinema> cinemas = DatabaseAdapter.queryCinemaByLocation(region, province, city, state, MaxRange);
-            return context.Projections.Where(p=> cinemas.Where(c=> c.CinemaId == p.CinemaId).Count()>0).Select<Projection,Movie>(p=> p.Movie).Distinct();
+            return context.Projections.Where(p => cinemas.Where(c => c.CinemaId == p.CinemaId).Any()).Select<Projection, Movie>(p => p.Movie).Distinct();
         }
-
 
         public static IEnumerable<Movie> queryRecommendedMoviesForUser(string userID)
         {
-            return context.Movies.Where(m => m.Genre=="Action");
+            return context.Movies.Where(m => m.Genre == "Action");
         }
     }
 }
