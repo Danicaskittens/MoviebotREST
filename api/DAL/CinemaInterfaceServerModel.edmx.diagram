@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="96bcb5edca8f49f1b9022fb90b846d29" Name="Diagram1" >
+      <Diagram DiagramId="96bcb5edca8f49f1b9022fb90b846d29" Name="MovieBotContext" >
         <EntityTypeShape EntityType="CinemaInterfaceServerModel.Movie" Width="1.5" PointX="0.5" PointY="0.625" />
         <EntityTypeShape EntityType="CinemaInterfaceServerModel.Cinema" Width="1.5" PointX="3.375" PointY="0.5" />
         <EntityTypeShape EntityType="CinemaInterfaceServerModel.Projection" Width="1.5" PointX="3.625" PointY="4.125" />

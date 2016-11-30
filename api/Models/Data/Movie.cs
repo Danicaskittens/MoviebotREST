@@ -1,8 +1,11 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace api.Models.Data
 {
     [DataContract]
+    [Table("Movies")]
     public class Movie
     {
         [DataMember]
@@ -40,6 +43,8 @@ namespace api.Models.Data
         [DataMember]
         public string imdbVotes { get; set; }
         [DataMember]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string ImdbId { get; set; }
         [DataMember]
         public string Type { get; set; }
