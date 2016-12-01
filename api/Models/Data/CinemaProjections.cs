@@ -12,6 +12,11 @@ namespace api.Models.Data
             this.Cinema = cinema;
             this.MovieProjections = new List<MovieProjections>() { movieProjections };
         }
+        public CinemaProjections(Cinema cinema, IEnumerable<MovieProjections> movieProjections)
+        {
+            this.Cinema = cinema;
+            this.MovieProjections =  movieProjections ;
+        }
 
         public Cinema Cinema { get; set; }
         public IEnumerable<MovieProjections> MovieProjections { get; set; }

@@ -11,7 +11,7 @@ namespace api.Models.Data
         public List<Projection> Projections { get; set; }
         public MovieProjections addProjections(IEnumerable<Projection> projections)
         {
-            this.Projections=this.Projections.Concat(projections);
+            this.Projections=this.Projections.Concat(projections).ToList();
             return this;
         }
     }

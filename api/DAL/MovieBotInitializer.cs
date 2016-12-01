@@ -116,12 +116,9 @@ namespace api.DAL
         private static IEnumerable<CinemaProjections> getDummyCinemaProjections(IEnumerable<Movie> movies, IEnumerable<Cinema> cinemas)
         {
             return cinemas.Select<Cinema, CinemaProjections>(
-                c => new CinemaProjections()
-                {
-                    Cinema = c,
-                    MovieProjections = movies.Select<Movie, MovieProjections>(
-                        m => getDummyProjectionsForMovieAndCinema(m, c))
-                });
+                c => new CinemaProjections(c, movies.Select<Movie, MovieProjections>(
+                        m => getDummyProjectionsForMovieAndCinema(m, c)))
+                );
 
 
         }
