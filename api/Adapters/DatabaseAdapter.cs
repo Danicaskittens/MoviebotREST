@@ -150,5 +150,12 @@ namespace api.Adapters
         {
             return getDummyMovies();
         }
+
+        public static IEnumerable<Movie> queryRecommendedMoviesByGenre(string preferredGenre)
+        {
+            return from movie in getDummyMovies()
+                   where movie.Genre == preferredGenre
+                   select movie;
+        }
     }
 }
