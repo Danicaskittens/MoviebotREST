@@ -16,6 +16,5 @@ namespace api.Models.Data
         public Cinema Cinema { get; set; }
         public DateTime Date { get; set; }
         public int FreeSeats { get; set; }
-        public ICollection<Projection> Projections { get; set; }
     }
 }

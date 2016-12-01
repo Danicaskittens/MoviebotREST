@@ -34,7 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>App_Data\XmlDocument.xml</DocumentationFile>
+    <DocumentationFile>bin\api.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -219,12 +219,18 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CinemaController.cs" />
+    <Compile Include="Controllers\CinemasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
+    <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Controllers\OmdbProxyController.cs" />
+    <Compile Include="Controllers\ProjectionController.cs" />
+    <Compile Include="Controllers\ProjectionsController.cs" />
     <Compile Include="Controllers\RecommenderController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\TestDataController.cs" />
     <Compile Include="DAL\CinemaInterfaceServerModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -328,6 +334,16 @@
     <Content Include="Views\Movie\Details.cshtml" />
     <Content Include="Views\Movie\Edit.cshtml" />
     <Content Include="Views\Movie\Index.cshtml" />
+    <Content Include="Views\Cinema\Create.cshtml" />
+    <Content Include="Views\Cinema\Delete.cshtml" />
+    <Content Include="Views\Cinema\Details.cshtml" />
+    <Content Include="Views\Cinema\Edit.cshtml" />
+    <Content Include="Views\Cinema\Index.cshtml" />
+    <Content Include="Views\Projection\Create.cshtml" />
+    <Content Include="Views\Projection\Delete.cshtml" />
+    <Content Include="Views\Projection\Details.cshtml" />
+    <Content Include="Views\Projection\Edit.cshtml" />
+    <Content Include="Views\Projection\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
