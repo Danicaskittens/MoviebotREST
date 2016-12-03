@@ -2,19 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using api.Models.Data;
 
 namespace api.Models
 {
     public class Reservation
     {
-        public int Id { get; set; }
+        [Key]
+        public string ReservationID { get; set; }
+
         public int Quantity { get; set; }
-        public Decimal Price { get; set; }
-        public string TimeStamp { get; set; }
-        public string Status { get; set; }
+        public DateTime TimeStamp { get; set; }
+
+        public enum Status{
+            [Description("InProcess")]
+            InProcess,
+            [Description("Complete")]
+            Complete
+        }
       
         //Foreign Key
+
+        //ManyToOne
         public int ProjectionId { get; set; }
+        public Projection Projection { get; set; }
+
+        //OneToOne
         public int UserId { get; set; }
         
     }

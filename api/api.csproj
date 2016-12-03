@@ -241,6 +241,7 @@
     <Compile Include="Models\OutputModels\CinemaOutputModel.cs" />
     <Compile Include="Models\OutputModels\ProjectionOutputModel.cs" />
     <Compile Include="Models\Data\Reservation.cs" />
+    <Compile Include="Models\OutputModels\ReservationOutputModel.cs" />
     <Compile Include="Models\SearchModels\SearchInputModels.cs" />
     <Compile Include="Models\SearchModels\SearchOutputModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
