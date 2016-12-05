@@ -184,7 +184,6 @@
   <ItemGroup>
     <Compile Include="Adapters\DatabaseAdapter.cs" />
     <Compile Include="Adapters\OmdbAdapters.cs" />
-    <Compile Include="Adapters\ReservationAdapter.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
