@@ -18,8 +18,7 @@ namespace api.Models.OutputModels
         public int Quantity { get { return this.reservation.Quantity; } }
         public string Date { get { return this.reservation.TimeStamp.ToString("yyyy/MM/dd"); } }
         public string Time { get { return this.reservation.TimeStamp.ToString("HH:mm"); } }
+        public string Status { get { return this.reservation.StatusType.ToString(); } }
        
-        //TODO output of enum Status
-
     }
 }

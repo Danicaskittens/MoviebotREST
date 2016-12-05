@@ -15,14 +15,16 @@ namespace api.Models
 
         public int Quantity { get; set; }
         public DateTime TimeStamp { get; set; }
-
-        public enum Status{
+     
+        public enum Status
+        {
             [Description("InProcess")]
             InProcess,
             [Description("Complete")]
             Complete
-        }
-      
+        };
+        public Status StatusType { get; set; }
+
         //Foreign Key
 
         //ManyToOne
