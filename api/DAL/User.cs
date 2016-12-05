@@ -12,22 +12,19 @@ namespace api.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Projection
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Projection()
+        public User()
         {
             this.Reservation = new HashSet<Reservation>();
         }
     
-        public int ProjectionId { get; set; }
-        public System.DateTime Date { get; set; }
-        public int FreeSeats { get; set; }
-        public int CinemaId { get; set; }
-        public string ImdbId { get; set; }
+        public int UserId { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string MovieGenre { get; set; }
     
-        public virtual Movie Movie { get; set; }
-        public virtual Cinema Cinema { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservation { get; set; }
     }

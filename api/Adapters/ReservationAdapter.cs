@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using api.DAL;
 
 namespace api.Adapters
 {
@@ -13,14 +14,13 @@ namespace api.Adapters
         {
             Reservation reservation = new Reservation()
             {
-                ReservationID = "wodjjrne",
+                ReservationId = 123456,
                 Quantity = 2,
                 StatusType = Reservation.Status.InProcess,
-                TimeStamp = DateTime.Now,
-                UserId = userID,
-                ProjectionId = ProjectionID
-                 
-            }
+                TimeStamp = DateTime.Now
+               
+
+            };
         }
 
     }

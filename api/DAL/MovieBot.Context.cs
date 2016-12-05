@@ -28,5 +28,7 @@ namespace api.DAL
         public virtual DbSet<Movie> MovieSet { get; set; }
         public virtual DbSet<Cinema> CinemaSet { get; set; }
         public virtual DbSet<Projection> ProjectionSet { get; set; }
+        public virtual DbSet<Reservation> ReservationSet { get; set; }
+        public virtual DbSet<User> UserSet { get; set; }
     }
 }

@@ -257,6 +257,12 @@
     <Compile Include="DAL\Projection.cs">
       <DependentUpon>MovieBot.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\Reservation.cs">
+      <DependentUpon>MovieBot.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\User.cs">
+      <DependentUpon>MovieBot.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -273,7 +279,6 @@
     <Compile Include="Models\OutputModels\CinemaFromMovieOutputModel.cs" />
     <Compile Include="Models\OutputModels\CinemaOutputModel.cs" />
     <Compile Include="Models\OutputModels\ProjectionOutputModel.cs" />
-    <Compile Include="Models\Data\Reservation.cs" />
     <Compile Include="Models\OutputModels\ReservationOutputModel.cs" />
     <Compile Include="Models\SearchModels\SearchInputModels.cs" />
     <Compile Include="Models\SearchModels\SearchOutputModels.cs" />

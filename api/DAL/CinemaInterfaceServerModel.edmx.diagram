@@ -10,6 +10,10 @@
         <EntityTypeShape EntityType="CinemaInterfaceServerModel.Projection" Width="1.5" PointX="3.625" PointY="4.125" />
         <AssociationConnector Association="CinemaInterfaceServerModel.ProjectionMovie" />
         <AssociationConnector Association="CinemaInterfaceServerModel.ProjectionCinema" />
+        <EntityTypeShape EntityType="CinemaInterfaceServerModel.Reservation" Width="1.375" PointX="6.25" PointY="4.375" IsExpanded="true" />
+        <AssociationConnector Association="CinemaInterfaceServerModel.ReservationProjection" />
+        <EntityTypeShape EntityType="CinemaInterfaceServerModel.User" Width="1.5" PointX="8.625" PointY="4.5" />
+        <AssociationConnector Association="CinemaInterfaceServerModel.ReservationUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
