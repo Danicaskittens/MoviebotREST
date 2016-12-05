@@ -10,6 +10,7 @@ namespace api.Models.InputModels
         public string Region { get; set; }
         public string Province { get; set; }
         public string City { get; set; }
+        public string State { get; set; }
         public float Latitude { get; set; }
         public float Longitude { get; set; }
         public int MaxRange { get; set; } = 50;

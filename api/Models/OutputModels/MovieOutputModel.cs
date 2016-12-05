@@ -1,4 +1,5 @@
 ﻿using api.Models.Data;
+using api.DAL;
 
 namespace api.Models.Output
 {
@@ -24,7 +25,7 @@ namespace api.Models.Output
         /// <summary>
         /// ImdbID of the movie
         /// </summary>
-        public string ImdbDb { get { return this.movie.imdbID; } }
+        public string ImdbID { get { return this.movie.ImdbId; } }
         /// <summary>
         /// URI of the poster image of the movie
         /// </summary>
