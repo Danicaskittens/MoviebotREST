@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Web;
+using api.DAL;
 
 namespace api.Adapters
 {

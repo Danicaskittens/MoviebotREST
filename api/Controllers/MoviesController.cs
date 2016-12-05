@@ -16,19 +16,19 @@ namespace api.Controllers
 {
     public class MoviesController : ApiController
     {
-        private MovieBotContext db = new MovieBotContext();
+        private CinemaInterfaceServerModelContainer db = new CinemaInterfaceServerModelContainer();
 
         // GET: api/Movies
         public IQueryable<Movie> GetMovies()
         {
-            return db.Movies;
+            return db.MovieSet;
         }
 
         // GET: api/Movies/5
         [ResponseType(typeof(Movie))]
         public IHttpActionResult GetMovie(string id)
         {
-            Movie movie = db.Movies.Find(id);
+            Movie movie = db.MovieSet.Find(id);
             if (movie == null)
             {
                 return NotFound();
@@ -81,7 +81,7 @@ namespace api.Controllers
                 return BadRequest(ModelState);
             }
             Movie movie = OmdbAdapters.GetMovieInfo(imdbId);
-            db.Movies.Add(movie);
+            db.MovieSet.Add(movie);
 
             try
             {
@@ -106,13 +106,13 @@ namespace api.Controllers
         [ResponseType(typeof(Movie))]
         public IHttpActionResult DeleteMovie(string id)
         {
-            Movie movie = db.Movies.Find(id);
+            Movie movie = db.MovieSet.Find(id);
             if (movie == null)
             {
                 return NotFound();
             }
 
-            db.Movies.Remove(movie);
+            db.MovieSet.Remove(movie);
             db.SaveChanges();
 
             return Ok(movie);
@@ -129,7 +129,7 @@ namespace api.Controllers
 
         private bool MovieExists(string id)
         {
-            return db.Movies.Count(e => e.ImdbId == id) > 0;
+            return db.MovieSet.Count(e => e.ImdbId == id) > 0;
         }
     }
 }

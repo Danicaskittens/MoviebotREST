@@ -15,19 +15,19 @@ namespace api.Controllers
 {
     public class ProjectionsController : ApiController
     {
-        private MovieBotContext db = new MovieBotContext();
+        private CinemaInterfaceServerModelContainer db = new CinemaInterfaceServerModelContainer();
 
         // GET: api/Projections
         public IQueryable<Projection> GetProjections()
         {
-            return db.Projections;
+            return db.ProjectionSet;
         }
 
         // GET: api/Projections/5
         [ResponseType(typeof(Projection))]
         public IHttpActionResult GetProjection(string id)
         {
-            Projection projection = db.Projections.Find(id);
+            Projection projection = db.ProjectionSet.Find(id);
             if (projection == null)
             {
                 return NotFound();
@@ -38,7 +38,7 @@ namespace api.Controllers
 
         // PUT: api/Projections/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutProjection(string id, Projection projection)
+        public IHttpActionResult PutProjection(int id, Projection projection)
         {
             if (!ModelState.IsValid)
             {
@@ -80,7 +80,7 @@ namespace api.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Projections.Add(projection);
+            db.ProjectionSet.Add(projection);
 
             try
             {
@@ -105,13 +105,13 @@ namespace api.Controllers
         [ResponseType(typeof(Projection))]
         public IHttpActionResult DeleteProjection(string id)
         {
-            Projection projection = db.Projections.Find(id);
+            Projection projection = db.ProjectionSet.Find(id);
             if (projection == null)
             {
                 return NotFound();
             }
 
-            db.Projections.Remove(projection);
+            db.ProjectionSet.Remove(projection);
             db.SaveChanges();
 
             return Ok(projection);
@@ -126,9 +126,9 @@ namespace api.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ProjectionExists(string id)
+        private bool ProjectionExists(int id)
         {
-            return db.Projections.Count(e => e.ProjectionId == id) > 0;
+            return db.ProjectionSet.Count(e => e.ProjectionId == id) > 0;
         }
     }
 }

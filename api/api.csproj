@@ -231,25 +231,40 @@
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TestDataController.cs" />
+    <Compile Include="DAL\Cinema.cs">
+      <DependentUpon>MovieBot.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\CinemaInterfaceServerModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CinemaInterfaceServerModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DAL\MovieBotContext.cs" />
+    <Compile Include="DAL\Movie.cs">
+      <DependentUpon>MovieBot.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\MovieBot.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MovieBot.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\MovieBot.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MovieBot.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\MovieBotInitializer.cs" />
+    <Compile Include="DAL\Projection.cs">
+      <DependentUpon>MovieBot.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Data\Cinema.cs" />
     <Compile Include="Models\Data\CinemaProjections.cs" />
-    <Compile Include="Models\Data\Movie.cs" />
     <Compile Include="Models\Data\MovieProjections.cs" />
     <Compile Include="Models\OutputModels\MovieOutputModel.cs" />
-    <Compile Include="Models\Data\Projection.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InputModels\LocationInputModel.cs" />
     <Compile Include="Models\InputModels\MovieInputModel.cs" />
@@ -269,6 +284,17 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="DAL\CinemaInterfaceServerModel.edmx.sql" />
+    <Content Include="DAL\MovieBot.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MovieBot.Context.cs</LastGenOutput>
+      <DependentUpon>CinemaInterfaceServerModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="DAL\MovieBot.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MovieBot.cs</LastGenOutput>
+      <DependentUpon>CinemaInterfaceServerModel.edmx</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -355,6 +381,9 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -11,7 +11,7 @@ namespace api.Controllers
 {
     public class TestDataController : ApiController
     {
-        private MovieBotContext db = new MovieBotContext();
+        private CinemaInterfaceServerModelContainer db = new CinemaInterfaceServerModelContainer();
 
         [HttpGet]
         public JsonApiOutput<String> AddTestMovies()

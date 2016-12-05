@@ -15,19 +15,19 @@ namespace api.Controllers
 {
     public class CinemasController : ApiController
     {
-        private MovieBotContext db = new MovieBotContext();
+        private CinemaInterfaceServerModelContainer db = new CinemaInterfaceServerModelContainer();
 
         // GET: api/Cinemas
         public IQueryable<Cinema> GetCinemas()
         {
-            return db.Cinemas;
+            return db.CinemaSet;
         }
 
         // GET: api/Cinemas/5
         [ResponseType(typeof(Cinema))]
         public IHttpActionResult GetCinema(string id)
         {
-            Cinema cinema = db.Cinemas.Find(id);
+            Cinema cinema = db.CinemaSet.Find(id);
             if (cinema == null)
             {
                 return NotFound();
@@ -38,7 +38,7 @@ namespace api.Controllers
 
         // PUT: api/Cinemas/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCinema(string id, Cinema cinema)
+        public IHttpActionResult PutCinema(int id, Cinema cinema)
         {
             if (!ModelState.IsValid)
             {
@@ -80,7 +80,7 @@ namespace api.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Cinemas.Add(cinema);
+            db.CinemaSet.Add(cinema);
 
             try
             {
@@ -105,13 +105,13 @@ namespace api.Controllers
         [ResponseType(typeof(Cinema))]
         public IHttpActionResult DeleteCinema(string id)
         {
-            Cinema cinema = db.Cinemas.Find(id);
+            Cinema cinema = db.CinemaSet.Find(id);
             if (cinema == null)
             {
                 return NotFound();
             }
 
-            db.Cinemas.Remove(cinema);
+            db.CinemaSet.Remove(cinema);
             db.SaveChanges();
 
             return Ok(cinema);
@@ -126,9 +126,9 @@ namespace api.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CinemaExists(string id)
+        private bool CinemaExists(int id)
         {
-            return db.Cinemas.Count(e => e.CinemaId == id) > 0;
+            return db.CinemaSet.Count(e => e.CinemaId == id) > 0;
         }
     }
 }
