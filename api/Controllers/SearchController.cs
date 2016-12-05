@@ -1,4 +1,5 @@
 ﻿using api.Adapters;
+using api.DAL;
 using api.Models.Data;
 using api.Models.InputModels;
 using api.Models.Output;
@@ -21,7 +22,7 @@ namespace api.Controllers
         [Route("Cinema")]
         public IEnumerable<CinemaOutputModel> searchByCinema(LocationInputModel input)
         {
-            return DatabaseAdapter.queryCinemaByLocation(input.Region, input.Province, input.City, input.MaxRange).Select<Cinema, CinemaOutputModel>(i => new CinemaOutputModel(i));
+            return DatabaseAdapter.queryCinemaByLocation(input.Region, input.Province, input.City,input.State, input.MaxRange).Select<Cinema, CinemaOutputModel>(i => new CinemaOutputModel(i));
         }
         /// <summary>
         ///  
@@ -54,7 +55,7 @@ namespace api.Controllers
         [Route("MovieFromLocation")]
         public IEnumerable<MovieOutputModel> searchMoviesFromLocation(LocationInputModel location)
         {
-            return DatabaseAdapter.queryMoviesFromLocation(location.Region,location.Province,location.City,location.MaxRange)
+            return DatabaseAdapter.queryMoviesFromLocation(location.Region, location.Province, location.City, location.State, location.MaxRange)
                 .Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i));
         }
 
@@ -66,10 +67,11 @@ namespace api.Controllers
         /// <returns></returns>
         [Route("CinemaFromMovie")]
         [HttpGet]
-        public JsonApiOutput<IEnumerable<CinemaFromMovieOutputModel>> searchCinemasFromMovie([FromUri] LocationInputModel location,[FromUri] string imdbid)
+        public JsonApiOutput<IEnumerable<CinemaFromMovieOutputModel>> searchCinemasFromMovie([FromUri] LocationInputModel location, [FromUri] string imdbid)
         {
             return new JsonApiOutput<IEnumerable<CinemaFromMovieOutputModel>>(
-                DatabaseAdapter.queryCinemaFromMovie(imdbid).Select<CinemaProjection, CinemaFromMovieOutputModel>(i => new CinemaFromMovieOutputModel(i)));
+                DatabaseAdapter.queryCinemaFromMovie(location.Region, location.Province, location.City, location.State, location.MaxRange, imdbid)
+                .Select<CinemaProjections, CinemaFromMovieOutputModel>(i => new CinemaFromMovieOutputModel(i)));
         }
     }
 }
