@@ -28,11 +28,11 @@ namespace api.Models
         //Foreign Key
 
         //ManyToOne
-        public int ProjectionId { get; set; }
+        public string ProjectionId { get; set; }
         public Projection Projection { get; set; }
 
         //OneToOne
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         
     }
 }
