@@ -10,11 +10,14 @@ namespace api.Models.OutputModels
     {
         private CinemaOutputModel cinema;
         private IEnumerable<ProjectionOutputModel> projections;
-        public CinemaFromMovieOutputModel(CinemaProjection cinemaProjection)
+        public CinemaFromMovieOutputModel(CinemaProjections cinemaProjections)
         {
-            this.cinema = new CinemaOutputModel(cinemaProjection.Cinema);
-            this.ImdbId = cinemaProjection.ImdbId;
-            this.projections = cinemaProjection.Projections.Select<Projection, ProjectionOutputModel>(i => new ProjectionOutputModel(i));
+            //TODO check this for output consistency
+            this.cinema = new CinemaOutputModel(cinemaProjections.Cinema);
+            this.projections = cinemaProjections.MovieProjections.Aggregate(
+                new MovieProjections(),
+                (current, next) => current.addProjections(next.Projections))
+                    .Projections.Select<Projection, ProjectionOutputModel>(i => new ProjectionOutputModel(i));
         }
         public CinemaOutputModel Cinema { get { return cinema; } }
         public IEnumerable<ProjectionOutputModel> Projections { get { return projections; } }
