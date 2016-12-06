@@ -38,10 +38,10 @@ namespace api.Controllers
         }
 
         [ResponseType(typeof(JsonApiOutput<IQueryable<ProjectionOutputModel>>))]
-        public IHttpActionResult GetProjection(int cinemaid, string imdbId, DateTime date)
+        public IHttpActionResult GetProjection(string cinemaid, string imdbId, string date)
         {
             IQueryable<Projection> projections =
-                db.Projections.Where(p => p.CinemaId == cinemaid && p.ImdbId == imdbId && p.Date.Date == date.Date);
+                db.Projections.Where(p => p.CinemaId == int.Parse(cinemaid) && p.ImdbId == imdbId && p.Date.Date == DateTime.Now);
             IQueryable<ProjectionOutputModel> projoutput = projections.Select<Projection, ProjectionOutputModel>(
                                                                 p => new ProjectionOutputModel(p));
             if (projoutput == null)

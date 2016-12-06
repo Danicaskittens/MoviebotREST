@@ -12,6 +12,7 @@ namespace api.DAL
     {
         protected override void Seed(MovieBotContext context)
         {
+            base.Seed(context);
             List<Movie> movies = getDummyMovies().ToList();//TODO proper movie retrieval
             movies.ForEach(m => context.Movies.Add(m));
             context.SaveChanges();

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -7,7 +9,9 @@ namespace api.DAL
 {
     public class Movie
     {
-        public int MovieId { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public string ImdbId { get; set; }
         public string Title { get; set; }
         public string Year { get; set; }
         public string Rated { get; set; }
@@ -28,6 +32,6 @@ namespace api.DAL
         public string Type { get; set; }
         public string Response { get; set; }
         public string inTheaters { get; set; }
-        public string ImdbId { get; set; }
+        
     }
 }

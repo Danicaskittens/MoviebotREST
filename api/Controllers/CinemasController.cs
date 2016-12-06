@@ -10,125 +10,70 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using api.DAL;
 using api.Models.Data;
+using api.Adapters;
+using api.Models.OutputModels;
+using api.Models.Output;
+using api.Models.InputModels;
 
 namespace api.Controllers
 {
+    [RoutePrefix("api/v1/cinemas")]
     public class CinemasController : ApiController
     {
-        private MovieBotContext db = new MovieBotContext();
-
-        // GET: api/Cinemas
-        public IQueryable<Cinema> GetCinemas()
+      
+        [Route("location/{latitude}/{longitude}/{maxRange}")]
+        [ResponseType(typeof(JsonApiOutput<IEnumerable<CinemaOutputModel>>))]
+        public IHttpActionResult GetCinemasByName(double latitude, double longitude, int maxRange)
         {
-            return db.Cinemas;
+            IEnumerable<Cinema> cinemas = DatabaseAdapter.queryCinemaByLocation(latitude, longitude, maxRange);
+            if (cinemas == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new JsonApiOutput<IEnumerable<CinemaOutputModel>>(
+                    cinemas.Select<Cinema, CinemaOutputModel>(c => new CinemaOutputModel(c)))
+                );
         }
 
         // GET: api/Cinemas/5
-        [ResponseType(typeof(Cinema))]
-        public IHttpActionResult GetCinema(string id)
+        [Route("name/{pattern}")]
+        [ResponseType(typeof(JsonApiOutput<IEnumerable<CinemaOutputModel>>))]
+        public IHttpActionResult GetCinemasByName(string pattern)
         {
-            Cinema cinema = db.Cinemas.Find(id);
-            if (cinema == null)
+            IEnumerable<Cinema> cinemas = DatabaseAdapter.queryCinemaByName(pattern);
+            if (cinemas == null)
             {
                 return NotFound();
             }
 
-            return Ok(cinema);
+            return Ok(new JsonApiOutput<IEnumerable<CinemaOutputModel>>(
+                    cinemas.Select<Cinema, CinemaOutputModel>(c => new CinemaOutputModel(c)))
+                );
         }
 
-        // PUT: api/Cinemas/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutCinema(int id, Cinema cinema)
+
+        /// <summary>
+        /// Returns the list of movies that are currently shown in a specific cinema
+        /// </summary>
+        /// <param name="cinemaId">Id of the cinema whose movies to show</param>
+        /// <param name="dateRange">Range of dates</param>
+        /// <returns></returns>
+        [Route("id/{cinemaId}/movies")]
+        [ResponseType(typeof(JsonApiOutput<IEnumerable<MovieOutputModel>>))]
+        public IHttpActionResult GetMoviesInSpecificCinema(int cinemaId, [FromUri] DateRangeInputModel dateRange)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != cinema.CinemaId)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(cinema).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CinemaExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            Cinema cinema = DatabaseAdapter.queryCinemaByCinemaId(cinemaId);
+            return Ok(new JsonApiOutput<IEnumerable<MovieOutputModel>>(
+                            DatabaseAdapter.queryMoviesInCinema(cinema,
+                                                dateRange.StartDate,
+                                                dateRange.EndDate).ToList()
+                                    .Select<Movie, MovieOutputModel>(m => new MovieOutputModel(m)).ToList()
+                        )
+                     );
         }
 
-        // POST: api/Cinemas
-        [ResponseType(typeof(Cinema))]
-        public IHttpActionResult PostCinema(Cinema cinema)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        
 
-            db.Cinemas.Add(cinema);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (CinemaExists(cinema.CinemaId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = cinema.CinemaId }, cinema);
-        }
-
-        // DELETE: api/Cinemas/5
-        [ResponseType(typeof(Cinema))]
-        public IHttpActionResult DeleteCinema(string id)
-        {
-            Cinema cinema = db.Cinemas.Find(id);
-            if (cinema == null)
-            {
-                return NotFound();
-            }
-
-            db.Cinemas.Remove(cinema);
-            db.SaveChanges();
-
-            return Ok(cinema);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool CinemaExists(int id)
-        {
-            return db.Cinemas.Count(e => e.CinemaId == id) > 0;
-        }
     }
 }

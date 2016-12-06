@@ -94,7 +94,7 @@ namespace api.Controllers
         public JsonApiOutput<IEnumerable<CinemaMovieProjectionsOutputModel>> searchCinemasFromMovie([FromUri] DateRangeInputModel dateRange, [FromUri] LocationInputModel location, [FromUri] string imdbid)
         {
             return new JsonApiOutput<IEnumerable<CinemaMovieProjectionsOutputModel>>(
-                DatabaseAdapter.queryCinemaFromMovie(location.Latitude, location.Longitude, location.MaxRange, imdbid)
+                DatabaseAdapter.queryCinemaFromMovie(location.Latitude, location.Longitude, location.MaxRange, imdbid,dateRange.StartDate,dateRange.EndDate)
                 .Select<CinemaProjections, CinemaMovieProjectionsOutputModel>(i => new CinemaMovieProjectionsOutputModel(i)));
         }
     }

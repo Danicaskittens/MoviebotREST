@@ -16,6 +16,14 @@ namespace api.Models.InputModels
     public class DateRangeInputModel
     {
         /// <summary>
+        /// Returns the default value of the date range (with start and end date that are set to today)
+        /// </summary>
+        /// <returns></returns>
+        public static DateRangeInputModel DefaultValue()
+        {
+            return new DateRangeInputModel() { StartDate = DateTime.Now, EndDate = DateTime.Now };
+        }
+        /// <summary>
         /// Start date of the range 
         /// </summary>
         [JsonConverter(typeof(MovieBotJsonDateTimeConverter))]
