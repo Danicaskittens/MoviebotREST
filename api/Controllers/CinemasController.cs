@@ -17,10 +17,19 @@ using api.Models.InputModels;
 
 namespace api.Controllers
 {
+    /// <summary>
+    /// This controller handles every call for cinema related apis
+    /// </summary>
     [RoutePrefix("api/v1/cinemas")]
     public class CinemasController : ApiController
     {
-      
+        /// <summary>
+        /// Returns the list of cinemas near the provided gps locations
+        /// </summary>
+        /// <param name="latitude">latitude of the center of the search radius</param>
+        /// <param name="longitude">longitude of the center of the search radius</param>
+        /// <param name="maxRange">maximum radius of the search area (in kilometers)</param>
+        /// <returns></returns>
         [Route("location/{latitude}/{longitude}/{maxRange}")]
         [ResponseType(typeof(JsonApiOutput<IEnumerable<CinemaOutputModel>>))]
         public IHttpActionResult GetCinemasByName(double latitude, double longitude, int maxRange)
@@ -36,7 +45,11 @@ namespace api.Controllers
                 );
         }
 
-        // GET: api/Cinemas/5
+        /// <summary>
+        /// Returns the list of cinemas with the provided name or part of the name
+        /// </summary>
+        /// <param name="pattern">Complete name or part of the name (case insensitive)</param>
+        /// <returns></returns>
         [Route("name/{pattern}")]
         [ResponseType(typeof(JsonApiOutput<IEnumerable<CinemaOutputModel>>))]
         public IHttpActionResult GetCinemasByName(string pattern)
