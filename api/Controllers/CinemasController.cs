@@ -30,9 +30,9 @@ namespace api.Controllers
         /// <param name="longitude">longitude of the center of the search radius</param>
         /// <param name="maxRange">maximum radius of the search area (in kilometers)</param>
         /// <returns></returns>
-        [Route("location/{latitude}/{longitude}/{maxRange}")]
+        [Route("location/{latitude}/{longitude}")]
         [ResponseType(typeof(JsonApiOutput<IEnumerable<CinemaOutputModel>>))]
-        public IHttpActionResult GetCinemasByName(double latitude, double longitude, int maxRange)
+        public IHttpActionResult GetCinemasByName(double latitude, double longitude, [FromUri] int maxRange = 50)
         {
             IEnumerable<Cinema> cinemas = DatabaseAdapter.queryCinemaByLocation(latitude, longitude, maxRange);
             if (cinemas == null)
@@ -86,7 +86,7 @@ namespace api.Controllers
                      );
         }
 
-        
+
 
     }
 }

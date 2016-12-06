@@ -13,6 +13,7 @@ using api.Models.Data;
 using api.Adapters;
 using api.Models.Output;
 using api.Models.OutputModels;
+using api.Models.InputModels;
 
 namespace api.Controllers
 {
@@ -29,9 +30,29 @@ namespace api.Controllers
         public IHttpActionResult GetMovieByTitle(string title)
         {
             IQueryable<Movie> movies = DatabaseAdapter.queryMoviesByTitle(title);
-            return Ok(new JsonApiOutput<IEnumerable<MovieOutputModel>>(movies.ToList().Select<Movie,MovieOutputModel>(m=>new MovieOutputModel(m))));
+            return Ok(new JsonApiOutput<IEnumerable<MovieOutputModel>>(movies.ToList().Select<Movie, MovieOutputModel>(m => new MovieOutputModel(m))));
         }
 
-        
+
+        /// <summary>
+        /// Retrieves the list of cinemas near a location and that display a specific movie in a specified date range 
+        /// </summary>
+        /// <param name="imdbId">imdbId of the movie to search</param>
+        /// <param name="latitude">latitude of the center of the search radius</param>
+        /// <param name="longitude">longitude of the center of the search radius</param>
+        /// <param name="maxRange">maximum radius of the search area (in kilometers)</param>
+        /// <param name="dateRange">range of dates on which search for cinemas that display the movie</param>
+        /// <returns></returns>
+        [Route("id/{imdbId}/cinemas/{latitude}/{longitude}")]
+        [ResponseType(typeof(JsonApiOutput<IEnumerable<CinemaOutputModel>>))]
+        public IHttpActionResult GetCinemasByMovieAndLocationAndDateRange(string imdbId, double latitude, double longitude, [FromUri] DateRangeInputModel dateRange, [FromUri] int maxRange = 50)
+        {
+            IEnumerable<Cinema> cinemas = DatabaseAdapter.queryCinemaFromMovie(latitude, longitude, maxRange, imdbId, dateRange.StartDate, dateRange.EndDate).ToList();
+            return Ok(new JsonApiOutput<IEnumerable<CinemaOutputModel>>(
+                        cinemas.ToList().Select<Cinema, CinemaOutputModel>(c => new CinemaOutputModel(c)).ToList()
+                    ));
+        }
+
+
     }
 }
