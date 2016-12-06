@@ -264,6 +264,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Data\CinemaProjections.cs" />
     <Compile Include="Models\Data\MovieProjections.cs" />
+    <Compile Include="Models\InputModels\DateRangeInputModel.cs" />
     <Compile Include="Models\OutputModels\MovieOutputModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InputModels\LocationInputModel.cs" />
@@ -279,6 +280,7 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\MovieBotJsonDateTimeConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

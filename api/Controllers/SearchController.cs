@@ -67,12 +67,13 @@ namespace api.Controllers
         }
 
         /// <summary>
-        /// Return all the movies in every cinema near the location provided
+        /// Return all the movies in every cinema near the location provided on the specified date
         /// </summary>
+        /// <param name="dateRange">range of dates in which search for the movies</param>
         /// <param name="location">Location from where to find the cinemas and movies</param>
         /// <returns></returns>
         [Route("MovieFromLocation")]
-        public JsonApiOutput<IEnumerable<MovieOutputModel>> searchMoviesFromLocation([FromUri] LocationInputModel location)
+        public JsonApiOutput<IEnumerable<MovieOutputModel>> searchMoviesFromLocation([FromUri] DateRangeInputModel dateRange,[FromUri] LocationInputModel location)
         {
             return
                 new JsonApiOutput<IEnumerable<MovieOutputModel>>(
@@ -82,14 +83,15 @@ namespace api.Controllers
         }
 
         /// <summary>
-        /// Returns the cinemas that display the selected movie, with the projection related to that movie
+        /// Returns the cinemas that display the selected movie on the specified date, also providing the projection related to that movie on that date
         /// </summary>
+        /// <param name="dateRange">range of dates in which search for the projections</param>
         /// <param name="location">location from which search the available movies</param>
         /// <param name="imdbid">movie id to search for</param>
         /// <returns></returns>
         [Route("CinemaFromMovie")]
         [HttpGet]
-        public JsonApiOutput<IEnumerable<CinemaMovieProjectionsOutputModel>> searchCinemasFromMovie([FromUri] LocationInputModel location, [FromUri] string imdbid)
+        public JsonApiOutput<IEnumerable<CinemaMovieProjectionsOutputModel>> searchCinemasFromMovie([FromUri] DateRangeInputModel dateRange, [FromUri] LocationInputModel location, [FromUri] string imdbid)
         {
             return new JsonApiOutput<IEnumerable<CinemaMovieProjectionsOutputModel>>(
                 DatabaseAdapter.queryCinemaFromMovie(location.Latitude, location.Longitude, location.MaxRange, imdbid)
