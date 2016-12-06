@@ -29,7 +29,7 @@ namespace api.Controllers
         public IHttpActionResult GetMovieByTitle(string title)
         {
             IQueryable<Movie> movies = DatabaseAdapter.queryMoviesByTitle(title);
-            return Ok(new JsonApiOutput<IEnumerable<MovieOutputModel>>(movies.ToList().Select<Movie,MovieOutputModel>(m=>new MovieOutputModel())));
+            return Ok(new JsonApiOutput<IEnumerable<MovieOutputModel>>(movies.ToList().Select<Movie,MovieOutputModel>(m=>new MovieOutputModel(m))));
         }
 
         
