@@ -15,19 +15,19 @@ namespace api.Controllers
 {
     public class CinemasController : ApiController
     {
-        private CinemaInterfaceServerModelContainer db = new CinemaInterfaceServerModelContainer();
+        private MovieBotContext db = new MovieBotContext();
 
         // GET: api/Cinemas
         public IQueryable<Cinema> GetCinemas()
         {
-            return db.CinemaSet;
+            return db.Cinemas;
         }
 
         // GET: api/Cinemas/5
         [ResponseType(typeof(Cinema))]
         public IHttpActionResult GetCinema(string id)
         {
-            Cinema cinema = db.CinemaSet.Find(id);
+            Cinema cinema = db.Cinemas.Find(id);
             if (cinema == null)
             {
                 return NotFound();
@@ -80,7 +80,7 @@ namespace api.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.CinemaSet.Add(cinema);
+            db.Cinemas.Add(cinema);
 
             try
             {
@@ -105,13 +105,13 @@ namespace api.Controllers
         [ResponseType(typeof(Cinema))]
         public IHttpActionResult DeleteCinema(string id)
         {
-            Cinema cinema = db.CinemaSet.Find(id);
+            Cinema cinema = db.Cinemas.Find(id);
             if (cinema == null)
             {
                 return NotFound();
             }
 
-            db.CinemaSet.Remove(cinema);
+            db.Cinemas.Remove(cinema);
             db.SaveChanges();
 
             return Ok(cinema);
@@ -128,7 +128,7 @@ namespace api.Controllers
 
         private bool CinemaExists(int id)
         {
-            return db.CinemaSet.Count(e => e.CinemaId == id) > 0;
+            return db.Cinemas.Count(e => e.CinemaId == id) > 0;
         }
     }
 }

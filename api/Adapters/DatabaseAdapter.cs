@@ -14,7 +14,7 @@ namespace api.Adapters
     /// </summary>
     public class DatabaseAdapter
     {
-        private static CinemaInterfaceServerModelContainer context = new CinemaInterfaceServerModelContainer();
+        private static MovieBotContext context = new MovieBotContext();
 
         private static bool inRangeOf(double number, double center, int range)
         {
@@ -29,7 +29,7 @@ namespace api.Adapters
         /// <returns></returns>
         public static IEnumerable<Cinema> queryCinemaByLocation(double latitude, double longitude, int MaxRange)
         {
-            return context.CinemaSet.Where(c => inRangeOf(c.Latitude,latitude,MaxRange) && inRangeOf(c.Latitude, latitude, MaxRange));
+            return context.Cinemas.Where(c => inRangeOf(c.Latitude,latitude,MaxRange) && inRangeOf(c.Latitude, latitude, MaxRange));
         }
         /// <summary>
         /// Retrieves the list of cinemas whose name contains the provided search argument
@@ -38,7 +38,7 @@ namespace api.Adapters
         /// <returns></returns>
         public static IEnumerable<Cinema> queryCinemaByName(string name)
         {
-            return context.CinemaSet.Where(c => c.Name.ToLower().Contains(name.ToLower()));
+            return context.Cinemas.Where(c => c.Name.ToLower().Contains(name.ToLower()));
         }
         /// <summary>
         /// Searches the list of currently shown movies for a movie with the provided title or part of it
@@ -48,7 +48,7 @@ namespace api.Adapters
         /// <returns></returns>
         public static IEnumerable<Movie> queryMoviesByTitle(string title)
         {
-            return context.MovieSet.Where(m => m.Title.ToLower().Contains(title.ToLower()));
+            return context.Movies.Where(m => m.Title.ToLower().Contains(title.ToLower()));
         }
         /// <summary>
         /// Returns the list of cinemas and their projections for a specific movie
@@ -61,8 +61,8 @@ namespace api.Adapters
         public static IEnumerable<CinemaProjections> queryCinemaFromMovie(double latitude, double longitude, int maxRange, string imdbID)
         { //TODO change this into an aggregate function if possible
             IEnumerable<Cinema> cinemas = DatabaseAdapter.queryCinemaByLocation(latitude, longitude, maxRange);
-            IQueryable<Cinema> movieCinemas = context.CinemaSet.Where(c => context.ProjectionSet.Where(p => p.ImdbId == imdbID && p.CinemaId == c.CinemaId).Any());
-            Movie movie = context.MovieSet.Where(m => m.ImdbId == imdbID).ElementAt(0);
+            IQueryable<Cinema> movieCinemas = context.Cinemas.Where(c => context.Projections.Where(p => p.ImdbId == imdbID && p.CinemaId == c.CinemaId).Any());
+            Movie movie = context.Movies.Where(m => m.ImdbId == imdbID).ElementAt(0);
             return movieCinemas.Select<Cinema, CinemaProjections>(mc => new CinemaProjections(mc, queryMovieProjectionsFromMovieAndCinema(mc, movie)));
         }
         /// <summary>
@@ -93,12 +93,12 @@ namespace api.Adapters
         public static IEnumerable<Movie> queryMoviesFromLocation(double latitude, double longitude, int maxRange)
         {
             IEnumerable<Cinema> cinemas = DatabaseAdapter.queryCinemaByLocation(latitude,longitude, maxRange);
-            return context.ProjectionSet.Where(p => cinemas.Where(c => c.CinemaId == p.CinemaId).Any()).Select<Projection, Movie>(p => p.Movie).Distinct();
+            return context.Projections.Where(p => cinemas.Where(c => c.CinemaId == p.CinemaId).Any()).Select<Projection, Movie>(p => p.Movie).Distinct();
         }
 
         public static IEnumerable<Movie> queryRecommendedMoviesForUser(string userID)
         {
-            return context.MovieSet.Where(m => m.Genre == "Action");
+            return context.Movies.Where(m => m.Genre == "Action");
         }
     }
 }

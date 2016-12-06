@@ -9,6 +9,13 @@ namespace api.Models.Output
     public class MovieOutputModel
     {
         private Movie movie;
+        /// <summary>
+        /// Don't use this, please, this is only to create the preview of the response
+        /// </summary>
+        public MovieOutputModel()
+        {
+            this.movie = new Movie();
+        }
 
         /// <summary>
         /// Create a new Movie output model from a Movie data object

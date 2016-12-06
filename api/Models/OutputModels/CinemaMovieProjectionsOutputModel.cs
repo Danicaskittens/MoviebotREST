@@ -14,6 +14,16 @@ namespace api.Models.OutputModels
     {
         private CinemaOutputModel cinema;
         private IEnumerable<ProjectionOutputModel> projections;
+
+        /// <summary>
+        /// Don't use this, please, this is only to create the preview of the response
+        /// </summary>
+        public CinemaMovieProjectionsOutputModel()
+        {
+            this.cinema = new CinemaOutputModel();
+            this.projections = new List<ProjectionOutputModel>();
+        }
+
         /// <summary>
         /// Creates a new CinemaMovieProjectionsOutputModel from the list of cinemaprojections
         /// </summary>

@@ -19,11 +19,11 @@ namespace api.Models.InputModels
         /// Start date of the range 
         /// </summary>
         [JsonConverter(typeof(MovieBotJsonDateTimeConverter))]
-        public DateTime Start { get; set; }
+        public DateTime StartDate { get; set; }
         /// <summary>
         /// End date of the range 
         /// </summary>
         [JsonConverter(typeof(MovieBotJsonDateTimeConverter))]
-        public DateTime End { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }

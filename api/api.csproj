@@ -231,31 +231,16 @@
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TestDataController.cs" />
-    <Compile Include="DAL\Cinema.cs">
-      <DependentUpon>MovieBot.tt</DependentUpon>
-    </Compile>
+    <Compile Include="DAL\Cinema.cs" />
+    <Compile Include="DAL\Movie.cs" />
+    <Compile Include="DAL\MovieBotContext.cs" />
+    <Compile Include="DAL\Projection.cs" />
     <Compile Include="DAL\CinemaInterfaceServerModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CinemaInterfaceServerModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Movie.cs">
-      <DependentUpon>MovieBot.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\MovieBot.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MovieBot.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\MovieBot.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MovieBot.tt</DependentUpon>
-    </Compile>
     <Compile Include="DAL\MovieBotInitializer.cs" />
-    <Compile Include="DAL\Projection.cs">
-      <DependentUpon>MovieBot.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -287,16 +272,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="DAL\CinemaInterfaceServerModel.edmx.sql" />
-    <Content Include="DAL\MovieBot.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MovieBot.Context.cs</LastGenOutput>
-      <DependentUpon>CinemaInterfaceServerModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="DAL\MovieBot.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MovieBot.cs</LastGenOutput>
-      <DependentUpon>CinemaInterfaceServerModel.edmx</DependentUpon>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

@@ -14,6 +14,13 @@ namespace api.Models.OutputModels
     {
         private Cinema cinema;
         /// <summary>
+        /// Don't use this, please, this is only to create the preview of the response
+        /// </summary>
+        public CinemaOutputModel()
+        {
+            cinema = new Cinema();
+        }
+        /// <summary>
         /// Create a new cinema output model based on a specific cinema
         /// </summary>
         /// <param name="cinema"></param>
