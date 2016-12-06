@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/05/2016 18:17:55
+-- Date Created: 12/06/2016 14:21:07
 -- Generated from EDMX file: D:\projects\MoviebotREST\api\DAL\CinemaInterfaceServerModel.edmx
 -- --------------------------------------------------
 
@@ -89,7 +89,7 @@ CREATE TABLE [dbo].[ProjectionSet] (
     [ProjectionId] int IDENTITY(1,1) NOT NULL,
     [Date] datetime  NOT NULL,
     [FreeSeats] int  NOT NULL,
-    [CinemaId] nvarchar(max)  NOT NULL,
+    [CinemaId] int  NOT NULL,
     [ImdbId] nvarchar(max)  NOT NULL,
     [Movie_MovieId] int  NOT NULL,
     [Cinema_CinemaId] int  NOT NULL

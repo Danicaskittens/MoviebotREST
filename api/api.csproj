@@ -269,7 +269,7 @@
     <Compile Include="Models\InputModels\LocationInputModel.cs" />
     <Compile Include="Models\InputModels\MovieInputModel.cs" />
     <Compile Include="Models\OutputModels\JsonApiOutput.cs" />
-    <Compile Include="Models\OutputModels\CinemaFromMovieOutputModel.cs" />
+    <Compile Include="Models\OutputModels\CinemaMovieProjectionsOutputModel.cs" />
     <Compile Include="Models\OutputModels\CinemaOutputModel.cs" />
     <Compile Include="Models\OutputModels\ProjectionOutputModel.cs" />
     <Compile Include="Models\Data\Reservation.cs" />

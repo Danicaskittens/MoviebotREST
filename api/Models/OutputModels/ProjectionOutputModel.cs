@@ -15,7 +15,7 @@ namespace api.Models.OutputModels
             this.projection = projection;
         }
         public string ImdbID { get { return this.projection.ImdbId; } }
-        public string CinemaID { get { return this.projection.CinemaId; } }
+        public int CinemaID { get { return this.projection.CinemaId; } }
         public string Date { get { return this.projection.Date.ToString("yyyy/MM/dd"); } }
         public string Time { get { return this.projection.Date.ToString("HH:mm"); } }
 
