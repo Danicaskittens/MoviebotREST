@@ -16,12 +16,33 @@ namespace api.Models.InputModels
     public class DateRangeInputModel
     {
         /// <summary>
+        /// Generates a new DateRangeInputModel with today as start date and end date
+        /// </summary>
+        public DateRangeInputModel()
+        {
+            StartDate = DateTime.Now.Date;
+            EndDate = DateTime.Now.Date;
+        }
+        /// <summary>
         /// Returns the default value of the date range (with start and end date that are set to today)
         /// </summary>
         /// <returns></returns>
-        public static DateRangeInputModel DefaultValue()
+        public static DateRangeInputModel DefaultValue
         {
-            return new DateRangeInputModel() { StartDate = DateTime.Now, EndDate = DateTime.Now };
+            get { return new DateRangeInputModel() { StartDate = DateTime.Now.Date, EndDate = DateTime.Now.Date }; }
+        }
+
+        public Boolean isEmpty()
+        {
+            if (StartDate == null || EndDate == null)
+            {
+                return true;
+            }
+            if (StartDate.Equals(new DateTime()) && EndDate.Equals(new DateTime()))
+            {
+                return true;
+            }
+            return false;
         }
         /// <summary>
         /// Start date of the range 
