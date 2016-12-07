@@ -230,7 +230,6 @@
     <Compile Include="Controllers\RecommenderController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
-    <Compile Include="Controllers\TestDataController.cs" />
     <Compile Include="DAL\Cinema.cs" />
     <Compile Include="DAL\Movie.cs" />
     <Compile Include="DAL\MovieBotContext.cs" />
