@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="96bcb5edca8f49f1b9022fb90b846d29" Name="MovieBotContext" ZoomLevel="98" >
         <EntityTypeShape EntityType="CinemaInterfaceServerModel.Movie" Width="1.5" PointX="0.5" PointY="0.625" />
-        <EntityTypeShape EntityType="CinemaInterfaceServerModel.Cinema" Width="1.5" PointX="3.375" PointY="0.5" />
+        <EntityTypeShape EntityType="CinemaInterfaceServerModel.Cinema" Width="1.5" PointX="3.875" PointY="0.5" />
         <EntityTypeShape EntityType="CinemaInterfaceServerModel.Projection" Width="1.5" PointX="3.625" PointY="4.125" />
         <AssociationConnector Association="CinemaInterfaceServerModel.ProjectionMovie" />
         <AssociationConnector Association="CinemaInterfaceServerModel.ProjectionCinema" />

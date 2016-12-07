@@ -11,125 +11,51 @@ using System.Web.Http.Description;
 using api.DAL;
 using api.Models.Data;
 using api.Adapters;
+using api.Models.Output;
+using api.Models.OutputModels;
+using api.Models.InputModels;
 
 namespace api.Controllers
 {
+    /// <summary>
+    /// This controllers enables the retrieval of movie related information
+    /// </summary>
+    [RoutePrefix("api/v2/movies")]
     public class MoviesController : ApiController
     {
-        private CinemaInterfaceServerModelContainer db = new CinemaInterfaceServerModelContainer();
-
-        // GET: api/Movies
-        public IQueryable<Movie> GetMovies()
+        /// <summary>
+        /// Returns the list of movies with the title provided or part of the title
+        /// </summary>
+        /// <param name="title">Title of the movie or part of the title</param>
+        /// <returns></returns>
+        [Route("title/{title}")]
+        [ResponseType(typeof(JsonApiOutput<IEnumerable<MovieOutputModel>>))]
+        public IHttpActionResult GetMovieByTitle(string title)
         {
-            return db.MovieSet;
+            IQueryable<Movie> movies = DatabaseAdapter.queryMoviesByTitle(title);
+            return Ok(new JsonApiOutput<IEnumerable<MovieOutputModel>>(movies.ToList().Select<Movie, MovieOutputModel>(m => new MovieOutputModel(m))));
         }
 
-        // GET: api/Movies/5
-        [ResponseType(typeof(Movie))]
-        public IHttpActionResult GetMovie(string id)
-        {
-            Movie movie = db.MovieSet.Find(id);
-            if (movie == null)
-            {
-                return NotFound();
-            }
 
-            return Ok(movie);
+        /// <summary>
+        /// Retrieves the list of cinemas near a location and that display a specific movie in a specified date range 
+        /// </summary>
+        /// <param name="imdbId">imdbId of the movie to search</param>
+        /// <param name="latitude">latitude of the center of the search radius</param>
+        /// <param name="longitude">longitude of the center of the search radius</param>
+        /// <param name="maxRange">maximum radius of the search area (in kilometers)</param>
+        /// <param name="dateRange">range of dates on which search for cinemas that display the movie, if omitted, today's date will be used</param>
+        /// <returns></returns>
+        [Route("id/{imdbId}/cinemas/{latitude}/{longitude}")]
+        [ResponseType(typeof(JsonApiOutput<IEnumerable<CinemaOutputModel>>))]
+        public IHttpActionResult GetCinemasByMovieAndLocationAndDateRange(string imdbId, double latitude, double longitude, [FromUri] DateRangeInputModel dateRange, [FromUri] int maxRange = 50)
+        {
+            IEnumerable<Cinema> cinemas = DatabaseAdapter.queryCinemaFromMovie(latitude, longitude, maxRange, imdbId, dateRange.StartDate, dateRange.EndDate).ToList();
+            return Ok(new JsonApiOutput<IEnumerable<CinemaOutputModel>>(
+                        cinemas.ToList().Select<Cinema, CinemaOutputModel>(c => new CinemaOutputModel(c)).ToList()
+                    ));
         }
 
-        // PUT: api/Movies/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutMovie(string id, Movie movie)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
-            if (id != movie.ImdbId)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(movie).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MovieExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/Movies
-        [ResponseType(typeof(Movie))]
-        public IHttpActionResult PostMovie(String imdbId)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            Movie movie = OmdbAdapters.GetMovieInfo(imdbId);
-            db.MovieSet.Add(movie);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (MovieExists(movie.ImdbId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = movie.ImdbId }, movie);
-        }
-
-        // DELETE: api/Movies/5
-        [ResponseType(typeof(Movie))]
-        public IHttpActionResult DeleteMovie(string id)
-        {
-            Movie movie = db.MovieSet.Find(id);
-            if (movie == null)
-            {
-                return NotFound();
-            }
-
-            db.MovieSet.Remove(movie);
-            db.SaveChanges();
-
-            return Ok(movie);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool MovieExists(string id)
-        {
-            return db.MovieSet.Count(e => e.ImdbId == id) > 0;
-        }
     }
 }

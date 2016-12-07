@@ -14,12 +14,12 @@ namespace api.Controllers
 {
     public class MovieController : Controller
     {
-        private CinemaInterfaceServerModelContainer db = new CinemaInterfaceServerModelContainer();
+        private MovieBotContext db = new MovieBotContext();
 
         // GET: Movie
         public ActionResult Index()
         {
-            return View(db.MovieSet.ToList());
+            return View(db.Movies.ToList());
         }
 
         // GET: Movie/Details/5
@@ -29,7 +29,7 @@ namespace api.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = db.MovieSet.Find(id);
+            Movie movie = db.Movies.Find(id);
             if (movie == null)
             {
                 return HttpNotFound();
@@ -54,7 +54,7 @@ namespace api.Controllers
             movie.ImdbId = movieId.ImdbId;
             if (ModelState.IsValid)
             {
-                db.MovieSet.Add(movie);
+                db.Movies.Add(movie);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -69,7 +69,7 @@ namespace api.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = db.MovieSet.Find(id);
+            Movie movie = db.Movies.Find(id);
             if (movie == null)
             {
                 return HttpNotFound();
@@ -100,7 +100,7 @@ namespace api.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = db.MovieSet.Find(id);
+            Movie movie = db.Movies.Find(id);
             if (movie == null)
             {
                 return HttpNotFound();
@@ -113,8 +113,8 @@ namespace api.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Movie movie = db.MovieSet.Find(id);
-            db.MovieSet.Remove(movie);
+            Movie movie = db.Movies.Find(id);
+            db.Movies.Remove(movie);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

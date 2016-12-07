@@ -67,7 +67,7 @@
     <Property Name="ProjectionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Date" Type="datetime" Nullable="false" />
     <Property Name="FreeSeats" Type="int" Nullable="false" />
-    <Property Name="CinemaId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CinemaId" Type="int" Nullable="false" />
     <Property Name="ImdbId" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Movie_MovieId" Type="int" Nullable="false" />
     <Property Name="Cinema_CinemaId" Type="int" Nullable="false" />
@@ -163,7 +163,7 @@
           <Property Name="ProjectionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Date" Type="DateTime" Nullable="false" />
           <Property Name="FreeSeats" Type="Int32" Nullable="false" />
-          <Property Name="CinemaId" Type="Int32" Nullable="false" />
+          <Property Name="CinemaId" Type="Int32" cg:SetterAccess="Public" Nullable="false" />
           <Property Name="ImdbId" Type="String" Nullable="false" />
           <NavigationProperty Name="Movie" Relationship="CinemaInterfaceServerModel.ProjectionMovie" FromRole="Projection" ToRole="Movie" />
           <NavigationProperty Name="Cinema" Relationship="CinemaInterfaceServerModel.ProjectionCinema" FromRole="Projection" ToRole="Cinema" />

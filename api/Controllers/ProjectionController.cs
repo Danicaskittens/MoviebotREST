@@ -13,12 +13,12 @@ namespace api.Controllers
 {
     public class ProjectionController : Controller
     {
-        private CinemaInterfaceServerModelContainer db = new CinemaInterfaceServerModelContainer();
+        private MovieBotContext db = new MovieBotContext();
 
         // GET: Projection
         public ActionResult Index()
         {
-            var projections = db.ProjectionSet.Include(p => p.Cinema).Include(p => p.Movie);
+            var projections = db.Projections.Include(p => p.Cinema).Include(p => p.Movie);
             return View(projections.ToList());
         }
 
@@ -29,7 +29,7 @@ namespace api.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Projection projection = db.ProjectionSet.Find(id);
+            Projection projection = db.Projections.Find(id);
             if (projection == null)
             {
                 return HttpNotFound();
@@ -40,8 +40,8 @@ namespace api.Controllers
         // GET: Projection/Create
         public ActionResult Create()
         {
-            ViewBag.CinemaId = new SelectList(db.CinemaSet, "CinemaId", "Name");
-            ViewBag.ImdbId = new SelectList(db.MovieSet, "ImdbId", "Title");
+            ViewBag.CinemaId = new SelectList(db.Cinemas, "CinemaId", "Name");
+            ViewBag.ImdbId = new SelectList(db.Movies, "ImdbId", "Title");
             return View();
         }
 
@@ -54,13 +54,13 @@ namespace api.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ProjectionSet.Add(projection);
+                db.Projections.Add(projection);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CinemaId = new SelectList(db.CinemaSet, "CinemaId", "Name", projection.CinemaId);
-            ViewBag.ImdbId = new SelectList(db.MovieSet, "ImdbId", "Title", projection.ImdbId);
+            ViewBag.CinemaId = new SelectList(db.Cinemas, "CinemaId", "Name", projection.CinemaId);
+            ViewBag.ImdbId = new SelectList(db.Movies, "ImdbId", "Title", projection.ImdbId);
             return View(projection);
         }
 
@@ -71,13 +71,13 @@ namespace api.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Projection projection = db.ProjectionSet.Find(id);
+            Projection projection = db.Projections.Find(id);
             if (projection == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CinemaId = new SelectList(db.CinemaSet, "CinemaId", "Name", projection.CinemaId);
-            ViewBag.ImdbId = new SelectList(db.MovieSet, "ImdbId", "Title", projection.ImdbId);
+            ViewBag.CinemaId = new SelectList(db.Cinemas, "CinemaId", "Name", projection.CinemaId);
+            ViewBag.ImdbId = new SelectList(db.Movies, "ImdbId", "Title", projection.ImdbId);
             return View(projection);
         }
 
@@ -94,8 +94,8 @@ namespace api.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CinemaId = new SelectList(db.CinemaSet, "CinemaId", "Name", projection.CinemaId);
-            ViewBag.ImdbId = new SelectList(db.MovieSet, "ImdbId", "Title", projection.ImdbId);
+            ViewBag.CinemaId = new SelectList(db.Cinemas, "CinemaId", "Name", projection.CinemaId);
+            ViewBag.ImdbId = new SelectList(db.Movies, "ImdbId", "Title", projection.ImdbId);
             return View(projection);
         }
 
@@ -106,7 +106,7 @@ namespace api.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Projection projection = db.ProjectionSet.Find(id);
+            Projection projection = db.Projections.Find(id);
             if (projection == null)
             {
                 return HttpNotFound();
@@ -119,8 +119,8 @@ namespace api.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Projection projection = db.ProjectionSet.Find(id);
-            db.ProjectionSet.Remove(projection);
+            Projection projection = db.Projections.Find(id);
+            db.Projections.Remove(projection);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -13,12 +13,12 @@ namespace api.Controllers
 {
     public class CinemaController : Controller
     {
-        private CinemaInterfaceServerModelContainer db = new CinemaInterfaceServerModelContainer();
+        private MovieBotContext db = new MovieBotContext();
 
         // GET: Cinema
         public ActionResult Index()
         {
-            return View(db.CinemaSet.ToList());
+            return View(db.Cinemas.ToList());
         }
 
         // GET: Cinema/Details/5
@@ -28,7 +28,7 @@ namespace api.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cinema cinema = db.CinemaSet.Find(id);
+            Cinema cinema = db.Cinemas.Find(id);
             if (cinema == null)
             {
                 return HttpNotFound();
@@ -51,7 +51,7 @@ namespace api.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.CinemaSet.Add(cinema);
+                db.Cinemas.Add(cinema);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -66,7 +66,7 @@ namespace api.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cinema cinema = db.CinemaSet.Find(id);
+            Cinema cinema = db.Cinemas.Find(id);
             if (cinema == null)
             {
                 return HttpNotFound();
@@ -97,7 +97,7 @@ namespace api.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cinema cinema = db.CinemaSet.Find(id);
+            Cinema cinema = db.Cinemas.Find(id);
             if (cinema == null)
             {
                 return HttpNotFound();
@@ -110,8 +110,8 @@ namespace api.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Cinema cinema = db.CinemaSet.Find(id);
-            db.CinemaSet.Remove(cinema);
+            Cinema cinema = db.Cinemas.Find(id);
+            db.Cinemas.Remove(cinema);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
