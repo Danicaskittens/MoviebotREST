@@ -17,7 +17,10 @@ using api.Models.InputModels;
 
 namespace api.Controllers
 {
-    [RoutePrefix("api/v1/movies")]
+    /// <summary>
+    /// This controllers enables the retrieval of movie related information
+    /// </summary>
+    [RoutePrefix("api/v2/movies")]
     public class MoviesController : ApiController
     {
         /// <summary>
@@ -41,7 +44,7 @@ namespace api.Controllers
         /// <param name="latitude">latitude of the center of the search radius</param>
         /// <param name="longitude">longitude of the center of the search radius</param>
         /// <param name="maxRange">maximum radius of the search area (in kilometers)</param>
-        /// <param name="dateRange">range of dates on which search for cinemas that display the movie</param>
+        /// <param name="dateRange">range of dates on which search for cinemas that display the movie, if omitted, today's date will be used</param>
         /// <returns></returns>
         [Route("id/{imdbId}/cinemas/{latitude}/{longitude}")]
         [ResponseType(typeof(JsonApiOutput<IEnumerable<CinemaOutputModel>>))]

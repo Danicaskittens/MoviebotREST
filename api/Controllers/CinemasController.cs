@@ -20,7 +20,7 @@ namespace api.Controllers
     /// <summary>
     /// This controller handles every call for cinema related apis
     /// </summary>
-    [RoutePrefix("api/v1/cinemas")]
+    [RoutePrefix("api/v2/cinemas")]
     public class CinemasController : ApiController
     {
         /// <summary>
