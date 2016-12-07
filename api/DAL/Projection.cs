@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,6 +8,7 @@ namespace api.DAL
 {
     public class Projection
     {
+        [Key]
         public int ProjectionId { get; set; }
         public System.DateTime Date { get; set; }
         public int FreeSeats { get; set; }
