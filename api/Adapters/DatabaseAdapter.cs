@@ -157,7 +157,7 @@ namespace api.Adapters
         }
 
         /// <summary>
-        /// Returns the list of projections between two dates in a given cinema
+        /// Returns the list of projections between two dates in a given cinema (beware, this will generate error if nested in another query)
         /// </summary>
         /// <param name="cinema">Cinema whose projections it's filtering</param>
         /// <param name="startDate">initial date of the range</param>
@@ -182,6 +182,17 @@ namespace api.Adapters
             for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
                 yield return day;
         }
+
+        /// <summary>
+        /// Returns the projection from the id of the projection
+        /// </summary>
+        /// <param name="projectionId">Id of the projection to retrieve</param>
+        /// <returns></returns>
+        public static Projection queryProjectionByProjectionId(int projectionId)
+        {
+            return context.Projections.Find(projectionId);
+        }
+
 
         public static IEnumerable<Movie> queryRecommendedMoviesForUser(string userID)
         {
