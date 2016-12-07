@@ -45,6 +45,21 @@ namespace api.Adapters
         {
             return context.Cinemas.Where(c => c.Name.ToLower().Contains(name.ToLower()));
         }
+
+
+        /// <summary>
+        /// Retrieves the list of projections for the selected cinema, and selected imdbId, shown on the specified date range
+        /// </summary>
+        /// <param name="cinemaId">Id of the cinema to retrieve the projection from</param>
+        /// <param name="imdbId">Id of the movie to retrieve the projections</param>
+        /// <param name="startDate">Starting date of the range</param>
+        /// <param name="endDate">Ending date of the range</param>
+        /// <returns></returns>
+        public static IQueryable<Projection> queryProjectionsByCinemaAndMovieAndDateRange(int cinemaId, string imdbId, DateTime startDate, DateTime endDate)
+        {
+            return context.Projections.Where(p => p.CinemaId == cinemaId && p.ImdbId == imdbId).Where(p => p.Date > startDate && p.Date <= endDate);
+        }
+
         /// <summary>
         /// Searches the list of currently shown movies for a movie with the provided title or part of it
         /// and returns a list of movies
