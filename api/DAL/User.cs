@@ -11,21 +11,17 @@ namespace api.DAL
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class User
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
-        {
-            this.Reservation = new HashSet<Reservation>();
-        }
-    
+
+        [Key]
         public int UserId { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string MovieGenre { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reservation> Reservation { get; set; }
+        public virtual List<Reservation> Reservation { get; set; }
     }
 }

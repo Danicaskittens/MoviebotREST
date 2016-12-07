@@ -12,12 +12,15 @@ namespace api.DAL
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class Reservation
     {
+        [Key]
         public int ReservationId { get; set; }
         public int Quantity { get; set; }
         public DateTime TimeStamp { get; set; }
+
         public enum Status
         {
             [Description("InProcess")]
@@ -26,8 +29,10 @@ namespace api.DAL
             Complete
         };
         public Status StatusType { get; set; }
+        public int ProjectionId { get; set; }
+        public int UserId { get; set; }
 
-        public virtual Projection Projection { get; set; }
-        public virtual User User { get; set; }
+        public Projection Projection { get; set; }
+        public User User { get; set; }
     }
 }

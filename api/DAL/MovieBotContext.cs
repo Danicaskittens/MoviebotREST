@@ -29,5 +29,10 @@ namespace api.DAL
         /// List of projections present on the database
         /// </summary>
         public DbSet<Projection> Projections { get; set; }
+        /// <summary>
+        /// List of reservations present on the database
+        /// </summary>
+        public DbSet<Reservation> Reservations { get; set; }
+
     }
 }
