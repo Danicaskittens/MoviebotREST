@@ -13,6 +13,11 @@ namespace api.Models.OutputModels
 
         private T data;
 
+        public JsonApiOutput()
+        {
+           
+        }
+
         /// <summary>
         /// Create a new Base Output model 
         /// </summary>

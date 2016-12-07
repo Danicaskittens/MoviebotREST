@@ -35,6 +35,7 @@ namespace api.Adapters
                     DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(Movie));
                     object objResponse = jsonSerializer.ReadObject(response.GetResponseStream());
                     Movie jsonResponse = objResponse as Movie;
+                    jsonResponse.ImdbId = imdbId;
                     return jsonResponse;
                 }
             }

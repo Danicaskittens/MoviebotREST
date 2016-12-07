@@ -8,25 +8,26 @@ using System.Web;
 
 namespace api.DAL
 {
-    public class MovieBotInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<CinemaInterfaceServerModelContainer>
+    public class MovieBotInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<MovieBotContext>
     {
-        protected override void Seed(CinemaInterfaceServerModelContainer context)
+        protected override void Seed(MovieBotContext context)
         {
+            base.Seed(context);
             List<Movie> movies = getDummyMovies().ToList();//TODO proper movie retrieval
-            movies.ForEach(m => context.MovieSet.Add(m));
+            movies.ForEach(m => context.Movies.Add(m));
             context.SaveChanges();
             IEnumerable<Cinema> cinemas = getDummyCinemas(); //TODO proper cinema retrieval
-            cinemas.ToList<Cinema>().ForEach(c => context.CinemaSet.Add(c));
+            cinemas.ToList<Cinema>().ForEach(c => context.Cinemas.Add(c));
             context.SaveChanges();
             IEnumerable<CinemaProjections> cprojections = getDummyCinemaProjections(movies, cinemas);
             cprojections.ToList<CinemaProjections>().ForEach(
                 c => c.MovieProjections.ToList().ForEach(
                     m => m.Projections.ToList().ForEach(
-                        p => context.ProjectionSet.Add(p)
+                        p => context.Projections.Add(p)
                         )
                     )
                 );
-            
+
             context.SaveChanges();
             IEnumerable<Reservation> reservations = getDummyReservations();
             reservations.ToList<Reservation>().ForEach(r => context.ReservationSet.Add(r));
