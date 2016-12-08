@@ -14,7 +14,7 @@ namespace api.DAL
         /// <summary>
         /// Creates a new Moviebotcontext using the MovieBotDb database on default initializator connection (see web.config for details)
         /// </summary>
-        public MovieBotContext():base("MovieBotDb"){
+        public MovieBotContext():base("MovieBotContext"){
             Database.SetInitializer<MovieBotContext>(new MovieBotInitializer());
         }
         /// <summary>

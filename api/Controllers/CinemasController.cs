@@ -14,6 +14,7 @@ using api.Adapters;
 using api.Models.OutputModels;
 using api.Models.Output;
 using api.Models.InputModels;
+using System.Web.Http.Cors;
 
 namespace api.Controllers
 {
@@ -21,6 +22,7 @@ namespace api.Controllers
     /// This controller handles every call for cinema related apis
     /// </summary>
     [RoutePrefix("api/v2/cinemas")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CinemasController : ApiController
     {
         /// <summary>

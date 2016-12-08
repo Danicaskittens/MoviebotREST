@@ -211,7 +211,7 @@ namespace api.Adapters
 
         public static IEnumerable<Movie> queryRecommendedMoviesForUser(string userID)
         {
-            return context.Movies.Where(m => m.Genre == "Action");
+            return context.Movies.Where<Movie>(m => m.Genre.ToLower().Contains("action"));
         }
     }
 }
