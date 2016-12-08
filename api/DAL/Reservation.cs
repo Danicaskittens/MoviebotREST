@@ -9,6 +9,7 @@
 
 namespace api.DAL
 {
+    using Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -33,6 +34,5 @@ namespace api.DAL
         public int UserId { get; set; }
 
         public Projection Projection { get; set; }
-        public User User { get; set; }
     }
 }

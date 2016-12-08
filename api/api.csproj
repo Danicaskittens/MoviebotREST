@@ -234,16 +234,14 @@
     <Compile Include="DAL\Movie.cs" />
     <Compile Include="DAL\MovieBotContext.cs" />
     <Compile Include="DAL\Projection.cs" />
-    <Compile Include="DAL\CinemaInterfaceServerModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CinemaInterfaceServerModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="DAL\MovieBotInitializer.cs" />
     <Compile Include="DAL\Reservation.cs" />
-    <Compile Include="DAL\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612081620000_firstMigration.cs" />
+    <Compile Include="Migrations\201612081620000_firstMigration.Designer.cs">
+      <DependentUpon>201612081620000_firstMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -273,7 +271,6 @@
     <Content Include="Assets\Images\GoAndFuckingCode.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="DAL\CinemaInterfaceServerModel.edmx.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -298,13 +295,6 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="DAL\CinemaInterfaceServerModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CinemaInterfaceServerModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="DAL\CinemaInterfaceServerModel.edmx.diagram">
-      <DependentUpon>CinemaInterfaceServerModel.edmx</DependentUpon>
-    </Content>
     <None Include="Properties\PublishProfiles\moviebot-rage.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -363,6 +353,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201612081620000_firstMigration.resx">
+      <DependentUpon>201612081620000_firstMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

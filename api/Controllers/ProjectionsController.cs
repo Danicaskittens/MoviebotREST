@@ -13,6 +13,7 @@ using api.Models.Data;
 using api.Models.OutputModels;
 using api.Adapters;
 using api.Models.InputModels;
+using System.Web.Http.Cors;
 
 namespace api.Controllers
 {
@@ -20,6 +21,7 @@ namespace api.Controllers
     /// This controller enables the retrieval of projections related information
     /// </summary>
     [RoutePrefix("api/v2/projections")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProjectionsController : ApiController
     {
         /// <summary>

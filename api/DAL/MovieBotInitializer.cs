@@ -29,9 +29,7 @@ namespace api.DAL
                 );
 
             context.SaveChanges();
-            IEnumerable<Reservation> reservations = getDummyReservations();
-            reservations.ToList<Reservation>().ForEach(r => context.Reservations.Add(r));
-            context.SaveChanges();
+            
 
         }
         // private dummy methods

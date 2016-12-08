@@ -14,6 +14,7 @@ using api.Adapters;
 using api.Models.Output;
 using api.Models.OutputModels;
 using api.Models.InputModels;
+using System.Web.Http.Cors;
 
 namespace api.Controllers
 {
@@ -21,6 +22,7 @@ namespace api.Controllers
     /// This controllers enables the retrieval of movie related information
     /// </summary>
     [RoutePrefix("api/v2/movies")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class MoviesController : ApiController
     {
         /// <summary>
