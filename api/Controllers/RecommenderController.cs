@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using api.DAL;
 
 namespace api.Controllers
 {
@@ -29,7 +30,8 @@ namespace api.Controllers
         [HttpGet]
         public JsonApiOutput<IEnumerable<MovieOutputModel>> GetAllRecommendedMovies()
         {
-            return new JsonApiOutput<IEnumerable<MovieOutputModel>>(DatabaseAdapter.queryRecommendedMoviesForUser("placeholder").
+            return new JsonApiOutput<IEnumerable<MovieOutputModel>>(
+                DatabaseAdapter.queryRecommendedMoviesForUser("placeholder").
                 Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i)));
         }
 

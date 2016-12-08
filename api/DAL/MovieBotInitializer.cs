@@ -29,6 +29,10 @@ namespace api.DAL
                 );
 
             context.SaveChanges();
+            IEnumerable<Reservation> reservations = getDummyReservations();
+            reservations.ToList<Reservation>().ForEach(r => context.Reservations.Add(r));
+            context.SaveChanges();
+
         }
         // private dummy methods
         private static List<Cinema> getDummyCinemas()
@@ -97,5 +101,35 @@ namespace api.DAL
             }
             return new MovieProjections() { Movie = movie, Projections = projections };
         }
+
+
+        private static List<Reservation> getDummyReservations()
+        {
+            Reservation reservation1 = new Reservation()
+            {
+                ReservationId = 123456,
+                Quantity = 2,
+                StatusType = Reservation.Status.InProcess,
+                TimeStamp = DateTime.Now
+            };
+            Reservation reservation2 = new Reservation()
+            {
+                ReservationId = 103847,
+                Quantity = 3,
+                StatusType = Reservation.Status.InProcess,
+                TimeStamp = DateTime.Now
+            };
+            Reservation reservation3 = new Reservation()
+            {
+                ReservationId = 293871,
+                Quantity = 1,
+                StatusType = Reservation.Status.InProcess,
+                TimeStamp = DateTime.Now
+            };
+            return new List<Reservation>() { reservation1, reservation2, reservation3 };
+
+        }
+
+
     }
 }

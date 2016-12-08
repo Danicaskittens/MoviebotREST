@@ -112,6 +112,16 @@
             <End Role="Projection" EntitySet="ProjectionSet" />
             <End Role="Cinema" EntitySet="CinemaSet" />
           </AssociationSet>
+          <EntitySet Name="ReservationSet" EntityType="CinemaInterfaceServerModel.Reservation" />
+          <EntitySet Name="UserSet" EntityType="CinemaInterfaceServerModel.User" />
+          <AssociationSet Name="ReservationUser" Association="CinemaInterfaceServerModel.ReservationUser">
+            <End Role="Reservation" EntitySet="ReservationSet" />
+            <End Role="User" EntitySet="UserSet" />
+          </AssociationSet>
+          <AssociationSet Name="ProjectionReservation" Association="CinemaInterfaceServerModel.ProjectionReservation">
+            <End Role="Projection" EntitySet="ProjectionSet" />
+            <End Role="Reservation" EntitySet="ReservationSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Movie">
           <Key>
@@ -175,6 +185,45 @@
         <Association Name="ProjectionCinema">
           <End Type="CinemaInterfaceServerModel.Projection" Role="Projection" Multiplicity="*" />
           <End Type="CinemaInterfaceServerModel.Cinema" Role="Cinema" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Reservation">
+          <Key>
+            <PropertyRef Name="ReservationId" />
+          </Key>
+          <Property Name="ReservationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quantity" Type="String" Nullable="false" />
+          <Property Name="TimeStamp" Type="String" Nullable="false" />
+          <Property Name="StatusType" Type="String" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="CinemaInterfaceServerModel.ReservationUser" FromRole="Reservation" ToRole="User" />
+          <NavigationProperty Name="Projection" Relationship="CinemaInterfaceServerModel.ProjectionReservation" FromRole="Reservation" ToRole="Projection" />
+          <Property Name="ProjectionId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <Property Name="MovieGenre" Type="String" Nullable="false" />
+          <NavigationProperty Name="Reservation" Relationship="CinemaInterfaceServerModel.ReservationUser" FromRole="User" ToRole="Reservation" />
+        </EntityType>
+        <Association Name="ReservationUser">
+          <End Type="CinemaInterfaceServerModel.Reservation" Role="Reservation" Multiplicity="*" />
+          <End Type="CinemaInterfaceServerModel.User" Role="User" Multiplicity="1" />
+        </Association>
+        <Association Name="ProjectionReservation">
+          <End Type="CinemaInterfaceServerModel.Projection" Role="Projection" Multiplicity="1" />
+          <End Type="CinemaInterfaceServerModel.Reservation" Role="Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projection">
+              <PropertyRef Name="ProjectionId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="ProjectionId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
