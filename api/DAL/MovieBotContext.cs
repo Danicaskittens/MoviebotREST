@@ -33,6 +33,5 @@ namespace api.DAL
         /// List of reservations present on the database
         /// </summary>
         public DbSet<Reservation> Reservations { get; set; }
-
     }
 }

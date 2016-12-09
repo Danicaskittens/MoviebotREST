@@ -1,4 +1,5 @@
 ﻿using api.DAL;
+using api.Models;
 using api.Models.Data;
 using api.Models.InputModels;
 using api.Models.OutputModels;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
 
 namespace api.Adapters
 {
@@ -213,5 +215,6 @@ namespace api.Adapters
         {
             return context.Movies.Where<Movie>(m => m.Genre.ToLower().Contains("action"));
         }
+
     }
 }
