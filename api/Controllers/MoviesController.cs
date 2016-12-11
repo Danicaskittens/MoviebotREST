@@ -48,7 +48,7 @@ namespace api.Controllers
         /// <param name="maxRange">maximum radius of the search area (in kilometers)</param>
         /// <param name="dateRange">range of dates on which search for cinemas that display the movie, if omitted, today's date will be used</param>
         /// <returns></returns>
-        [Route("id/{imdbId}/cinemas/{latitude}/{longitude}")]
+        [Route("id/{imdbId}/cinemas/{latitude}/{longitude}/")]
         [ResponseType(typeof(JsonApiOutput<IEnumerable<CinemaOutputModel>>))]
         public IHttpActionResult GetCinemasByMovieAndLocationAndDateRange(string imdbId, double latitude, double longitude, [FromUri] DateRangeInputModel dateRange, [FromUri] int maxRange = 50)
         {
@@ -58,6 +58,21 @@ namespace api.Controllers
                     ));
         }
 
+        /// <summary>
+        /// Returns the list of movies currently in display on the cinema near a specific location
+        /// </summary>
+        /// <param name="latitude">latitude on which to center the search </param>
+        /// <param name="longitude">longitude on which to center the search </param>
+        /// <param name="dateRange">range of dates on which to find the movies</param>
+        /// <param name="maxRange">maximum range of the search (in km)</param>
+        /// <returns></returns>
+        [Route("near/{latitude}/{longitude}/")]
+        [ResponseType(typeof(JsonApiOutput<IEnumerable<MovieOutputModel>>))]
+        public IHttpActionResult GetMoviesFromLocationAndDateRange(double latitude, double longitude, [FromUri] DateRangeInputModel dateRange, [FromUri] int maxRange = 50)
+        {
+            IEnumerable<Movie> movies = DatabaseAdapter.queryMoviesFromLocation(latitude, longitude, maxRange, dateRange.StartDate, dateRange.EndDate);
+            return Ok(new JsonApiOutput<IEnumerable<MovieOutputModel>>(movies.ToList().Select<Movie, MovieOutputModel>(m => new MovieOutputModel(m))));
+        }
 
     }
 }

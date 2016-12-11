@@ -146,11 +146,15 @@ namespace api.Adapters
         /// <param name="latitude"></param>
         /// <param name="longitude"></param>
         /// <param name="maxRange"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
         /// <returns></returns>
-        public static IEnumerable<Movie> queryMoviesFromLocation(double latitude, double longitude, int maxRange)
+        public static IEnumerable<Movie> queryMoviesFromLocation(double latitude, double longitude, int maxRange, DateTime startDate, DateTime endDate)
         {
             IEnumerable<Cinema> cinemas = DatabaseAdapter.queryCinemaByLocation(latitude, longitude, maxRange);
-            return context.Projections.Where(p => cinemas.Where(c => c.CinemaId == p.CinemaId).Any()).Select<Projection, Movie>(p => p.Movie).Distinct();
+            return context.Projections.Where(p => cinemas.Where(c => c.CinemaId == p.CinemaId).Any())
+                .Where(p=> (p.Date>=startDate) && (p.Date<=endDate))
+                .Select(p => p.Movie).Distinct();
         }
 
         /// <summary>
@@ -188,6 +192,8 @@ namespace api.Adapters
                    select p;
 
         }
+
+
         /// <summary>
         /// Creates an iterator that iterates exactly each day of the range (if from and thru are equal, it will iterate only once)
         /// </summary>

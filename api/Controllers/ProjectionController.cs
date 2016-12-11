@@ -23,7 +23,7 @@ namespace api.Controllers
         }
 
         // GET: Projection/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int id)
         {
             if (id == null)
             {
@@ -65,7 +65,7 @@ namespace api.Controllers
         }
 
         // GET: Projection/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int id)
         {
             if (id == null)
             {
@@ -100,7 +100,7 @@ namespace api.Controllers
         }
 
         // GET: Projection/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {
@@ -117,7 +117,7 @@ namespace api.Controllers
         // POST: Projection/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Projection projection = db.Projections.Find(id);
             db.Projections.Remove(projection);
