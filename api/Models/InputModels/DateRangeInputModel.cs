@@ -20,8 +20,8 @@ namespace api.Models.InputModels
         /// </summary>
         public DateRangeInputModel()
         {
-            StartDate = DateTime.Now.Date;
-            EndDate = DateTime.Now.Date;
+            StartDate = DateTime.Now.ToUniversalTime().Date;
+            EndDate = DateTime.Now.ToUniversalTime().Date.AddDays(1);
         }
         /// <summary>
         /// Returns the default value of the date range (with start and end date that are set to today)
@@ -29,7 +29,7 @@ namespace api.Models.InputModels
         /// <returns></returns>
         public static DateRangeInputModel DefaultValue
         {
-            get { return new DateRangeInputModel() { StartDate = DateTime.Now.Date, EndDate = DateTime.Now.Date }; }
+            get { return new DateRangeInputModel() { StartDate = DateTime.Now.ToUniversalTime().Date, EndDate = DateTime.Now.ToUniversalTime().Date.AddDays(1) }; }
         }
 
         public Boolean isEmpty()
