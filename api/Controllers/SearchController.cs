@@ -77,7 +77,7 @@ namespace api.Controllers
         {
             return
                 new JsonApiOutput<IEnumerable<MovieOutputModel>>(
-                    DatabaseAdapter.queryMoviesFromLocation(location.Latitude, location.Longitude, location.MaxRange)
+                    DatabaseAdapter.queryMoviesFromLocation(location.Latitude, location.Longitude, location.MaxRange,dateRange.StartDate,dateRange.EndDate)
                         .Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i))
                 );
         }
