@@ -21,7 +21,6 @@ namespace api.Controllers
     /// This controller enables the retrieval of projections related information
     /// </summary>
     [RoutePrefix("api/v2/projections")]
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProjectionsController : ApiController
     {
         /// <summary>
