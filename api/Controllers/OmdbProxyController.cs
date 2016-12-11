@@ -14,7 +14,6 @@ namespace api.Controllers
     /// <summary>
     /// This endpoint proxies requests to the omdb apis
     /// </summary>
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/v1/omdb")]
     public class OmdbProxyController : ApiController
     {

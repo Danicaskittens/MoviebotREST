@@ -22,7 +22,6 @@ namespace api.Controllers
     /// This controller handles every call for cinema related apis
     /// </summary>
     [RoutePrefix("api/v2/cinemas")]
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CinemasController : ApiController
     {
         /// <summary>

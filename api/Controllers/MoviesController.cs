@@ -22,7 +22,6 @@ namespace api.Controllers
     /// This controllers enables the retrieval of movie related information
     /// </summary>
     [RoutePrefix("api/v2/movies")]
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class MoviesController : ApiController
     {
         /// <summary>

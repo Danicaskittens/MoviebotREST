@@ -19,7 +19,6 @@ namespace api.Controllers
     /// </summary>
     [AllowAnonymous]
     [RoutePrefix("api/v1/Search")]
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class SearchController : ApiController
     {
 
