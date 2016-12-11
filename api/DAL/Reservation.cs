@@ -31,7 +31,7 @@ namespace api.DAL
         };
         public Status StatusType { get; set; }
         public int ProjectionId { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public Projection Projection { get; set; }
     }

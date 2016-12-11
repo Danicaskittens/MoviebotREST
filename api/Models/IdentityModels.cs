@@ -21,10 +21,7 @@ namespace api.Models
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
             // Add custom user claims here
             return userIdentity;
-        }
-       
-        public List<string> FavoriteGenres { get; set; } 
-        
+        }       
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

@@ -58,7 +58,7 @@ namespace api.Models.OutputModels
         /// <summary>
         /// User who makes this reservation
         /// </summary>
-        public int UserId { get { return this.reservation.UserId; } }
+        public string UserId { get { return this.reservation.UserId; } }
 
     }
 }

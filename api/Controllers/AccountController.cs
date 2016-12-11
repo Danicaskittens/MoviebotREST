@@ -332,8 +332,6 @@ namespace api.Controllers
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
        
-            user.FavoriteGenres = model.FavoriteGenres;
-
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)

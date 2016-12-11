@@ -24,7 +24,7 @@ namespace api.Controllers
     {
 
         /// <summary>
-        /// return all the recommended movies for the user homepage
+        /// Returns all the recommended movies for the user homepage
         /// </summary>
         [Route("movies")]
         [HttpGet]
