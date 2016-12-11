@@ -19,7 +19,6 @@ namespace api.Controllers
     /// Returns recommendations for the user 
     /// </summary>
     [RoutePrefix("api/v1/Recommender")]
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RecommenderController : ApiController
     {
 
