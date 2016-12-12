@@ -16,7 +16,7 @@ namespace api.Tests.Controllers
             MovieBotContext db = new MovieBotContext();
 
             // Act
-            controller.CreateNewUserProfile();
+       
 
             // Assert
         

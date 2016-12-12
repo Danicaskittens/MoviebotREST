@@ -33,6 +33,20 @@ namespace api.Controllers
         }
 
         /// <summary>
+        /// Returns all the preferred genres of a user
+        /// </summary>
+        /// <returns></returns>
+        [Route("getAllGenresByUserId")]
+        [ResponseType(typeof(JsonApiOutput<IEnumerable<Genre>>))]
+        [HttpGet]
+        public IHttpActionResult GetAllGenresByUserId()
+        {
+            return Ok(new JsonApiOutput<IEnumerable<Genre>>(
+                UserProfileAdapters.queryGenresByUserId(User.Identity.GetUserId())
+                ));
+        }
+
+        /// <summary>
         /// Add a new favorite genre in the user profile
         /// </summary>
         /// <param name="genre"></param>

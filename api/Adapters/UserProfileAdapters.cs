@@ -42,6 +42,17 @@ namespace api.Adapters
         }
 
         /// <summary>
+        /// Returns the list of preferred genres associated to a user
+        /// </summary>
+        /// <param name="userId">id of the user from whose profile is removing the genre</param>
+        /// <returns></returns>
+        public static IEnumerable<Genre> queryGenresByUserId(string userId)
+        {
+            FavoriteGenres profile = retrieveGenresFavorites(userId);
+            return profile.Genres;
+        }
+
+        /// <summary>
         /// Retrieves the user favorite genres list from the database, creating a new one
         /// if it's not present
         /// </summary>
@@ -61,6 +72,6 @@ namespace api.Adapters
             return newProfile;
         }
         
-
+    
     }
 }
