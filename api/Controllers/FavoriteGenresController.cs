@@ -1,4 +1,5 @@
 ﻿using api.Adapters;
+using api.DAL;
 using api.Models.Data;
 using api.Models.OutputModels;
 using Microsoft.AspNet.Identity;
@@ -16,19 +17,19 @@ namespace api.Controllers
     [Authorize]
     [RoutePrefix("api/v2/FavoriteGenres")]
     public class FavoriteGenresController : ApiController
-    {        
+    {
 
         /// <summary>
         /// Returns all the possible genres that a user can choose
         /// </summary>
         /// <returns></returns>
-        [Route("getAll")]
+        [Route("getAllCategories")]
         [ResponseType(typeof(JsonApiOutput<IEnumerable<Genre>>))]
         [HttpGet]
         public IHttpActionResult GetAllPossibleGenresToChoose()
         {
             return Ok(new JsonApiOutput<IEnumerable<Genre>>(
-                Enum.GetValues(typeof(Genre)).Cast<Genre>().ToList()
+                UserProfileAdapters.QueryAllTypesOfGenre()
                 ));
         }
 
@@ -36,48 +37,40 @@ namespace api.Controllers
         /// Returns all the preferred genres of a user
         /// </summary>
         /// <returns></returns>
-        [Route("getAllGenresByUserId")]
+        [Route("getByUserId")]
         [ResponseType(typeof(JsonApiOutput<IEnumerable<Genre>>))]
         [HttpGet]
         public IHttpActionResult GetAllGenresByUserId()
         {
             return Ok(new JsonApiOutput<IEnumerable<Genre>>(
-                UserProfileAdapters.queryGenresByUserId(User.Identity.GetUserId())
+                UserProfileAdapters.QueryGenresByUserId(User.Identity.GetUserId())
                 ));
         }
 
         /// <summary>
         /// Add a new favorite genre in the user profile
         /// </summary>
-        /// <param name="genre"></param>
+        /// <param name="genreId"></param>
         /// <returns></returns>
-        [Route("add/{genre}")]
+        [Route("add/{genreId}")]
         [HttpPut]
-        public IHttpActionResult AddFavoriteGenre(string genre)
+        public IHttpActionResult AddFavoriteGenre(int genreId)
         {
-            UserProfileAdapters.addGenre(User.Identity.GetUserId(), genre);
+            UserProfileAdapters.AddGenre(User.Identity.GetUserId(), genreId);
             return Ok();
         }
 
         /// <summary>
         /// Remove one of the favorite genres in the user profile
         /// </summary>
-        /// <param name="genre"></param>
+        /// <param name="genreId"></param>
         /// <returns></returns>
-        [Route("remove/{genre}")]
+        [Route("remove/{genreId}")]
         [HttpPut]
-        public IHttpActionResult RemoveFavoriteGenre(string genre)
+        public IHttpActionResult RemoveFavoriteGenre(int genreId)
         {
-            UserProfileAdapters.removeGenre(User.Identity.GetUserId(), genre);
+            UserProfileAdapters.RemoveGenre(User.Identity.GetUserId(), genreId);
             return Ok();
         }
-
-
-
-
-
-
-
-
     }
 }

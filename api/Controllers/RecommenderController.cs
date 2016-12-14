@@ -30,7 +30,7 @@ namespace api.Controllers
         public JsonApiOutput<IEnumerable<MovieOutputModel>> GetAllRecommendedMovies()
         {
             return new JsonApiOutput<IEnumerable<MovieOutputModel>>(
-                DatabaseAdapter.queryRecommendedMoviesForUser("placeholder").
+                DatabaseAdapter.QueryRecommendedMoviesForUser("placeholder").
                 Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i)));
         }
 

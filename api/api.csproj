@@ -234,6 +234,7 @@
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="DAL\Cinema.cs" />
     <Compile Include="DAL\FavoriteGenres.cs" />
+    <Compile Include="DAL\Genre.cs" />
     <Compile Include="DAL\Movie.cs" />
     <Compile Include="DAL\MovieBotContext.cs" />
     <Compile Include="DAL\Projection.cs" />
@@ -250,7 +251,6 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Data\CinemaProjections.cs" />
-    <Compile Include="Models\Data\Genre.cs" />
     <Compile Include="Models\Data\MovieProjections.cs" />
     <Compile Include="Models\InputModels\DateRangeInputModel.cs" />
     <Compile Include="Models\OutputModels\MovieOutputModel.cs" />

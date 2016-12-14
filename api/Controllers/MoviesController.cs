@@ -33,7 +33,7 @@ namespace api.Controllers
         [ResponseType(typeof(JsonApiOutput<IEnumerable<MovieOutputModel>>))]
         public IHttpActionResult GetMovieByTitle(string title)
         {
-            IQueryable<Movie> movies = DatabaseAdapter.queryMoviesByTitle(title);
+            IQueryable<Movie> movies = DatabaseAdapter.QueryMoviesByTitle(title);
             return Ok(new JsonApiOutput<IEnumerable<MovieOutputModel>>(movies.ToList().Select<Movie, MovieOutputModel>(m => new MovieOutputModel(m))));
         }
 
@@ -51,7 +51,7 @@ namespace api.Controllers
         [ResponseType(typeof(JsonApiOutput<IEnumerable<CinemaOutputModel>>))]
         public IHttpActionResult GetCinemasByMovieAndLocationAndDateRange(string imdbId, double latitude, double longitude, [FromUri] DateRangeInputModel dateRange, [FromUri] int maxRange = 50)
         {
-            IEnumerable<Cinema> cinemas = DatabaseAdapter.queryCinemaFromMovie(latitude, longitude, maxRange, imdbId, dateRange.StartDate, dateRange.EndDate).ToList();
+            IEnumerable<Cinema> cinemas = DatabaseAdapter.QueryCinemaFromMovie(latitude, longitude, maxRange, imdbId, dateRange.StartDate, dateRange.EndDate).ToList();
             return Ok(new JsonApiOutput<IEnumerable<CinemaOutputModel>>(
                         cinemas.ToList().Select<Cinema, CinemaOutputModel>(c => new CinemaOutputModel(c)).ToList()
                     ));
@@ -69,7 +69,7 @@ namespace api.Controllers
         [ResponseType(typeof(JsonApiOutput<IEnumerable<MovieOutputModel>>))]
         public IHttpActionResult GetMoviesFromLocationAndDateRange(double latitude, double longitude, [FromUri] DateRangeInputModel dateRange, [FromUri] int maxRange = 50)
         {
-            IEnumerable<Movie> movies = DatabaseAdapter.queryMoviesFromLocation(latitude, longitude, maxRange, dateRange.StartDate, dateRange.EndDate);
+            IEnumerable<Movie> movies = DatabaseAdapter.QueryMoviesFromLocation(latitude, longitude, maxRange, dateRange.StartDate, dateRange.EndDate);
             return Ok(new JsonApiOutput<IEnumerable<MovieOutputModel>>(movies.ToList().Select<Movie, MovieOutputModel>(m => new MovieOutputModel(m))));
         }
 
