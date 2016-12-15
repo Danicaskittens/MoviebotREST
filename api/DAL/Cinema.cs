@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace api.Models.Data
+namespace api.DAL
 {
     public class Cinema
     {
+        [Key]
+        public int CinemaId { get; set; }
         public string Name { get; set; }
-        public string CinemaID { get; set; }
         public string Address { get; set; }
-        public float Latitude { get; set; }
-        public float Longitude { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         public string PhoneNumber { get; set; }
         public string Region { get; set; }
         public string Province { get; set; }
         public string City { get; set; }
+        public string State { get; set; }
+        
+        public virtual List<Projection> Projections { get; set; }
     }
 }

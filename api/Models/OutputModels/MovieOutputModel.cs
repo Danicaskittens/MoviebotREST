@@ -1,4 +1,5 @@
 ﻿using api.Models.Data;
+using api.DAL;
 
 namespace api.Models.Output
 {
@@ -8,6 +9,13 @@ namespace api.Models.Output
     public class MovieOutputModel
     {
         private Movie movie;
+        /// <summary>
+        /// Don't use this, please, this is only to create the preview of the response
+        /// </summary>
+        public MovieOutputModel()
+        {
+            this.movie = new Movie();
+        }
 
         /// <summary>
         /// Create a new Movie output model from a Movie data object
@@ -24,7 +32,7 @@ namespace api.Models.Output
         /// <summary>
         /// ImdbID of the movie
         /// </summary>
-        public string ImdbDb { get { return this.movie.imdbID; } }
+        public string ImdbID { get { return this.movie.ImdbId; } }
         /// <summary>
         /// URI of the poster image of the movie
         /// </summary>

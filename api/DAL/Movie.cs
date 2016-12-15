@@ -1,49 +1,37 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Web;
 
-namespace api.Models.Data
+namespace api.DAL
 {
-    [DataContract]
     public class Movie
     {
-        [DataMember]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public string ImdbId { get; set; }
         public string Title { get; set; }
-        [DataMember]
         public string Year { get; set; }
-        [DataMember]
         public string Rated { get; set; }
-        [DataMember]
         public string Released { get; set; }
-        [DataMember]
         public string Runtime { get; set; }
-        [DataMember]
         public string Genre { get; set; }
-        [DataMember]
         public string Director { get; set; }
-        [DataMember]
         public string Writer { get; set; }
-        [DataMember]
         public string Actors { get; set; }
-        [DataMember]
         public string Plot { get; set; }
-        [DataMember]
         public string Language { get; set; }
-        [DataMember]
         public string Country { get; set; }
-        [DataMember]
         public string Awards { get; set; }
-        [DataMember]
         public string Poster { get; set; }
-        [DataMember]
         public string Metascore { get; set; }
-        [DataMember]
         public string imdbRating { get; set; }
-        [DataMember]
         public string imdbVotes { get; set; }
-        [DataMember]
-        public string imdbID { get; set; }
-        [DataMember]
         public string Type { get; set; }
-        [DataMember]
         public string Response { get; set; }
+        public string inTheaters { get; set; }
+        
     }
 }

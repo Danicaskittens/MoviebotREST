@@ -34,7 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>App_Data\XmlDocument.xml</DocumentationFile>
+    <DocumentationFile>bin\api.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -54,6 +54,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
       <Private>True</Private>
@@ -183,6 +184,7 @@
   <ItemGroup>
     <Compile Include="Adapters\DatabaseAdapter.cs" />
     <Compile Include="Adapters\OmdbAdapters.cs" />
+    <Compile Include="Adapters\UserProfileAdapters.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -218,38 +220,61 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CinemaController.cs" />
+    <Compile Include="Controllers\CinemasController.cs" />
+    <Compile Include="Controllers\FavoriteGenresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MovieController.cs" />
+    <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Controllers\OmdbProxyController.cs" />
+    <Compile Include="Controllers\ProjectionController.cs" />
+    <Compile Include="Controllers\ProjectionsController.cs" />
+    <Compile Include="Controllers\RandomShitController.cs" />
     <Compile Include="Controllers\RecommenderController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="DAL\Cinema.cs" />
+    <Compile Include="DAL\FavoriteGenres.cs" />
+    <Compile Include="DAL\Genre.cs" />
+    <Compile Include="DAL\Movie.cs" />
+    <Compile Include="DAL\MovieBotContext.cs" />
+    <Compile Include="DAL\Projection.cs" />
+    <Compile Include="DAL\MovieBotInitializer.cs" />
+    <Compile Include="DAL\Reservation.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612081620000_firstMigration.cs" />
+    <Compile Include="Migrations\201612081620000_firstMigration.Designer.cs">
+      <DependentUpon>201612081620000_firstMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Data\Cinema.cs" />
-    <Compile Include="Models\Data\CinemaProjection.cs" />
-    <Compile Include="Models\Data\Movie.cs" />
+    <Compile Include="Models\Data\CinemaProjections.cs" />
+    <Compile Include="Models\Data\MovieProjections.cs" />
+    <Compile Include="Models\InputModels\DateRangeInputModel.cs" />
+    <Compile Include="Models\OutputModels\GenreOutputModel.cs" />
     <Compile Include="Models\OutputModels\MovieOutputModel.cs" />
-    <Compile Include="Models\Data\Projection.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InputModels\LocationInputModel.cs" />
     <Compile Include="Models\InputModels\MovieInputModel.cs" />
     <Compile Include="Models\OutputModels\JsonApiOutput.cs" />
-    <Compile Include="Models\OutputModels\CinemaFromMovieOutputModel.cs" />
+    <Compile Include="Models\OutputModels\CinemaMovieProjectionsOutputModel.cs" />
     <Compile Include="Models\OutputModels\CinemaOutputModel.cs" />
     <Compile Include="Models\OutputModels\ProjectionOutputModel.cs" />
-    <Compile Include="Models\Data\Reservation.cs" />
+    <Compile Include="Models\OutputModels\ReservationOutputModel.cs" />
     <Compile Include="Models\SearchModels\SearchInputModels.cs" />
     <Compile Include="Models\SearchModels\SearchOutputModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\MovieBotJsonDateTimeConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Assets\Images\GoAndFuckingCode.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -288,7 +313,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -303,6 +330,22 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Movie\Create.cshtml" />
+    <Content Include="Views\Movie\Delete.cshtml" />
+    <Content Include="Views\Movie\Details.cshtml" />
+    <Content Include="Views\Movie\Edit.cshtml" />
+    <Content Include="Views\Movie\Index.cshtml" />
+    <Content Include="Views\Cinema\Create.cshtml" />
+    <Content Include="Views\Cinema\Delete.cshtml" />
+    <Content Include="Views\Cinema\Details.cshtml" />
+    <Content Include="Views\Cinema\Edit.cshtml" />
+    <Content Include="Views\Cinema\Index.cshtml" />
+    <Content Include="Views\Projection\Create.cshtml" />
+    <Content Include="Views\Projection\Delete.cshtml" />
+    <Content Include="Views\Projection\Details.cshtml" />
+    <Content Include="Views\Projection\Edit.cshtml" />
+    <Content Include="Views\Projection\Index.cshtml" />
+    <Content Include="Views\RandomShit\addProjectionsForDay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -314,6 +357,14 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201612081620000_firstMigration.resx">
+      <DependentUpon>201612081620000_firstMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

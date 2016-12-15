@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Web;
+using api.DAL;
 
 namespace api.Adapters
 {
@@ -16,11 +17,11 @@ namespace api.Adapters
         /// <summary>
         /// Returns the movie information from the omdb database for the specified imdbID
         /// </summary>
-        /// <param name="imdbID">imdb id of the movie to search the result</param>
+        /// <param name="imdbId">imdb id of the movie to search the result</param>
         /// <returns>the movie object containing the information of the specified movie</returns>
-        public static Movie GetMovieInfo(string imdbID)
+        public static Movie GetMovieInfo(string imdbId)
         {
-            string UrlRequest = $"http://www.omdbapi.com/?i={imdbID}&plot=short&r=json";
+            string UrlRequest = $"http://www.omdbapi.com/?i={imdbId}&plot=short&r=json";
             try
             {
                 HttpWebRequest request = WebRequest.Create(UrlRequest) as HttpWebRequest;
@@ -34,6 +35,7 @@ namespace api.Adapters
                     DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(Movie));
                     object objResponse = jsonSerializer.ReadObject(response.GetResponseStream());
                     Movie jsonResponse = objResponse as Movie;
+                    jsonResponse.ImdbId = imdbId;
                     return jsonResponse;
                 }
             }
