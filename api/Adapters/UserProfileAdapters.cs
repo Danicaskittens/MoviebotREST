@@ -75,10 +75,7 @@ namespace api.Adapters
                     profile.Genres.Add(genre);
                 }
             }
-            else
-            {
-                Debug.Write("Genre To Add not found");
-            }
+
             context.SaveChanges();
         }
 
@@ -106,10 +103,7 @@ namespace api.Adapters
                     profile.Genres.Remove(genre);
                 }
             }
-            else
-            {
-                Debug.Write("Genre To Remove not found");
-            }
+
             context.SaveChanges();
 
         }

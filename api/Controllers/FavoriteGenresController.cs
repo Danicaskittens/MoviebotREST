@@ -28,8 +28,9 @@ namespace api.Controllers
         [HttpGet]
         public IHttpActionResult GetAllPossibleGenresToChoose()
         {
-            return Ok(new JsonApiOutput<IEnumerable<Genre>>(
-                UserProfileAdapters.QueryAllTypesOfGenre()
+            return Ok(new JsonApiOutput<IEnumerable<GenreOutputModel>>(
+                UserProfileAdapters.QueryAllTypesOfGenre().
+                Select<Genre, GenreOutputModel>(g => new GenreOutputModel(g))
                 ));
         }
 
@@ -42,8 +43,9 @@ namespace api.Controllers
         [HttpGet]
         public IHttpActionResult GetAllGenresByUserId()
         {
-            return Ok(new JsonApiOutput<IEnumerable<Genre>>(
-                UserProfileAdapters.QueryGenresByUserId(User.Identity.GetUserId())
+            return Ok(new JsonApiOutput<IEnumerable<GenreOutputModel>>(
+                UserProfileAdapters.QueryGenresByUserId(User.Identity.GetUserId()).
+                Select<Genre, GenreOutputModel>(g => new GenreOutputModel(g))
                 ));
         }
 
