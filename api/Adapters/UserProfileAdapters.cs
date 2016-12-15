@@ -21,6 +21,7 @@ using api.Models.OutputModels;
 using api.Adapters;
 using api.Models.InputModels;
 using System.Web.Http.Cors;
+using System.Diagnostics;
 
 namespace api.Adapters
 {
@@ -59,12 +60,28 @@ namespace api.Adapters
         /// <param name="genreId"> id of the genre to add</param>
         public static void AddGenre(string userId, int genreId)
         {
-            FavoriteGenres profile = RetrieveGenresFavorites(userId);    
-            profile.Genres.Add(context.Genres.Find(genreId));
+            FavoriteGenres profile = RetrieveGenresFavorites(userId);
+
+            if (profile.Genres == null)
+            {
+                profile.Genres = new List<Genre>();
+            }
+
+            Genre genre = context.Genres.Find(genreId);
+            if (genre != null)
+            {
+                if (!profile.Genres.Contains(genre))
+                {
+                    profile.Genres.Add(genre);
+                }
+            }
+            else
+            {
+                Debug.Write("Genre To Add not found");
+            }
             context.SaveChanges();
         }
 
-    
 
         /// <summary>
         /// Remove a genre from the list of preferred genres associated 
@@ -75,8 +92,26 @@ namespace api.Adapters
         public static void RemoveGenre(string userId, int genreId)
         {
             FavoriteGenres profile = RetrieveGenresFavorites(userId);
-            profile.Genres.Remove(context.Genres.Find(genreId));
+
+            if (profile.Genres == null)
+            {
+                profile.Genres = new List<Genre>();
+            }
+
+            Genre genre = context.Genres.Find(genreId);
+            if (genre != null)
+            {
+                if (profile.Genres.Contains(genre))
+                {
+                    profile.Genres.Remove(genre);
+                }
+            }
+            else
+            {
+                Debug.Write("Genre To Remove not found");
+            }
             context.SaveChanges();
+
         }
 
         /// <summary>
@@ -85,7 +120,7 @@ namespace api.Adapters
         /// </summary>
         /// <param name="userId">id of the user of the favorites profile to retrieve/generate</param>
         /// <returns>the selected user profile from the database or a new one if not present</returns>
-        public static FavoriteGenres RetrieveGenresFavorites(string userId)
+        private static FavoriteGenres RetrieveGenresFavorites(string userId)
         {
             FavoriteGenres profile = context.FavoriteGenres.Find(userId);
             if (profile == null)
