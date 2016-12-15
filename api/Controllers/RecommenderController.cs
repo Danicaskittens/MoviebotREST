@@ -23,14 +23,14 @@ namespace api.Controllers
     {
 
         /// <summary>
-        /// return all the recommended movies for the user homepage
+        /// Returns all the recommended movies for the user homepage
         /// </summary>
         [Route("movies")]
         [HttpGet]
         public JsonApiOutput<IEnumerable<MovieOutputModel>> GetAllRecommendedMovies()
         {
             return new JsonApiOutput<IEnumerable<MovieOutputModel>>(
-                DatabaseAdapter.queryRecommendedMoviesForUser("placeholder").
+                DatabaseAdapter.QueryRecommendedMoviesForUser("placeholder").
                 Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i)));
         }
 

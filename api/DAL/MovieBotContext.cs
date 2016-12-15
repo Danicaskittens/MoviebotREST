@@ -33,6 +33,13 @@ namespace api.DAL
         /// List of reservations present on the database
         /// </summary>
         public DbSet<Reservation> Reservations { get; set; }
-
+        /// <summary>
+        /// All the types of genres present on the database
+        /// </summary>
+        public DbSet<Genre> Genres { get; set; }
+        /// <summary>
+        /// User profiles of favorite genres present on the database
+        /// </summary>
+        public DbSet<FavoriteGenres> FavoriteGenres { get; set; }
     }
 }

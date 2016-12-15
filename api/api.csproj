@@ -184,6 +184,7 @@
   <ItemGroup>
     <Compile Include="Adapters\DatabaseAdapter.cs" />
     <Compile Include="Adapters\OmdbAdapters.cs" />
+    <Compile Include="Adapters\UserProfileAdapters.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -221,6 +222,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CinemaController.cs" />
     <Compile Include="Controllers\CinemasController.cs" />
+    <Compile Include="Controllers\FavoriteGenresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
@@ -232,6 +234,8 @@
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="DAL\Cinema.cs" />
+    <Compile Include="DAL\FavoriteGenres.cs" />
+    <Compile Include="DAL\Genre.cs" />
     <Compile Include="DAL\Movie.cs" />
     <Compile Include="DAL\MovieBotContext.cs" />
     <Compile Include="DAL\Projection.cs" />
@@ -250,6 +254,7 @@
     <Compile Include="Models\Data\CinemaProjections.cs" />
     <Compile Include="Models\Data\MovieProjections.cs" />
     <Compile Include="Models\InputModels\DateRangeInputModel.cs" />
+    <Compile Include="Models\OutputModels\GenreOutputModel.cs" />
     <Compile Include="Models\OutputModels\MovieOutputModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InputModels\LocationInputModel.cs" />

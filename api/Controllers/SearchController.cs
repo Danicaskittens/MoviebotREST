@@ -33,7 +33,7 @@ namespace api.Controllers
         {
             return
                 new JsonApiOutput<IEnumerable<CinemaOutputModel>>(
-                    DatabaseAdapter.queryCinemaByLocation(location.Latitude, location.Longitude, location.MaxRange)
+                    DatabaseAdapter.QueryCinemaByLocation(location.Latitude, location.Longitude, location.MaxRange)
                     .Select<Cinema, CinemaOutputModel>(i => new CinemaOutputModel(i))
                     );
         }
@@ -49,7 +49,7 @@ namespace api.Controllers
         {
             return
                 new JsonApiOutput<IEnumerable<CinemaOutputModel>>(
-                    DatabaseAdapter.queryCinemaByName(pattern).Select<Cinema, CinemaOutputModel>(i => new CinemaOutputModel(i))
+                    DatabaseAdapter.QueryCinemaByName(pattern).Select<Cinema, CinemaOutputModel>(i => new CinemaOutputModel(i))
                     );
         }
 
@@ -62,7 +62,7 @@ namespace api.Controllers
         [HttpGet]
         public JsonApiOutput<IEnumerable<MovieOutputModel>> searchByMovieTitle([FromUri] string title)
         {
-            return new JsonApiOutput<IEnumerable<MovieOutputModel>>(DatabaseAdapter.queryMoviesByTitle(title).Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i)));
+            return new JsonApiOutput<IEnumerable<MovieOutputModel>>(DatabaseAdapter.QueryMoviesByTitle(title).Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i)));
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace api.Controllers
         {
             return
                 new JsonApiOutput<IEnumerable<MovieOutputModel>>(
-                    DatabaseAdapter.queryMoviesFromLocation(location.Latitude, location.Longitude, location.MaxRange,dateRange.StartDate,dateRange.EndDate)
+                    DatabaseAdapter.QueryMoviesFromLocation(location.Latitude, location.Longitude, location.MaxRange,dateRange.StartDate,dateRange.EndDate)
                         .Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i))
                 );
         }
@@ -93,7 +93,7 @@ namespace api.Controllers
         public JsonApiOutput<IEnumerable<CinemaMovieProjectionsOutputModel>> searchCinemasFromMovie([FromUri] DateRangeInputModel dateRange, [FromUri] LocationInputModel location, [FromUri] string imdbid)
         {
             return new JsonApiOutput<IEnumerable<CinemaMovieProjectionsOutputModel>>(
-                DatabaseAdapter.queryCinemaProjectionsFromMovie(location.Latitude, location.Longitude, location.MaxRange, imdbid,dateRange.StartDate,dateRange.EndDate)
+                DatabaseAdapter.QueryCinemaProjectionsFromMovie(location.Latitude, location.Longitude, location.MaxRange, imdbid,dateRange.StartDate,dateRange.EndDate)
                 .Select<CinemaProjections, CinemaMovieProjectionsOutputModel>(i => new CinemaMovieProjectionsOutputModel(i)));
         }
     }

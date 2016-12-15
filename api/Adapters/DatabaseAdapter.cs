@@ -1,4 +1,5 @@
 ﻿using api.DAL;
+using api.Models;
 using api.Models.Data;
 using api.Models.InputModels;
 using api.Models.OutputModels;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
 
 namespace api.Adapters
 {
@@ -27,7 +29,7 @@ namespace api.Adapters
         /// <param name="longitude"></param>
         /// <param name="MaxRange"></param>
         /// <returns></returns>
-        public static IQueryable<Cinema> queryCinemaByLocation(double latitude, double longitude, double MaxRange)
+        public static IQueryable<Cinema> QueryCinemaByLocation(double latitude, double longitude, double MaxRange)
         {
             double minx = latitude - MaxRange / 111.111;
             double maxx = latitude + MaxRange / 111.111;
@@ -41,7 +43,7 @@ namespace api.Adapters
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static IQueryable<Cinema> queryCinemaByName(string name)
+        public static IQueryable<Cinema> QueryCinemaByName(string name)
         {
             return context.Cinemas.Where(c => c.Name.ToLower().Contains(name.ToLower()));
         }
@@ -55,7 +57,7 @@ namespace api.Adapters
         /// <param name="startDate">Starting date of the range</param>
         /// <param name="endDate">Ending date of the range</param>
         /// <returns></returns>
-        public static IQueryable<Projection> queryProjectionsByCinemaAndMovieAndDateRange(int cinemaId, string imdbId, DateTime startDate, DateTime endDate)
+        public static IQueryable<Projection> QueryProjectionsByCinemaAndMovieAndDateRange(int cinemaId, string imdbId, DateTime startDate, DateTime endDate)
         {
             return context.Projections.Where(p => p.CinemaId == cinemaId && p.ImdbId == imdbId).Where(p => p.Date > startDate && p.Date <= endDate);
         }
@@ -66,7 +68,7 @@ namespace api.Adapters
         /// </summary>
         /// <param name="title">complete title or part of it</param>
         /// <returns></returns>
-        public static IQueryable<Movie> queryMoviesByTitle(string title)
+        public static IQueryable<Movie> QueryMoviesByTitle(string title)
         {
             return context.Movies.Where(m => m.Title.ToLower().Contains(title.ToLower()));
         }
@@ -78,9 +80,9 @@ namespace api.Adapters
         /// <param name="startDate">Initial day of the date range</param>
         /// <param name="endDate">Final day of the date range</param>
         /// <returns></returns>
-        public static IQueryable<Movie> queryMoviesInCinema(Cinema cinema, DateTime startDate, DateTime endDate)
+        public static IQueryable<Movie> QueryMoviesInCinema(Cinema cinema, DateTime startDate, DateTime endDate)
         {
-            return queryProjectionsInCinemaAndDateRange(cinema, startDate, endDate).Select<Projection, Movie>(p => p.Movie).Distinct();
+            return QueryProjectionsInCinemaAndDateRange(cinema, startDate, endDate).Select<Projection, Movie>(p => p.Movie).Distinct();
         }
 
         /// <summary>
@@ -93,9 +95,9 @@ namespace api.Adapters
         /// <param name="startDate">starting date of the date range</param>
         /// <param name="endDate">ending date of the date range</param>
         /// <returns></returns>
-        public static IEnumerable<Cinema> queryCinemaFromMovie(double latitude, double longitude, int maxRange, string imdbId, DateTime startDate, DateTime endDate)
+        public static IEnumerable<Cinema> QueryCinemaFromMovie(double latitude, double longitude, int maxRange, string imdbId, DateTime startDate, DateTime endDate)
         {
-            IQueryable<Cinema> cinemas = DatabaseAdapter.queryCinemaByLocation(latitude, longitude, maxRange);
+            IQueryable<Cinema> cinemas = DatabaseAdapter.QueryCinemaByLocation(latitude, longitude, maxRange);
             return context.Cinemas.Where(c => context.Projections.Where(p => p.ImdbId == imdbId && p.CinemaId == c.CinemaId)
                                     .Where(p => p.Date > startDate && p.Date <= endDate).Any());
         }
@@ -110,13 +112,13 @@ namespace api.Adapters
         /// <param name="startDate">starting date of the date range</param>
         /// <param name="endDate">ending date of the date range</param>
         /// <returns></returns>
-        public static IQueryable<CinemaProjections> queryCinemaProjectionsFromMovie(double latitude, double longitude, int maxRange, string imdbId, DateTime startDate, DateTime endDate)
+        public static IQueryable<CinemaProjections> QueryCinemaProjectionsFromMovie(double latitude, double longitude, int maxRange, string imdbId, DateTime startDate, DateTime endDate)
         { //TODO change this into an aggregate function if possible
-            IEnumerable<Cinema> cinemas = DatabaseAdapter.queryCinemaByLocation(latitude, longitude, maxRange);
-            IQueryable<Cinema> movieCinemas = context.Cinemas.Where(c => queryProjectionsInCinemaAndDateRange(c, startDate, endDate)
+            IEnumerable<Cinema> cinemas = DatabaseAdapter.QueryCinemaByLocation(latitude, longitude, maxRange);
+            IQueryable<Cinema> movieCinemas = context.Cinemas.Where(c => QueryProjectionsInCinemaAndDateRange(c, startDate, endDate)
                                                                         .Where(p => p.ImdbId == imdbId && p.CinemaId == c.CinemaId).Any());
             Movie movie = context.Movies.Where(m => m.ImdbId == imdbId).ElementAt(0);
-            return movieCinemas.Select<Cinema, CinemaProjections>(mc => new CinemaProjections(mc, queryMovieProjectionsFromMovieAndCinema(mc, movie)));
+            return movieCinemas.Select<Cinema, CinemaProjections>(mc => new CinemaProjections(mc, QueryMovieProjectionsFromMovieAndCinema(mc, movie)));
         }
 
         /// <summary>
@@ -125,7 +127,7 @@ namespace api.Adapters
         /// <param name="cinema"></param>
         /// <param name="movie"></param>
         /// <returns></returns>
-        public static MovieProjections queryMovieProjectionsFromMovieAndCinema(Cinema cinema, Movie movie)
+        public static MovieProjections QueryMovieProjectionsFromMovieAndCinema(Cinema cinema, Movie movie)
         {
             return cinema.Projections.Where(p => p.ImdbId == movie.ImdbId && p.CinemaId == cinema.CinemaId)
                 .Aggregate(
@@ -147,9 +149,9 @@ namespace api.Adapters
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        public static IEnumerable<Movie> queryMoviesFromLocation(double latitude, double longitude, int maxRange, DateTime startDate, DateTime endDate)
+        public static IEnumerable<Movie> QueryMoviesFromLocation(double latitude, double longitude, int maxRange, DateTime startDate, DateTime endDate)
         {
-            IEnumerable<Cinema> cinemas = DatabaseAdapter.queryCinemaByLocation(latitude, longitude, maxRange);
+            IEnumerable<Cinema> cinemas = DatabaseAdapter.QueryCinemaByLocation(latitude, longitude, maxRange);
             return context.Projections.Where(p => cinemas.Where(c => c.CinemaId == p.CinemaId).Any())
                 .Where(p=> (p.Date>=startDate) && (p.Date<=endDate))
                 .Select(p => p.Movie).Distinct();
@@ -160,7 +162,7 @@ namespace api.Adapters
         /// </summary>
         /// <param name="imdbId">imdb of the movie to search for</param>
         /// <returns></returns>
-        public static Movie queryMovieByImdbId(string imdbId)
+        public static Movie QueryMovieByImdbId(string imdbId)
         {
             return context.Movies.Find(imdbId);
         }
@@ -170,7 +172,7 @@ namespace api.Adapters
         /// </summary>
         /// <param name="cinemaId"></param>
         /// <returns></returns>
-        public static Cinema queryCinemaByCinemaId(int cinemaId)
+        public static Cinema QueryCinemaByCinemaId(int cinemaId)
         {
             return context.Cinemas.Find(cinemaId);
         }
@@ -182,7 +184,7 @@ namespace api.Adapters
         /// <param name="startDate">initial date of the range</param>
         /// <param name="endDate">initial date of the range</param>
         /// <returns></returns>
-        public static IQueryable<Projection> queryProjectionsInCinemaAndDateRange(Cinema cinema, DateTime startDate, DateTime endDate)
+        public static IQueryable<Projection> QueryProjectionsInCinemaAndDateRange(Cinema cinema, DateTime startDate, DateTime endDate)
         {
             return from p in context.Projections
                    where p.CinemaId == cinema.CinemaId &&
@@ -209,15 +211,16 @@ namespace api.Adapters
         /// </summary>
         /// <param name="projectionId">Id of the projection to retrieve</param>
         /// <returns></returns>
-        public static Projection queryProjectionByProjectionId(int projectionId)
+        public static Projection QueryProjectionByProjectionId(int projectionId)
         {
             return context.Projections.Find(projectionId);
         }
 
 
-        public static IEnumerable<Movie> queryRecommendedMoviesForUser(string userID)
+        public static IEnumerable<Movie> QueryRecommendedMoviesForUser(string userID)
         {
             return context.Movies.Where<Movie>(m => m.Genre.ToLower().Contains("action"));
-        }
+        }    
+
     }
 }
