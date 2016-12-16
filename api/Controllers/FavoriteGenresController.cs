@@ -43,9 +43,13 @@ namespace api.Controllers
         [HttpGet]
         public IHttpActionResult GetAllGenresByUserId()
         {
+            IEnumerable<Genre> genres = UserProfileAdapters.QueryGenresByUserId(User.Identity.GetUserId());
+            if (genres == null)
+            {
+                return NotFound();
+            }
             return Ok(new JsonApiOutput<IEnumerable<GenreOutputModel>>(
-                UserProfileAdapters.QueryGenresByUserId(User.Identity.GetUserId()).
-                Select<Genre, GenreOutputModel>(g => new GenreOutputModel(g))
+                genres.Select<Genre, GenreOutputModel>(g => new GenreOutputModel(g))
                 ));
         }
 

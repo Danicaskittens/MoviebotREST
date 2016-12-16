@@ -12,25 +12,27 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using api.DAL;
+using Microsoft.AspNet.Identity;
 
 namespace api.Controllers
 {
     /// <summary>
     /// Returns recommendations for the user 
     /// </summary>
-    [RoutePrefix("api/v1/Recommender")]
+    [Authorize]
+    [RoutePrefix("api/v2/Recommender")]
     public class RecommenderController : ApiController
     {
 
         /// <summary>
         /// Returns all the recommended movies for the user homepage
         /// </summary>
-        [Route("movies")]
+        [Route("moviesByGenre")]
         [HttpGet]
         public JsonApiOutput<IEnumerable<MovieOutputModel>> GetAllRecommendedMovies()
         {
             return new JsonApiOutput<IEnumerable<MovieOutputModel>>(
-                DatabaseAdapter.QueryRecommendedMoviesForUser("placeholder").
+                DatabaseAdapter.QueryRecommendedMoviesByGenre(User.Identity.GetUserId()).
                 Select<Movie, MovieOutputModel>(i => new MovieOutputModel(i)));
         }
 
