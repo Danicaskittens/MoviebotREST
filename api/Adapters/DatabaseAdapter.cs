@@ -218,11 +218,6 @@ namespace api.Adapters
         }
 
 
-        public static IEnumerable<Movie> QueryRecommendedMoviesForUser(string userID)
-        {
-            return context.Movies.Where<Movie>(m => m.Genre.ToLower().Contains("action"));
-        }   
-         
         /// <summary>
         /// Returns the list of recommended movies, 
         /// based on the user favorite genres
@@ -232,16 +227,15 @@ namespace api.Adapters
         public static IEnumerable<Movie> QueryRecommendedMoviesByGenre(string userId)
         {
             IEnumerable<Genre> genres = UserProfileAdapters.QueryGenresByUserId(userId);
-            IEnumerable<Movie> recommended = new List<Movie>();
+            List<Movie> recommended = new List<Movie>();
 
             if (genres != null)
             {
                 IEnumerable<string> names = genres.Select(g => g.Name);
                 
-                //TODO multiple genres
                 foreach (string name in names)
                 {
-                    recommended = context.Movies.Where(m => m.Genre.ToLower().Contains(name));
+                    recommended.AddRange(context.Movies.Where(m => m.Genre.ToLower().Contains(name)).ToList());
                 }
                 
             }
