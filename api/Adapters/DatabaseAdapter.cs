@@ -219,10 +219,20 @@ namespace api.Adapters
 
 
         /// <summary>
+        /// Dummy recommender, returns only action movies
+        /// </summary>
+        /// <param name="userID">Id of the user</param>
+        /// <returns></returns>
+        public static IEnumerable<Movie> QueryRecommendedMoviesForUser(string userID)
+        {
+            return context.Movies.Where<Movie>(m => m.Genre.ToLower().Contains("action"));
+        }
+
+        /// <summary>
         /// Returns the list of recommended movies, 
         /// based on the user favorite genres
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="userId">Id of the user</param>
         /// <returns></returns>
         public static IEnumerable<Movie> QueryRecommendedMoviesByGenre(string userId)
         {
@@ -233,14 +243,19 @@ namespace api.Adapters
             {
                 IEnumerable<string> names = genres.Select(g => g.Name);
                 
-                foreach (string name in names)
-                {
-                    recommended.AddRange(context.Movies.Where(m => m.Genre.ToLower().Contains(name)).ToList());
-                }
-                
+                 foreach (string name in names)
+                 {
+                     context.Movies.Where(m => m.Genre.ToLower().Contains(name)).ToList().
+                         Aggregate(recommended,
+                         (list, item) =>
+                         {
+                             list.Add(item);
+                             return list;
+                         });                                
+                 }
             }
-    
-            return recommended;
+
+            return recommended.Distinct();
         }
     }
 }

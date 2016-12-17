@@ -231,6 +231,7 @@
     <Compile Include="Controllers\ProjectionsController.cs" />
     <Compile Include="Controllers\RandomShitController.cs" />
     <Compile Include="Controllers\RecommenderController.cs" />
+    <Compile Include="Controllers\RecommenderGenreController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="DAL\Cinema.cs" />
@@ -349,6 +350,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Recommender\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
