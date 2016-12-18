@@ -12,7 +12,7 @@ using System.Web.Http.Description;
 namespace api.Controllers
 {
     /// <summary>
-    /// Favorites genre management for the user
+    /// Favorite genres management for the user
     /// </summary>
     [Authorize]
     [RoutePrefix("api/v2/FavoriteGenres")]
@@ -24,7 +24,7 @@ namespace api.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("getAllCategories")]
-        [ResponseType(typeof(JsonApiOutput<IEnumerable<Genre>>))]
+        [ResponseType(typeof(JsonApiOutput<IEnumerable<GenreOutputModel>>))]
         [HttpGet]
         public IHttpActionResult GetAllPossibleGenresToChoose()
         {
@@ -39,7 +39,7 @@ namespace api.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("getByUserId")]
-        [ResponseType(typeof(JsonApiOutput<IEnumerable<Genre>>))]
+        [ResponseType(typeof(JsonApiOutput<IEnumerable<GenreOutputModel>>))]
         [HttpGet]
         public IHttpActionResult GetAllGenresByUserId()
         {
