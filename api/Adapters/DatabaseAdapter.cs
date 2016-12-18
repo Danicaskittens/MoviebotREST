@@ -5,6 +5,7 @@ using api.Models.InputModels;
 using api.Models.OutputModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -217,10 +218,44 @@ namespace api.Adapters
         }
 
 
+        /// <summary>
+        /// Dummy recommender, returns only action movies
+        /// </summary>
+        /// <param name="userID">Id of the user</param>
+        /// <returns></returns>
         public static IEnumerable<Movie> QueryRecommendedMoviesForUser(string userID)
         {
             return context.Movies.Where<Movie>(m => m.Genre.ToLower().Contains("action"));
-        }    
+        }
 
+        /// <summary>
+        /// Returns the list of recommended movies, 
+        /// based on the user favorite genres
+        /// </summary>
+        /// <param name="userId">Id of the user</param>
+        /// <returns></returns>
+        public static IEnumerable<Movie> QueryRecommendedMoviesByGenre(string userId)
+        {
+            IEnumerable<Genre> genres = UserProfileAdapters.QueryGenresByUserId(userId);
+            List<Movie> recommended = new List<Movie>();
+
+            if (genres != null)
+            {
+                IEnumerable<string> names = genres.Select(g => g.Name);
+                
+                 foreach (string name in names)
+                 {
+                     context.Movies.Where(m => m.Genre.ToLower().Contains(name)).ToList().
+                         Aggregate(recommended,
+                         (list, item) =>
+                         {
+                             list.Add(item);
+                             return list;
+                         });                                
+                 }
+            }
+
+            return recommended.Distinct();
+        }
     }
 }
