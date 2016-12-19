@@ -55,6 +55,15 @@ namespace api.Controllers
         [HttpPost]
         public IHttpActionResult AddNewReservation(int projectionId)
         {
+            IEnumerable <Reservation> reservations = ReservationsAdapter.
+                QueryReservationsByUserId(User.Identity.GetUserId()).
+                Where(r => r.ProjectionId == projectionId);
+
+            if (reservations.Count() != 0)
+            {
+                return BadRequest("Projection already reserved");
+            }
+
             ReservationsAdapter.AddNewReservation(User.Identity.GetUserId(), projectionId);
             return Ok();
         }
