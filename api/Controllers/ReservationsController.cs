@@ -79,6 +79,14 @@ namespace api.Controllers
         [HttpPut]
         public IHttpActionResult CompleteReservation(int reservationId, int quantity)
         {
+            Reservation reservation = ReservationsAdapter.QueryReservation(reservationId);
+            int freeSeats = reservation.Projection.FreeSeats;
+
+            if (quantity > freeSeats)
+            {
+                return BadRequest("Number of seats exceeded!");
+            }
+            
             ReservationsAdapter.CompleteReservation(reservationId, quantity);
             return Ok();
         }

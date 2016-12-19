@@ -40,11 +40,11 @@ namespace api.Models.OutputModels
         /// <summary>
         /// Date on which this specific reservation process begins (yyyy-MM-dd format)
         /// </summary>
-        public string Date { get { return this.reservation.TimeStamp.ToString("yyyy/MM/dd"); } }
+        //public string Date { get { return this.reservation.TimeStamp.ToString("yyyy/MM/dd"); } }
         /// <summary>
         /// Time on which this specific reservation process begins (HH:mm format)
         /// </summary>
-        public string Time { get { return this.reservation.TimeStamp.ToString("HH:mm"); } }
+        //public string Time { get { return this.reservation.TimeStamp.ToString("HH:mm"); } }
         /// <summary>
         /// Status of the reservation(string type): 
         /// "InProcess" when the process begins

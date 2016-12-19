@@ -32,6 +32,11 @@ namespace api.Adapters
         {
             return context.Projections.Find(projectionId);
         }
+
+        public static Reservation QueryReservation(int reservationId)
+        {
+            return context.Reservations.Find(reservationId);
+        }
  
         /// <summary>
         /// Initializes a new reservation for the user
