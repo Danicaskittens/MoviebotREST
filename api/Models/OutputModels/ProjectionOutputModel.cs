@@ -29,6 +29,10 @@ namespace api.Models.OutputModels
             this.projection = projection;
         }
         /// <summary>
+        /// Id of the projection
+        /// </summary>
+        public int ProjectionID { get { return this.projection.ProjectionId; } }
+        /// <summary>
         /// Imdb of the projected movie
         /// </summary>
         public string ImdbID { get { return this.projection.ImdbId; } }

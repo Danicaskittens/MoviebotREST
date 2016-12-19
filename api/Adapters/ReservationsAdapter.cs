@@ -22,8 +22,22 @@ namespace api.Adapters
         {
             return context.Reservations.Where(r => r.UserId == userId);
         }
-
-        //NOT TESTED
+        
+        /// <summary>
+        /// Returns the chosen projection
+        /// </summary>
+        /// <param name="projectionId">Id of the specific projection</param>
+        /// <returns></returns>
+        public static Projection QueryProjection(int projectionId)
+        {
+            return context.Projections.Find(projectionId);
+        }
+ 
+        /// <summary>
+        /// Initializes a new reservation for the user
+        /// </summary>
+        /// <param name="userId">Id of the user</param>
+        /// <param name="projectionId">Id of the specific projection </param>
         public static void AddNewReservation(string userId, int projectionId)
         {
             Projection projection = context.Projections.Find(projectionId);
@@ -35,7 +49,6 @@ namespace api.Adapters
                     Projection = projection,
                     ProjectionId = projectionId,
                     StatusType = Reservation.Status.InProcess,
-                    //TimeStamp = DateTime.Now,
                     UserId = userId
                 };
 
@@ -44,6 +57,28 @@ namespace api.Adapters
 
             }
       
+        }
+
+        /// <summary>
+        /// Complete the reservation process:
+        /// set number of seats, update status to "complete,
+        /// set the timestamp,
+        /// update number of free seats for the chosen projection
+        /// </summary>
+        /// <param name="reservationId"></param>
+        /// <param name="quantity"></param>
+        public static void CompleteReservation(int reservationId, int quantity)
+        {
+            Reservation reservation = context.Reservations.Find(reservationId);
+            reservation.Quantity = quantity;
+            reservation.StatusType = Reservation.Status.Complete;
+            //reservation.TimeStamp = DateTime.Now;
+            
+            Projection projection = context.Projections.Find(reservation.ProjectionId);
+            projection.FreeSeats -= quantity;
+
+            context.SaveChanges();
+
         }
 
 

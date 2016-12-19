@@ -256,6 +256,7 @@
     <Compile Include="Models\Data\CinemaProjections.cs" />
     <Compile Include="Models\Data\MovieProjections.cs" />
     <Compile Include="Models\InputModels\DateRangeInputModel.cs" />
+    <Compile Include="Models\OutputModels\FreeSeatsOutputModel.cs" />
     <Compile Include="Models\OutputModels\GenreOutputModel.cs" />
     <Compile Include="Models\OutputModels\MovieOutputModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
