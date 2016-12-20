@@ -33,7 +33,7 @@ namespace api.Controllers
             {
                 IEnumerable<Movie> movies = context.Movies.ToList();
                 IEnumerable<Cinema> cinemas = context.Cinemas.ToList();
-                IEnumerable<CinemaProjections> cprojections = getDummyCinemaProjections(movies, cinemas);
+                IEnumerable<CinemaProjections> cprojections = getDummyCinemaProjections(movies, cinemas,date);
                 cprojections.ToList<CinemaProjections>().ForEach(
                     c => c.MovieProjections.ToList().ForEach(
                         m => m.Projections.ToList().ForEach(
@@ -47,17 +47,17 @@ namespace api.Controllers
         }
 
 
-        private IEnumerable<CinemaProjections> getDummyCinemaProjections(IEnumerable<Movie> movies, IEnumerable<Cinema> cinemas)
+        private IEnumerable<CinemaProjections> getDummyCinemaProjections(IEnumerable<Movie> movies, IEnumerable<Cinema> cinemas,DateTime date)
         {
             return cinemas.Select<Cinema, CinemaProjections>(
                 c => new CinemaProjections(c, movies.Select<Movie, MovieProjections>(
-                        m => getDummyProjectionsForMovieAndCinema(m, c)))
+                        m => getDummyProjectionsForMovieAndCinema(m, c,date)))
                 );
 
 
         }
 
-        private MovieProjections getDummyProjectionsForMovieAndCinema(Movie movie, Cinema cinema)
+        private MovieProjections getDummyProjectionsForMovieAndCinema(Movie movie, Cinema cinema,DateTime date)
         {
 
             List<int> timeslots = new List<int>() { 17, 21, 23 };
@@ -69,7 +69,7 @@ namespace api.Controllers
                     projections.Add(new Projection()
                     {
                         Cinema = cinema,
-                        Date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, timeslots[i], 0, 0),
+                        Date = new DateTime(date.Year, date.Month, date.Day, timeslots[i], 0, 0),
                         FreeSeats = rnd.Next(100),
                         Movie = movie
                     });
