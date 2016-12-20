@@ -33,6 +33,11 @@ namespace api.Adapters
             return context.Projections.Find(projectionId);
         }
 
+        /// <summary>
+        /// Returns the reservation
+        /// </summary>
+        /// <param name="reservationId">Id of the specific reservation</param>
+        /// <returns></returns>
         public static Reservation QueryReservation(int reservationId)
         {
             return context.Reservations.Find(reservationId);
@@ -54,7 +59,9 @@ namespace api.Adapters
                     Projection = projection,
                     ProjectionId = projectionId,
                     StatusType = Reservation.Status.InProcess,
-                    UserId = userId
+                    UserId = userId,
+                    TimeStamp = DateTime.Now
+                    
                 };
 
                 context.Reservations.Add(reservation);
@@ -77,7 +84,6 @@ namespace api.Adapters
             Reservation reservation = context.Reservations.Find(reservationId);
             reservation.Quantity = quantity;
             reservation.StatusType = Reservation.Status.Complete;
-            //reservation.TimeStamp = DateTime.Now;
             
             Projection projection = context.Projections.Find(reservation.ProjectionId);
             projection.FreeSeats -= quantity;
