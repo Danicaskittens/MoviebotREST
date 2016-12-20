@@ -18,7 +18,9 @@ namespace api.DAL
             [Description("InProcess")]
             InProcess,
             [Description("Complete")]
-            Complete
+            Complete,
+            [Description("Canceled")]
+            Canceled
         };
         public Status StatusType { get; set; }
         public int ProjectionId { get; set; }

@@ -69,10 +69,9 @@ namespace api.Controllers
         }
 
         /// <summary>
-        /// Set number of seats for the specific reservation
-        /// and update reservation to "complete"
+        /// Complete the reservation process, setting the number of seats reserved
         /// </summary>
-        /// <param name="reservationId">Id of the specific reservation</param>
+        /// <param name="reservationId">Id of the specific reservation to complete</param>
         /// <param name="quantity">Number of seats selected</param>
         /// <returns></returns>
         [Route("complete/{reservationId}/{quantity}")]
@@ -80,6 +79,12 @@ namespace api.Controllers
         public IHttpActionResult CompleteReservation(int reservationId, int quantity)
         {
             Reservation reservation = ReservationsAdapter.QueryReservation(reservationId);
+
+            if (reservation == null)
+            {
+                return BadRequest("This reservation does not exist!");
+            }
+
             int freeSeats = reservation.Projection.FreeSeats;
 
             if (quantity > freeSeats)
@@ -87,7 +92,28 @@ namespace api.Controllers
                 return BadRequest("Number of seats exceeded!");
             }
             
-            ReservationsAdapter.CompleteReservation(reservationId, quantity);
+            ReservationsAdapter.CompleteReservation(reservation, quantity);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Cancel the reservation in process or already completed.
+        /// In any case, the number of seats for the projection are restored.
+        /// </summary>
+        /// <param name="reservationId">Id of the spicific reservation to cancel</param>
+        /// <returns></returns>
+        [Route("cancel/{reservationId}")]
+        [HttpPut]
+        public IHttpActionResult CancelReservation(int reservationId)
+        {
+            Reservation reservation = ReservationsAdapter.QueryReservation(reservationId);
+
+            if (reservation == null)
+            {
+                return BadRequest("This reservation does not exist!");
+            }
+
+            ReservationsAdapter.CancelReservation(reservation);
             return Ok();
         }
        

@@ -73,23 +73,37 @@ namespace api.Adapters
 
         /// <summary>
         /// Complete the reservation process:
-        /// set number of seats, update status to "complete,
-        /// set the timestamp,
-        /// update number of free seats for the chosen projection
+        /// set number of seats, update status to "complete",
+        /// update the number of free seats for the chosen projection
         /// </summary>
-        /// <param name="reservationId"></param>
-        /// <param name="quantity"></param>
-        public static void CompleteReservation(int reservationId, int quantity)
+        /// <param name="reservation">Reservation to complete</param>
+        /// <param name="quantity">Number of seats</param>
+        public static void CompleteReservation(Reservation reservation, int quantity)
         {
-            Reservation reservation = context.Reservations.Find(reservationId);
             reservation.Quantity = quantity;
             reservation.StatusType = Reservation.Status.Complete;
             
-            Projection projection = context.Projections.Find(reservation.ProjectionId);
+            Projection projection = QueryProjection(reservation.ProjectionId);
             projection.FreeSeats -= quantity;
 
             context.SaveChanges();
 
+        }
+
+        /// <summary>
+        /// Cancel the reservation in process or already completed:
+        /// update status to "canceled",
+        /// restore the number of free seats for the chosen projection
+        /// </summary>
+        /// <param name="reservation">Reservation to cancel</param>
+        public static void CancelReservation(Reservation reservation)
+        {
+            reservation.StatusType = Reservation.Status.Canceled;
+
+            Projection projection = QueryProjection(reservation.ProjectionId);
+            projection.FreeSeats += reservation.Quantity;
+
+            context.SaveChanges();
         }
 
 
