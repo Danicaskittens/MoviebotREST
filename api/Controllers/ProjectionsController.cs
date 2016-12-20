@@ -43,13 +43,13 @@ namespace api.Controllers
         /// <summary>
         /// Returns the list of projections of a specified cinema, imdbId and date range
         /// </summary>
-        /// <param name="cinemaId">Id of the cinema to search the projections from</param>
         /// <param name="imdbId">Id of the movie to search the projections of</param>
+        /// <param name="cinemaId">Id of the cinema to search the projections from</param>
         /// <param name="dateRange">Range of dates into which search the projections</param>
         /// <returns></returns>
-        [Route("list/{cinemaId}/{imdbId}")]
+        [Route("list/{imdbId}/{cinemaId}")]
         [ResponseType(typeof(JsonApiOutput<IEnumerable<ProjectionOutputModel>>))]
-        public IHttpActionResult getProjectionsByCinemaAndImdbId(int cinemaId, string imdbId, [FromUri] DateRangeInputModel dateRange)
+        public IHttpActionResult getProjectionsByCinemaAndImdbId(string imdbId, int cinemaId, [FromUri] DateRangeInputModel dateRange)
         {
             IQueryable<Projection> projections = DatabaseAdapter.queryProjectionsByCinemaAndMovieAndDateRange(cinemaId, imdbId, dateRange.StartDate, dateRange.EndDate);
             return Ok(new JsonApiOutput<IEnumerable<ProjectionOutputModel>>(
@@ -68,11 +68,11 @@ namespace api.Controllers
         [HttpPost]
         [Route("clist/{imdbId}")]
         [ResponseType(typeof(JsonApiOutput<Dictionary<int, IEnumerable<ProjectionOutputModel>>>))]
-        public IHttpActionResult getProjectionsOfMultipleCinemasForSameImdbId(string imdbId,[FromBody] List<int> cinemaIds,[FromUri] DateRangeInputModel dateRange)
+        public IHttpActionResult getProjectionsOfMultipleCinemasForSameImdbId(string imdbId, [FromBody] List<int> cinemaIds, [FromUri] DateRangeInputModel dateRange)
         {
 
             Dictionary<int, IEnumerable<ProjectionOutputModel>> result =
-                cinemaIds.Aggregate<int,Dictionary<int, IEnumerable<ProjectionOutputModel>>>(new Dictionary<int, IEnumerable<ProjectionOutputModel>>(),
+                cinemaIds.Aggregate<int, Dictionary<int, IEnumerable<ProjectionOutputModel>>>(new Dictionary<int, IEnumerable<ProjectionOutputModel>>(),
                             (current, next) =>
                             {
                                 var cinemaProjections = DatabaseAdapter.queryProjectionsByCinemaAndMovieAndDateRange(next, imdbId, dateRange.StartDate, dateRange.EndDate);
