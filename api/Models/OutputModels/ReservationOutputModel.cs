@@ -52,7 +52,7 @@ namespace api.Models.OutputModels
         /// </summary>
         public string Status { get { return this.reservation.StatusType.ToString(); } }
         /// <summary>
-        /// Reserved movie projection
+        /// Reserved movie projection id
         /// </summary>
         public int ProjectionId { get { return this.reservation.ProjectionId; } }
         /// <summary>
