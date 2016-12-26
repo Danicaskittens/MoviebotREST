@@ -32,7 +32,7 @@ namespace api.Controllers
         [ResponseType(typeof(JsonApiOutput<ProjectionOutputModel>))]
         public IHttpActionResult getProjectionById(int projectionId)
         {
-            Projection projection = DatabaseAdapter.queryProjectionByProjectionId(projectionId);
+            Projection projection = DatabaseAdapter.QueryProjectionByProjectionId(projectionId);
             if (projection == null)
             {
                 return NotFound();
@@ -51,7 +51,7 @@ namespace api.Controllers
         [ResponseType(typeof(JsonApiOutput<IEnumerable<ProjectionOutputModel>>))]
         public IHttpActionResult getProjectionsByCinemaAndImdbId(string imdbId, int cinemaId, [FromUri] DateRangeInputModel dateRange)
         {
-            IQueryable<Projection> projections = DatabaseAdapter.queryProjectionsByCinemaAndMovieAndDateRange(cinemaId, imdbId, dateRange.StartDate, dateRange.EndDate);
+            IQueryable<Projection> projections = DatabaseAdapter.QueryProjectionsByCinemaAndMovieAndDateRange(cinemaId, imdbId, dateRange.StartDate, dateRange.EndDate);
             return Ok(new JsonApiOutput<IEnumerable<ProjectionOutputModel>>(
                             projections.ToList().Select<Projection, ProjectionOutputModel>(p => new ProjectionOutputModel(p))
                             )
@@ -75,7 +75,7 @@ namespace api.Controllers
                 cinemaIds.Aggregate<int, Dictionary<int, IEnumerable<ProjectionOutputModel>>>(new Dictionary<int, IEnumerable<ProjectionOutputModel>>(),
                             (current, next) =>
                             {
-                                var cinemaProjections = DatabaseAdapter.queryProjectionsByCinemaAndMovieAndDateRange(next, imdbId, dateRange.StartDate, dateRange.EndDate);
+                                var cinemaProjections = DatabaseAdapter.QueryProjectionsByCinemaAndMovieAndDateRange(next, imdbId, dateRange.StartDate, dateRange.EndDate);
                                 current[next] = cinemaProjections.ToList().Select(p => new ProjectionOutputModel(p));
                                 return current;
                             });
@@ -99,7 +99,7 @@ namespace api.Controllers
                 imdbIds.Aggregate<string, Dictionary<string, IEnumerable<ProjectionOutputModel>>>(new Dictionary<string, IEnumerable<ProjectionOutputModel>>(),
                             (current, next) =>
                             {
-                                var cinemaProjections = DatabaseAdapter.queryProjectionsByCinemaAndMovieAndDateRange(cinemaId, next, dateRange.StartDate, dateRange.EndDate);
+                                var cinemaProjections = DatabaseAdapter.QueryProjectionsByCinemaAndMovieAndDateRange(cinemaId, next, dateRange.StartDate, dateRange.EndDate);
                                 current[next] = cinemaProjections.ToList().Select(p => new ProjectionOutputModel(p));
                                 return current;
                             });

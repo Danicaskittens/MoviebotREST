@@ -5,6 +5,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace api.Models
 {
@@ -19,7 +21,7 @@ namespace api.Models
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
             // Add custom user claims here
             return userIdentity;
-        }
+        }       
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

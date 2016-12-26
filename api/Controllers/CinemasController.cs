@@ -35,7 +35,7 @@ namespace api.Controllers
         [ResponseType(typeof(JsonApiOutput<IEnumerable<CinemaOutputModel>>))]
         public IHttpActionResult GetCinemasByName(double latitude, double longitude, [FromUri] int maxRange = 50)
         {
-            IEnumerable<Cinema> cinemas = DatabaseAdapter.queryCinemaByLocation(latitude, longitude, maxRange);
+            IEnumerable<Cinema> cinemas = DatabaseAdapter.QueryCinemaByLocation(latitude, longitude, maxRange);
             if (cinemas == null)
             {
                 return NotFound();
@@ -55,7 +55,7 @@ namespace api.Controllers
         [ResponseType(typeof(JsonApiOutput<IEnumerable<CinemaOutputModel>>))]
         public IHttpActionResult GetCinemasByName(string pattern)
         {
-            IEnumerable<Cinema> cinemas = DatabaseAdapter.queryCinemaByName(pattern);
+            IEnumerable<Cinema> cinemas = DatabaseAdapter.QueryCinemaByName(pattern);
             if (cinemas == null)
             {
                 return NotFound();
@@ -77,9 +77,9 @@ namespace api.Controllers
         [ResponseType(typeof(JsonApiOutput<IEnumerable<MovieOutputModel>>))]
         public IHttpActionResult GetMoviesInSpecificCinema(int cinemaId, [FromUri] DateRangeInputModel dateRange)
         {
-            Cinema cinema = DatabaseAdapter.queryCinemaByCinemaId(cinemaId);
+            Cinema cinema = DatabaseAdapter.QueryCinemaByCinemaId(cinemaId);
             return Ok(new JsonApiOutput<IEnumerable<MovieOutputModel>>(
-                            DatabaseAdapter.queryMoviesInCinema(cinema,
+                            DatabaseAdapter.QueryMoviesInCinema(cinema,
                                                 dateRange.StartDate,
                                                 dateRange.EndDate).ToList()
                                     .Select<Movie, MovieOutputModel>(m => new MovieOutputModel(m)).ToList()

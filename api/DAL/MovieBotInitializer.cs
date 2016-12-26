@@ -27,7 +27,9 @@ namespace api.DAL
                         )
                     )
                 );
-
+            context.SaveChanges();
+            IEnumerable<Genre> genres = getDummyGenres();
+            genres.ToList<Genre>().ForEach(g => context.Genres.Add(g));
             context.SaveChanges();
             
 
@@ -125,6 +127,24 @@ namespace api.DAL
                 TimeStamp = DateTime.Now
             };
             return new List<Reservation>() { reservation1, reservation2, reservation3 };
+
+        }
+
+
+        private static List<Genre> getDummyGenres()
+        {
+            Genre genre1 = new Genre() { GenreId = 1, Name = "Action" };
+            Genre genre2 = new Genre() { GenreId = 2, Name = "Animation" };
+            Genre genre3 = new Genre() { GenreId = 3, Name = "Comedy" };
+            Genre genre4 = new Genre() { GenreId = 4, Name = "Drama" };
+            Genre genre5 = new Genre() { GenreId = 5, Name = "Fantasy" }; 
+            Genre genre6 = new Genre() { GenreId = 6, Name = "SciFi" };
+            Genre genre7 = new Genre() { GenreId = 7, Name = "Thriller" }; 
+
+            return new List<Genre>()
+            {
+                genre1,genre2,genre3,genre4,genre5,genre6,genre7
+            };
 
         }
 
