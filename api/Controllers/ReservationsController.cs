@@ -50,8 +50,9 @@ namespace api.Controllers
         /// Create a new reservation for the chosen projection
         /// </summary>
         /// <param name="projectionId">Id of the projection for which the user makes the reservation</param>
-        /// <returns></returns>
+        /// <returns>the new reservation</returns>
         [Route("add/{projectionId}")]
+        [ResponseType(typeof(JsonApiOutput<ReservationOutputModel>))]
         [HttpPost]
         public IHttpActionResult AddNewReservation(int projectionId)
         {
@@ -64,8 +65,11 @@ namespace api.Controllers
                 return BadRequest("Projection already reserved");
             }
 
-            ReservationsAdapter.AddNewReservation(User.Identity.GetUserId(), projectionId);
-            return Ok();
+            Reservation reservation = ReservationsAdapter.AddNewReservation(User.Identity.GetUserId(), projectionId);
+
+            return Ok(new JsonApiOutput<ReservationOutputModel>(
+                new ReservationOutputModel(reservation)
+                ));
         }
 
         /// <summary>
