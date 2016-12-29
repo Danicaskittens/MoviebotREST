@@ -42,13 +42,15 @@ namespace api.Adapters
         {
             return context.Reservations.Find(reservationId);
         }
- 
+
+
         /// <summary>
         /// Initializes a new reservation for the user
         /// </summary>
         /// <param name="userId">Id of the user</param>
         /// <param name="projectionId">Id of the specific projection </param>
-        public static void AddNewReservation(string userId, int projectionId)
+        /// <returns>the new reservation</returns>
+        public static Reservation AddNewReservation(string userId, int projectionId)
         {
             Projection projection = context.Projections.Find(projectionId);
 
@@ -66,8 +68,9 @@ namespace api.Adapters
 
                 context.Reservations.Add(reservation);
                 context.SaveChanges();
-
+                return reservation;
             }
+            return null;
       
         }
 
