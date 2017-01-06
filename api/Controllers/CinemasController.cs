@@ -69,14 +69,14 @@ namespace api.Controllers
         /// <summary>
         /// Returns the list of cinemas with the provided name or part of the name but near a specified location
         /// </summary>
-        /// <param name="pattern">Complete name or part of the name (case insensitive)</param>
         /// <param name="latitude">latitude of the center of the search radius</param>
         /// <param name="longitude">longitude of the center of the search radius</param>
+        /// <param name="pattern">Complete name or part of the name (case insensitive)</param>
         /// <param name="maxRange">maximum radius of the search area (in kilometers)</param>
         /// <returns></returns>
-        [Route("name/{pattern}/{latitude}/{longitude}")]
+        [Route("name/{latitude}/{longitude}/{pattern}")]
         [ResponseType(typeof(JsonApiOutput<IEnumerable<CinemaOutputModel>>))]
-        public IHttpActionResult GetCinemasByName(string pattern, double latitude, double longitude, [FromUri] int maxRange = 50)
+        public IHttpActionResult GetCinemasByName(double latitude, double longitude, string pattern, [FromUri] int maxRange = 50)
         {
             IEnumerable<Cinema> cinemas = DatabaseAdapter.QueryCinemaByNameAndLocation(pattern,latitude,longitude,maxRange);
             if (cinemas == null)
