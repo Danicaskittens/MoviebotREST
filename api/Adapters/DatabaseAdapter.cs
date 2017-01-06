@@ -75,6 +75,20 @@ namespace api.Adapters
         }
 
         /// <summary>
+        /// Searches cinemas by location and name
+        /// </summary>
+        /// <param name="pattern">string pattern to search into the cinema names</param>
+        /// <param name="latitude">latitude of the range </param>
+        /// <param name="longitude">longitude of the range</param>
+        /// <param name="MaxRange">range of the range, yeah</param>
+        /// <returns></returns>
+        public static IEnumerable<Cinema> QueryCinemaByNameAndLocation(string pattern, double latitude, double longitude, double MaxRange)
+        {
+            IQueryable<Cinema> nearLocationCinemas=QueryCinemaByLocation(latitude, longitude, MaxRange);
+            return nearLocationCinemas.Where(c => c.Name.ToLower().Contains(pattern.ToLower()));
+        }
+
+        /// <summary>
         /// Returns the list of movies currently projected in a cinema
         /// </summary>
         /// <param name="cinema">Cinema to retrieve the list of movies from</param>
