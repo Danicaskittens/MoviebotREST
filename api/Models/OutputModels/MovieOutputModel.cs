@@ -50,6 +50,14 @@ namespace api.Models.Output
         /// </summary>
         public string Genre { get { return this.movie.Genre; } }
 
-        
+        public string imdbRating { get { return this.movie.imdbRating; } }
+        public string imdbVotes { get { return this.movie.imdbVotes; } }
+        public string Response { get { return this.movie.Response; } }
+        public string Director { get { return this.movie.Director; } }
+        public string Actors { get { return this.movie.Actors; } }
+        public string Metascore { get { return this.movie.Metascore; } }
+        public string Awards { get { return this.movie.Awards; } }
+
+
     }
 }
