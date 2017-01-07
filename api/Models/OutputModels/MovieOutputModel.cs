@@ -49,5 +49,7 @@ namespace api.Models.Output
         /// List of genres of the movie
         /// </summary>
         public string Genre { get { return this.movie.Genre; } }
+
+        
     }
 }
