@@ -34,7 +34,7 @@ namespace api.Tests.Controllers
             cprojections.ToList<CinemaProjections>().ForEach(
                 c => c.MovieProjections.ToList().ForEach(
                     m => m.Projections.ToList().ForEach(
-                        p => projections.Add(p)
+                        p => { p.ImdbId = m.Movie.ImdbId; projections.Add(p); }
                         )
                     )
                 );
@@ -99,13 +99,30 @@ namespace api.Tests.Controllers
 
         private static IEnumerable<CinemaProjections> getDummyCinemaProjections(IEnumerable<Movie> movies, IEnumerable<Cinema> cinemas)
         {
-            return cinemas.Select<Cinema, CinemaProjections>(
-                c => new CinemaProjections(c, movies.Select<Movie, MovieProjections>(
-                        m => getDummyProjectionsForMovieAndCinema(m, c)))
-                );
-
-
+            return new List<CinemaProjections>
+            {
+                new CinemaProjections(
+                    cinemas.ToList()[0],
+                    new MovieProjections() {
+                        Movie =movies.ToList()[0],
+                        Projections =new List<Projection> {
+                            new Projection() {
+                                Cinema=cinemas.ToList()[0],
+                                CinemaId=cinemas.ToList()[0].CinemaId,
+                                Date=DateTime.Now,
+                                FreeSeats=100,
+                                ImdbId=movies.ToList()[0].ImdbId,
+                                Movie=movies.ToList()[0],
+                                ProjectionId=0
+                            }
+                        }
+                    }
+                )
+            };
         }
+
+
+
 
         private static MovieProjections getDummyProjectionsForMovieAndCinema(Movie movie, Cinema cinema)
         {
@@ -117,12 +134,15 @@ namespace api.Tests.Controllers
                 projections.Add(new Projection()
                 {
                     Cinema = cinema,
+                    CinemaId = cinema.CinemaId,
                     Date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, timeslots[i], 0, 0),
                     FreeSeats = rnd.Next(100),
-                    Movie = movie
+                    Movie = movie,
+                    ImdbId = movie.ImdbId
                 });
             }
             return new MovieProjections() { Movie = movie, Projections = projections };
         }
     }
 }
+
