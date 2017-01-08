@@ -38,13 +38,13 @@ namespace api.Models.OutputModels
         /// </summary>
         public int Quantity { get { return this.reservation.Quantity; } }
         /// <summary>
-        /// Date on which this specific reservation process begins (yyyy-MM-dd format)
+        /// Date on which the movie is projected in the yyyy-MM-dd format
         /// </summary>
-        public string Date { get { return this.reservation.TimeStamp.ToString("yyyy/MM/dd"); } }
+        public string Date { get { return this.reservation.ProjectionDateTime.ToString("yyyy-MM-dd"); } }
         /// <summary>
-        /// Time on which this specific reservation process begins (HH:mm format)
+        /// Time on which the movie is projected in the HH:mm format
         /// </summary>
-        public string Time { get { return this.reservation.TimeStamp.ToString("HH:mm"); } }
+        public string Time { get { return this.reservation.ProjectionDateTime.ToString("HH:mm"); } }
         /// <summary>
         /// Status of the reservation(string type): 
         /// "InProcess" when the process begins
@@ -52,13 +52,21 @@ namespace api.Models.OutputModels
         /// </summary>
         public string Status { get { return this.reservation.StatusType.ToString(); } }
         /// <summary>
-        /// Reserved movie projection id
+        /// Id of the reserved projection 
         /// </summary>
         public int ProjectionId { get { return this.reservation.ProjectionId; } }
         /// <summary>
-        /// User who makes this reservation
+        /// City of the reserved projection
         /// </summary>
-        public string UserId { get { return this.reservation.UserId; } }
+        public string City { get { return this.reservation.ProjectionCity; } }
+        /// <summary>
+        /// Cinema name of the reserved projection
+        /// </summary>
+        public string Cinema { get { return this.reservation.ProjectionCinema; } }
+        /// <summary>
+        /// Movie title of the reserved projection
+        /// </summary>
+        public string Movie { get { return this.reservation.ProjectionMovie; } }
 
     }
 }
