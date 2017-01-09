@@ -49,6 +49,10 @@ namespace api.Adapters
         public static IEnumerable<Genre> QueryGenresByUserId(string userId)
         {
             FavoriteGenres profile = RetrieveGenresFavorites(userId);
+            if (profile.Genres == null)
+            {
+                profile.Genres = new List<Genre>();
+            }
             return profile.Genres;
         }
 
