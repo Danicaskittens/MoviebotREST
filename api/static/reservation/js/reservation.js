@@ -23,7 +23,7 @@ function ready() {
 
     var toAdd = decodeURI(QueryString.freeSeats);
     toAdd = toAdd.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); })
-    $("#freeSeats").append(toAdd);
+    $("#free-Seats").append(toAdd);
 
     $("#confirm-button").on("click", function(){
         alert("Reservation Completed!");
