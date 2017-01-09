@@ -22,7 +22,7 @@ namespace api.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
-    //[EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "Content-Type", methods: "GET, POST, PUT, DELETE, OPTIONS")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";

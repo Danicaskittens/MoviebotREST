@@ -17,7 +17,25 @@ namespace api.Adapters
     /// </summary>
     public class DatabaseAdapter
     {
-        private static MovieBotContext context = new MovieBotContext();
+        private static MovieBotContext contextValue = null;
+
+        public static MovieBotContext context
+        {
+            get
+            {
+                if (contextValue == null)
+                {
+                    contextValue = new MovieBotContext();
+
+                }
+                return contextValue;
+            }
+            set {
+                DatabaseAdapter.contextValue = value;
+            }
+        }
+
+
 
         private static bool inRangeOf(double number, double center, int range)
         {
@@ -84,7 +102,7 @@ namespace api.Adapters
         /// <returns></returns>
         public static IEnumerable<Cinema> QueryCinemaByNameAndLocation(string pattern, double latitude, double longitude, double MaxRange)
         {
-            IQueryable<Cinema> nearLocationCinemas=QueryCinemaByLocation(latitude, longitude, MaxRange);
+            IQueryable<Cinema> nearLocationCinemas = QueryCinemaByLocation(latitude, longitude, MaxRange);
             return nearLocationCinemas.Where(c => c.Name.ToLower().Contains(pattern.ToLower()));
         }
 
@@ -168,7 +186,7 @@ namespace api.Adapters
         {
             IEnumerable<Cinema> cinemas = DatabaseAdapter.QueryCinemaByLocation(latitude, longitude, maxRange);
             return context.Projections.Where(p => cinemas.Where(c => c.CinemaId == p.CinemaId).Any())
-                .Where(p=> (p.Date>=startDate) && (p.Date<=endDate))
+                .Where(p => (p.Date >= startDate) && (p.Date <= endDate))
                 .Select(p => p.Movie).Distinct();
         }
 
@@ -256,17 +274,17 @@ namespace api.Adapters
             if (genres != null)
             {
                 IEnumerable<string> names = genres.Select(g => g.Name);
-                
-                 foreach (string name in names)
-                 {
-                     context.Movies.Where(m => m.Genre.ToLower().Contains(name)).ToList().
-                         Aggregate(recommended,
-                         (list, item) =>
-                         {
-                             list.Add(item);
-                             return list;
-                         });                                
-                 }
+
+                foreach (string name in names)
+                {
+                    context.Movies.Where(m => m.Genre.ToLower().Contains(name)).ToList().
+                        Aggregate(recommended,
+                        (list, item) =>
+                        {
+                            list.Add(item);
+                            return list;
+                        });
+                }
             }
 
             return recommended.Distinct();

@@ -17,7 +17,6 @@ namespace api.Controllers
     /// <summary>
     /// This controller is the one that provides the search related endpoints
     /// </summary>
-    [AllowAnonymous]
     [RoutePrefix("api/v1/Search")]
     public class SearchController : ApiController
     {

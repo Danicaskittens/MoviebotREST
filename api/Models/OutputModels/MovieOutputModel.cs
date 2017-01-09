@@ -49,5 +49,35 @@ namespace api.Models.Output
         /// List of genres of the movie
         /// </summary>
         public string Genre { get { return this.movie.Genre; } }
+        /// <summary>
+        /// Imdb rating value
+        /// </summary>
+        public string imdbRating { get { return this.movie.imdbRating; } }
+        /// <summary>
+        /// Imdb votes 
+        /// </summary>
+        public string imdbVotes { get { return this.movie.imdbVotes; } }
+        /// <summary>
+        /// Response of the movie goers
+        /// </summary>
+        public string Response { get { return this.movie.Response; } }
+        /// <summary>
+        /// Movie director
+        /// </summary>
+        public string Director { get { return this.movie.Director; } }
+        /// <summary>
+        /// movie actors
+        /// </summary>
+        public string Actors { get { return this.movie.Actors; } }
+        /// <summary>
+        /// metascore value
+        /// </summary>
+        public string Metascore { get { return this.movie.Metascore; } }
+        /// <summary>
+        /// list of awards
+        /// </summary>
+        public string Awards { get { return this.movie.Awards; } }
+
+
     }
 }

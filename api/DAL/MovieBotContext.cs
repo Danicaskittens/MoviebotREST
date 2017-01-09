@@ -20,26 +20,26 @@ namespace api.DAL
         /// <summary>
         /// List of Cinemas actually present on the database
         /// </summary>
-        public DbSet<Cinema> Cinemas { get; set; }
+        public virtual DbSet<Cinema> Cinemas { get; set; }
         /// <summary>
         /// List of the movies actually present on the database
         /// </summary>
-        public DbSet<Movie> Movies { get; set; }
+        public virtual DbSet<Movie> Movies { get; set; }
         /// <summary>
         /// List of projections present on the database
         /// </summary>
-        public DbSet<Projection> Projections { get; set; }
+        public virtual DbSet<Projection> Projections { get; set; }
         /// <summary>
         /// List of reservations present on the database
         /// </summary>
-        public DbSet<Reservation> Reservations { get; set; }
+        public virtual DbSet<Reservation> Reservations { get; set; }
         /// <summary>
         /// All the types of genres present on the database
         /// </summary>
-        public DbSet<Genre> Genres { get; set; }
+        public virtual DbSet<Genre> Genres { get; set; }
         /// <summary>
         /// User profiles of favorite genres present on the database
         /// </summary>
-        public DbSet<FavoriteGenres> FavoriteGenres { get; set; }
+        public virtual DbSet<FavoriteGenres> FavoriteGenres { get; set; }
     }
 }

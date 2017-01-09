@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using System.Net.Http.Headers;
 using System.Web.Http.Cors;
+using api.App_Start;
 
 namespace api
 {
@@ -14,10 +15,10 @@ namespace api
     {
         public static void Register(HttpConfiguration config)
         {
-            /*var cors = new EnableCorsAttribute(
+            var cors = new EnableCorsAttribute(
             origins: "*",
-            headers: "*",
-            methods: "*");*/
+            headers: "Content-Type",
+            methods: "GET, POST, PUT, DELETE, OPTIONS");
             //config.EnableCors(cors);
 
             // Web API configuration and services
@@ -27,7 +28,7 @@ namespace api
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
             // Web API routes
             config.MapHttpAttributeRoutes();
-
+            //config.MessageHandlers.Add(new CrossDomainHandler());
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
