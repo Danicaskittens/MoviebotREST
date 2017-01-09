@@ -252,6 +252,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HTTPModuleClass\OptionsModule.cs" />
     <Compile Include="Migrations\201612081620000_firstMigration.cs" />
     <Compile Include="Migrations\201612081620000_firstMigration.Designer.cs">
       <DependentUpon>201612081620000_firstMigration.cs</DependentUpon>
