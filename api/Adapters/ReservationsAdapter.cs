@@ -1,6 +1,7 @@
 ﻿using api.DAL;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -56,13 +57,21 @@ namespace api.Adapters
 
             if (projection != null)
             {
+                string city = context.Cinemas.Find(projection.CinemaId).City;
+                string cinema = context.Cinemas.Find(projection.CinemaId).Name;
+                string movie = OmdbAdapters.GetMovieInfo(projection.ImdbId).Title;
+
                 Reservation reservation = new Reservation()
                 {
                     Projection = projection,
                     ProjectionId = projectionId,
                     StatusType = Reservation.Status.InProcess,
                     UserId = userId,
-                    TimeStamp = DateTime.Now
+                    TimeStamp = DateTime.Now,
+                    ProjectionDateTime = projection.Date,
+                    ProjectionCity = city,
+                    ProjectionCinema = cinema,
+                    ProjectionMovie = movie
                     
                 };
 
@@ -105,6 +114,8 @@ namespace api.Adapters
 
             Projection projection = QueryProjection(reservation.ProjectionId);
             projection.FreeSeats += reservation.Quantity;
+
+            context.Reservations.Remove(reservation);
 
             context.SaveChanges();
         }

@@ -25,6 +25,10 @@ namespace api.DAL
         public Status StatusType { get; set; }
         public int ProjectionId { get; set; }
         public string UserId { get; set; }
+        public System.DateTime ProjectionDateTime { get; set; }
+        public string ProjectionCity { get; set; }
+        public string ProjectionCinema { get; set; }
+        public string ProjectionMovie { get; set; }
 
         public Projection Projection { get; set; }
     }

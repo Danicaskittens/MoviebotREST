@@ -107,7 +107,7 @@ namespace api.Controllers
         /// <param name="reservationId">Id of the spicific reservation to cancel</param>
         /// <returns></returns>
         [Route("cancel/{reservationId}")]
-        [HttpPut]
+        [HttpDelete]
         public IHttpActionResult CancelReservation(int reservationId)
         {
             Reservation reservation = ReservationsAdapter.QueryReservation(reservationId);
