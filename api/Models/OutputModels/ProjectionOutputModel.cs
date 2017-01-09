@@ -48,6 +48,10 @@ namespace api.Models.OutputModels
         /// Time on which the movie is projected in the HH:mm format
         /// </summary>
         public string Time { get { return this.projection.Date.ToString("HH:mm"); } }
+        /// <summary>
+        /// Integer value of the free seats
+        /// </summary>
+        public int FreeSeats { get { return this.projection.FreeSeats; } }
 
     }
 }
