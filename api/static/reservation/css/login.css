@@ -12,16 +12,18 @@
         font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
         font-size: 20px;
         font-weight: 600;
+        width:100%;
 }
 
 #password-text{
         font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
         font-size: 20px;
         font-weight: 600;
+        width:100%;
 }
 
 #button{
-    width: 200px;
+    width: 100%;
     height: 50px;
     margin-left: auto;
     margin-right: auto;
@@ -29,14 +31,30 @@
 
 #the-button{
     margin-top: 30px;
-    width: 200px;
+    width: 100%;
     height: 50px;
+    font-size:2em;
 }
 
 #forms{
-    margin-top: 100px;
     height: 88px;
-    width: 180px;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
+
+#forms input {
+    margin-top:5px;
+    width:100%;
+    height:2em;
+}
+#logo{
+    height:200px;
+    width:100%;
+    text-align:center;
+    background-image:url('../img/logobot.png');
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
+}
+

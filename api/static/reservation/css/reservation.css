@@ -32,7 +32,8 @@
     font-size: 20px;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     margin-top: 20px;
-    width: 400px;
+    width: 100%;
+    text-align: center;
     margin-left: auto;
     margin-right: auto;
 }
@@ -122,6 +123,10 @@
     margin-top: 30px;
     width: 200px;
     height: 50px;
+}
+
+.selectedLocation{
+    background-color:green;
 }
 
 
