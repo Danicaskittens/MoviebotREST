@@ -338,13 +338,16 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="static\reservation\css\login.css" />
+    <Content Include="static\reservation\css\registration.css" />
     <Content Include="static\reservation\css\reservation.css" />
     <Content Include="static\reservation\img\logobot.png" />
     <Content Include="static\reservation\js\common.js" />
     <Content Include="static\reservation\js\jquery.js" />
     <Content Include="static\reservation\js\login.js" />
+    <Content Include="static\reservation\js\registration.js" />
     <Content Include="static\reservation\js\reservation.js" />
     <Content Include="static\reservation\login.html" />
+    <Content Include="static\reservation\registration.html" />
     <Content Include="static\reservation\reservation.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
