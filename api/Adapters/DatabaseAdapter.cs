@@ -30,7 +30,8 @@ namespace api.Adapters
                 }
                 return contextValue;
             }
-            set {
+            set
+            {
                 DatabaseAdapter.contextValue = value;
             }
         }
@@ -91,6 +92,22 @@ namespace api.Adapters
         {
             return context.Movies.Where(m => m.Title.ToLower().Contains(title.ToLower()));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="latitude"></param>
+        /// <param name="longitude"></param>
+        /// <param name="MaxRange"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        public static IQueryable<Movie> QueryMoviesByTitleAndLocation(string title, double latitude, double longitude, int MaxRange, DateTime startDate, DateTime endDate)
+        {
+            return QueryMoviesFromLocation(latitude, longitude, MaxRange, startDate, endDate).Where(m=> m.Title.ToLower().Contains(title));
+        }
+
 
         /// <summary>
         /// Searches cinemas by location and name
@@ -182,9 +199,9 @@ namespace api.Adapters
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        public static IEnumerable<Movie> QueryMoviesFromLocation(double latitude, double longitude, int maxRange, DateTime startDate, DateTime endDate)
+        public static IQueryable<Movie> QueryMoviesFromLocation(double latitude, double longitude, int maxRange, DateTime startDate, DateTime endDate)
         {
-            IEnumerable<Cinema> cinemas = DatabaseAdapter.QueryCinemaByLocation(latitude, longitude, maxRange);
+            IQueryable<Cinema> cinemas = DatabaseAdapter.QueryCinemaByLocation(latitude, longitude, maxRange);
             return context.Projections.Where(p => cinemas.Where(c => c.CinemaId == p.CinemaId).Any())
                 .Where(p => (p.Date >= startDate) && (p.Date <= endDate))
                 .Select(p => p.Movie).Distinct();

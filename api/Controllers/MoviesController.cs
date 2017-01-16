@@ -37,6 +37,23 @@ namespace api.Controllers
             return Ok(new JsonApiOutput<IEnumerable<MovieOutputModel>>(movies.ToList().Select<Movie, MovieOutputModel>(m => new MovieOutputModel(m))));
         }
 
+        /// <summary>
+        /// Returns the list of movies with the title provided and that are shown near a specific location and in the provided date range
+        /// </summary>
+        /// <param name="title">Title of the movie or part of the title</param>
+        /// <param name="latitude">latitude of the center of the search radius</param>
+        /// <param name="longitude">longitude of the center of the search radius</param>
+        /// <param name="maxRange">maximum radius of the search area (in kilometers)</param>
+        /// <param name="dateRange">range of dates on which search for cinemas that display the movie, if omitted, today's date will be used</param>
+        /// <returns></returns>
+        [Route("title/{title}/{latitude}/{longitude}/")]
+        [ResponseType(typeof(JsonApiOutput<IEnumerable<MovieOutputModel>>))]
+        public IHttpActionResult GetMovieByTitleAndLocation(string title, double latitude, double longitude, [FromUri] DateRangeInputModel dateRange, [FromUri] int maxRange = 50)
+        {
+            IEnumerable<Movie> movies = DatabaseAdapter.QueryMoviesByTitleAndLocation(title, latitude, longitude, maxRange, dateRange.StartDate, dateRange.EndDate);
+            return Ok(new JsonApiOutput<IEnumerable<MovieOutputModel>>(movies.ToList().Select<Movie, MovieOutputModel>(m => new MovieOutputModel(m))));
+        }
+
 
         /// <summary>
         /// Retrieves the list of cinemas near a location and that display a specific movie in a specified date range 

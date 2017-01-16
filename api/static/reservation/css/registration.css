@@ -1,0 +1,60 @@
+#moviebot{
+    background-color: #252928;
+    font-size: 39px;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    border-color: #EEE;
+    color: #EEE;
+    text-align: center;
+    font-weight: bold;
+}
+
+#register-text{
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    width:100%;
+}
+
+#password-text{
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    width:100%;
+}
+
+#button{
+    width: 100%;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#the-button{
+    width: 100%;
+    height: 40px;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size:1.5em;
+}
+
+#forms{
+    height: 200px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#forms input {
+    margin-top:5px;
+    width:100%;
+    height:2em;
+    margin-bottom: 10px;
+}
+#logo{
+    height:200px;
+    width:100%;
+    text-align:center;
+    background-image:url('../img/logobot.png');
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
+}
