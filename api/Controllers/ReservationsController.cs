@@ -60,11 +60,6 @@ namespace api.Controllers
                 QueryReservationsByUserId(User.Identity.GetUserId()).
                 Where(r => r.ProjectionId == projectionId);
 
-            if (reservations.Count() != 0)
-            {
-                return BadRequest("Projection already reserved");
-            }
-
             Reservation reservation = ReservationsAdapter.AddNewReservation(User.Identity.GetUserId(), projectionId);
 
             return Ok(new JsonApiOutput<ReservationOutputModel>(
